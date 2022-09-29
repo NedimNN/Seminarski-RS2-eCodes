@@ -1,0 +1,93 @@
+﻿using eCodes.Models;
+using eCodes.Models.SearchObjects;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace eCodes.WinUI
+{
+    public partial class frmSellersList : Form
+    {
+        public APIService SellersService { get; set; } = new APIService("Sellers");
+
+        public frmSellersList()
+        {
+            InitializeComponent();
+            AddButtonColumn();
+            dgvSellers.AutoGenerateColumns = false;
+        }
+
+        private void AddButtonColumn()
+        {
+            DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn();
+            actionColumn.HeaderText = "Action";
+            actionColumn.Text = "Delete";
+            actionColumn.Name = "btnDelete";
+            actionColumn.UseColumnTextForButtonValue = true;
+            dgvSellers.Columns.Add(actionColumn);
+        }
+
+        private async void btnShowSellers_Click(object sender, EventArgs e)
+        {
+            var sellersSearch = new SellerSearchObject();
+
+            sellersSearch.Name = txtName.Text;
+            sellersSearch.PhoneNumber = txtPhonenumber.Text;
+            sellersSearch.Address = txtAddress.Text;
+            sellersSearch.Email = txtEmail.Text;
+            sellersSearch.Status = cbStatus.Checked;
+
+            var list = await SellersService.Get<List<Models.Sellers>>(sellersSearch);
+
+            dgvSellers.DataSource = list;
+
+
+        }
+
+        private void dgvSellers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var item = dgvSellers.SelectedRows[0].DataBoundItem as Sellers;
+
+            frmSellerDetails frm = new frmSellerDetails(item);
+            frm.ShowDialog();
+
+        }
+
+        private async void dgvSellers_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.ColumnIndex == 6)
+            {
+                DataGridViewCellCollection cellData = dgvSellers.Rows[e.RowIndex].Cells;
+                bool status = (bool)cellData[5].Value;
+
+                if (status == false)
+                {
+                    if (DialogResult.OK == MessageBox.Show("Are you sure you want to delete this seller ?", "Delete Message", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
+                    {
+                        SellerSearchObject search = new SellerSearchObject();
+                        search.Name = cellData[0].Value.ToString();
+
+                        List<Sellers> sellerList = await SellersService.Get<List<Sellers>>(search);
+                        Sellers seller = sellerList.FirstOrDefault();
+
+                        var deletedSeller = await SellersService.Delete<Sellers>(seller.SellerId);
+
+                        if (deletedSeller != null)
+                            MessageBox.Show("You have successfully deleted seller " + deletedSeller.Name + " and all of their products !", "Seller Deleted Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                        MessageBox.Show("The operation was canceled !");
+                }
+                else
+                    MessageBox.Show("Can't delete a seller that didn't request deletion !", "Seller Info Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
+        }
+    }
+}
