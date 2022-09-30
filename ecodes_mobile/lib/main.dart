@@ -13,6 +13,7 @@ import 'package:ecodes_mobile/screens/products/product_list_screen.dart';
 import 'package:ecodes_mobile/screens/products/products_search_screen.dart';
 import 'package:ecodes_mobile/screens/user/user_profile_details_screen.dart';
 import 'package:ecodes_mobile/screens/user/user_profile_screen.dart';
+import 'package:ecodes_mobile/screens/user/user_registration_screen.dart';
 import 'package:ecodes_mobile/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,6 +47,8 @@ void main() => runApp(MultiProvider(
                 color: Colors.black, fontSize: 35, fontWeight: FontWeight.bold) ,
             headline3: TextStyle(
                 color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold) ,
+            headline4: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25) ,
             headline6: TextStyle(
                 color: Color.fromARGB(255, 4, 104, 150),
                 fontSize: 36.0,
@@ -76,6 +79,9 @@ void main() => runApp(MultiProvider(
                 builder: ((context) => ProductsSearchScreen()));
           } else if (settings.name == OrdersScreen.routeName) {
             return MaterialPageRoute(builder: ((context) => OrdersScreen()));
+          }
+          else if (settings.name == UserRegistrationScreen.routeName) {
+            return MaterialPageRoute(builder: ((context) => UserRegistrationScreen()));
           }
 
           var uri = Uri.parse(settings.name!);
@@ -291,7 +297,7 @@ class HomePage extends StatelessWidget {
                                 ])),
                             child: InkWell(
                               onTap: () {
-                                //Navigate to the registration page
+                                Navigator.pushNamed(context, UserRegistrationScreen.routeName);
                               },
                               child: Text(
                                   style: TextStyle(

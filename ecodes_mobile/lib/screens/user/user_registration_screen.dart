@@ -1,33 +1,33 @@
-import 'package:ecodes_mobile/model/requests/user_update_request.dart';
-import 'package:ecodes_mobile/widgets/master_bottom_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
+import '../../model/requests/user_insert_request.dart';
 import '../../model/user.dart';
 import '../../providers/user_provider.dart';
+import '../../widgets/master_bottom_drawer.dart';
 
-class UserProfileDetailsScreen extends StatefulWidget {
-  static String routeName = "/user_profile_details";
-  String id;
-  UserProfileDetailsScreen(this.id, {Key? key}) : super(key: key);
+class UserRegistrationScreen extends StatefulWidget {
+  static String routeName = "/user_registration";
+  const UserRegistrationScreen({Key? key}) : super(key: key);
 
   @override
-  State<UserProfileDetailsScreen> createState() =>
-      _UserProfileDetailsScreenState();
+  State<UserRegistrationScreen> createState() => _UserRegistrationScreenState();
 }
 
-class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
+class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
   UserProvider? _userProvider = null;
-  User _user = new User();
-  UserUpdateRequest _userData = new UserUpdateRequest();
+  UserInsertRequest _userData = new UserInsertRequest();
   TextEditingController _firstnameController = new TextEditingController();
   TextEditingController _lastnameController = new TextEditingController();
   TextEditingController _dateofbirthController = new TextEditingController();
+  TextEditingController _cityNameController = new TextEditingController();
+  TextEditingController _jmbgController = new TextEditingController();
   TextEditingController _genderController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
+  TextEditingController _usernameController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
   TextEditingController _passwordConfirmController =
       new TextEditingController();
@@ -39,58 +39,35 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
     // TODO: implement initState
     super.initState();
     _userProvider = context.read<UserProvider>();
-    loadUser(this.widget.id);
-  }
-
-  void loadUser(String id) async {
-    var identity = int.parse(id);
-    var tmpuser = await _userProvider?.getById(identity);
-    setState(() {
-      _user = tmpuser!;
-      _firstnameController.text = _user.person?.firstName! as String;
-      _lastnameController.text = _user.person?.lastName! as String;
-      _dateofbirthController.text =
-          _user.person?.dateOfBirth!.toString() as String;
-      _genderController.text = _user.person?.gender! as String;
-      _emailController.text = _user.email!;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return MasterWidget(
-      selectedIndex: 3,
-      child: SingleChildScrollView(child: _buildEditUser()),
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          child: SingleChildScrollView(child: _buildRegisterUserForm()),
+        ),
+      ),
     );
   }
 
-  Widget _buildEditUser() {
-    if (_user.person == null) {
-      return Container(
-        margin: EdgeInsets.all(15),
-        child: Center(
-            child: Text(
-          "Loading...",
-          style: Theme.of(context).textTheme.headline6,
-        )),
-      );
-    }
-
+  Widget _buildRegisterUserForm() {
     return Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(
-            height: 65,
+            height: 80,
             child: TextFormField(
-              style: Theme.of(context).textTheme.subtitle2,
+              style: Theme.of(context).textTheme.headline4,
               controller: _firstnameController,
               minLines: null,
               maxLines: null,
-              expands: true ,
+              expands: true,
               decoration: InputDecoration(
-                icon: Icon(size:25 ,Icons.person),
+                icon: Icon(size: 25, Icons.person),
                 hintText: 'Enter your firstname',
                 labelText: 'Firstname',
               ),
@@ -103,13 +80,13 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
             ),
           ),
           SizedBox(
-            height: 65,
+            height: 80,
             child: TextFormField(
-              style: Theme.of(context).textTheme.subtitle2,
+              style: Theme.of(context).textTheme.headline4,
               controller: _lastnameController,
               minLines: null,
               maxLines: null,
-              expands: true ,
+              expands: true,
               decoration: InputDecoration(
                 icon: Icon(Icons.person),
                 hintText: 'Enter your lastname',
@@ -124,13 +101,13 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
             ),
           ),
           SizedBox(
-            height: 65,
+            height: 80,
             child: TextFormField(
-              style: Theme.of(context).textTheme.subtitle2,
+              style: Theme.of(context).textTheme.headline4,
               controller: _dateofbirthController,
               minLines: null,
-                maxLines: null,
-                expands: true ,
+              maxLines: null,
+              expands: true,
               decoration: InputDecoration(
                 icon: Icon(Icons.calendar_today),
                 hintText: 'Enter your date of birth',
@@ -145,13 +122,55 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
             ),
           ),
           SizedBox(
-            height: 65,
+            height: 80,
             child: TextFormField(
-              style: Theme.of(context).textTheme.subtitle2,
+              style: Theme.of(context).textTheme.headline4,
+              controller: _cityNameController,
+              minLines: null,
+              maxLines: null,
+              expands: true,
+              decoration: InputDecoration(
+                icon: Icon(Icons.location_city_rounded),
+                hintText: 'Enter your City name',
+                labelText: 'City Name',
+              ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+            ),
+          ),
+          SizedBox(
+            height: 80,
+            child: TextFormField(
+              style: Theme.of(context).textTheme.headline4,
+              controller: _jmbgController,
+              minLines: null,
+              maxLines: null,
+              expands: true,
+              decoration: InputDecoration(
+                icon: Icon(Icons.numbers_rounded),
+                hintText: 'Enter your JMBG',
+                labelText: 'JMBG',
+              ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+            ),
+          ),
+          SizedBox(
+            height: 80,
+            child: TextFormField(
+              style: Theme.of(context).textTheme.headline4,
               controller: _genderController,
               minLines: null,
-                maxLines: null,
-                expands: true ,
+              maxLines: null,
+              expands: true,
               decoration: InputDecoration(
                 icon: Icon(Icons.male_rounded),
                 hintText: 'Enter your gender',
@@ -166,13 +185,13 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
             ),
           ),
           SizedBox(
-            height: 65,
+            height: 80,
             child: TextFormField(
-              style: Theme.of(context).textTheme.subtitle2,
+              style: Theme.of(context).textTheme.headline4,
               controller: _emailController,
               minLines: null,
-                maxLines: null,
-                expands: true ,
+              maxLines: null,
+              expands: true,
               decoration: InputDecoration(
                 icon: Icon(Icons.email_rounded),
                 hintText: 'Enter your email',
@@ -187,18 +206,18 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
             ),
           ),
           SizedBox(
-            height: 65,
+            height: 80,
             child: TextFormField(
-              style: Theme.of(context).textTheme.subtitle2,
-              controller: _passwordController,
-              obscureText: true,
+              style: Theme.of(context).textTheme.headline4,
+              controller: _usernameController,
+              minLines: null,
+              maxLines: null,
+              expands: true,
               decoration: InputDecoration(
-                icon: Icon(Icons.password_rounded),
-                hintText: 'Enter your new password',
-                labelText: 'Password',
+                icon: Icon(Icons.account_circle_rounded),
+                hintText: 'Enter your username',
+                labelText: 'Username',
               ),
-              enableSuggestions: false,
-              autocorrect: false,
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Please enter some text';
@@ -208,9 +227,32 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
             ),
           ),
           SizedBox(
-            height: 65,
+            height: 85,
             child: TextFormField(
-              style: Theme.of(context).textTheme.subtitle2,
+              style: Theme.of(context).textTheme.headline4,
+              controller: _passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                icon: Icon(Icons.password_rounded),
+                hintText: 'Enter your password',
+                labelText: 'Password',
+              ),
+              enableSuggestions: false,
+              autocorrect: false,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter some text';
+                } else if (value != _passwordConfirmController.text) {
+                  return "Password and confirmation don't match";
+                }
+                return null;
+              },
+            ),
+          ),
+          SizedBox(
+            height: 85,
+            child: TextFormField(
+              style: Theme.of(context).textTheme.headline4,
               controller: _passwordConfirmController,
               decoration: InputDecoration(
                 icon: Icon(Icons.password_rounded),
@@ -223,6 +265,8 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Please enter some text';
+                } else if (value != _passwordController.text) {
+                  return "Password and confirmation don't match";
                 }
                 return null;
               },
@@ -237,7 +281,7 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
                       Color.fromARGB(222, 1, 93, 206),
                       Color.fromARGB(222, 0, 172, 172)
                     ])),
-                margin: EdgeInsets.only(top: 55),
+                margin: EdgeInsets.only(top: 55,bottom: 25),
                 child: Center(
                   child: TextButton(
                     child: Text(
@@ -245,37 +289,49 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         try {
-                          _userData.firstName =
-                              _firstnameController.text;
+                          _userData.firstName = _firstnameController.text;
                           _userData.lastName = _lastnameController.text;
                           _userData.dateOfBirth =
                               DateTime.parse(_dateofbirthController.text);
+                          _userData.cityName = _cityNameController.text;
+                          _userData.jmbg = _jmbgController.text;
                           _userData.gender = _genderController.text;
                           _userData.email = _emailController.text;
+                          _userData.username = _usernameController.text;
                           _userData.password = _passwordController.text;
                           _userData.passwordConfirmation =
                               _passwordConfirmController.text;
-                          var user =await _userProvider!.update(_user.buyerId!, _userData);
-                          if(user!= null){
+                          var user = await _userProvider!.insert(_userData);
+                          if (user != null) {
                             showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                    title: Text("Updated!"),
-                                    content: Text(style: Theme.of(context).textTheme.subtitle2 ,"Successfully updated user ${user.person!.firstName}"),
-                                    actions: [
-                                      TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          child: Text("Ok"))
-                                    ],
-                                  ));
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                      title:
+                                          Text("User registration successful!"),
+                                      content: Text(
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                          "Successfully registered user ${user.person!.firstName}"),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () => Navigator.popUntil(
+                                                context,
+                                                (route) => route.isFirst),
+                                            child: Text("Ok"))
+                                      ],
+                                    ));
                           }
                         } catch (e) {
                           showDialog(
                               context: context,
                               builder: (BuildContext context) => AlertDialog(
                                     title: Text("Error"),
-                                    content: Text(style: Theme.of(context).textTheme.subtitle2 ,e.toString()),
+                                    content: Text(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2,
+                                        e.toString()),
                                     actions: [
                                       TextButton(
                                           onPressed: () =>

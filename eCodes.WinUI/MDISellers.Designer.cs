@@ -35,10 +35,10 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuAddProducts = new System.Windows.Forms.ToolStripMenuItem();
             this.editProfileMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.requestAccountDeletionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.requestAccountDeletionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -71,7 +71,7 @@
             this.fileMenu.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.fileMenu.ImageTransparentColor = System.Drawing.SystemColors.ActiveBorder;
             this.fileMenu.Name = "fileMenu";
-            this.fileMenu.Size = new System.Drawing.Size(228, 26);
+            this.fileMenu.Size = new System.Drawing.Size(141, 26);
             this.fileMenu.Text = "&Products";
             // 
             // menuSearchProducts
@@ -98,29 +98,9 @@
             this.editProfileMenu.Font = new System.Drawing.Font("Tempus Sans ITC", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.editProfileMenu.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.editProfileMenu.Name = "editProfileMenu";
-            this.editProfileMenu.Size = new System.Drawing.Size(228, 26);
+            this.editProfileMenu.Size = new System.Drawing.Size(141, 26);
             this.editProfileMenu.Text = "&Edit Profile";
             this.editProfileMenu.Click += new System.EventHandler(this.editProfileMenu_Click);
-            // 
-            // statusStrip
-            // 
-            this.statusStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(122, 671);
-            this.statusStrip.MinimumSize = new System.Drawing.Size(720, 0);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip.Size = new System.Drawing.Size(720, 26);
-            this.statusStrip.TabIndex = 2;
-            this.statusStrip.Text = "StatusStrip";
-            // 
-            // toolStripStatusLabel
-            // 
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(49, 20);
-            this.toolStripStatusLabel.Text = "Status";
             // 
             // requestAccountDeletionToolStripMenuItem
             // 
@@ -131,11 +111,30 @@
             this.requestAccountDeletionToolStripMenuItem.Text = "&Delete Account";
             this.requestAccountDeletionToolStripMenuItem.Click += new System.EventHandler(this.requestAccountDeletionToolStripMenuItem_ClickAsync);
             // 
+            // statusStrip
+            // 
+            this.statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel});
+            this.statusStrip.Location = new System.Drawing.Point(158, 671);
+            this.statusStrip.MinimumSize = new System.Drawing.Size(720, 0);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
+            this.statusStrip.Size = new System.Drawing.Size(722, 26);
+            this.statusStrip.TabIndex = 2;
+            this.statusStrip.Text = "StatusStrip";
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(49, 20);
+            this.toolStripStatusLabel.Text = "Status";
+            // 
             // MDISellers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(843, 697);
+            this.ClientSize = new System.Drawing.Size(880, 697);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.IsMdiContainer = true;

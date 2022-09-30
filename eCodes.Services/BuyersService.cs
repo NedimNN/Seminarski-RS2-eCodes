@@ -81,6 +81,8 @@ namespace eCodes.Services
 
             var tempperson = personService.Insert(person);
             insert.PersonId = tempperson.PersonId;
+            insert.RegistrationDate = DateTime.Now;
+            insert.Status = true;
             var dbentity = base.Insert(insert);
             var walletService = new WalletsService(_context, _mapper);
             WalletUpsertRequest insertWallet = new WalletUpsertRequest();

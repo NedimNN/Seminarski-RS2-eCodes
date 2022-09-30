@@ -23,7 +23,7 @@ namespace eCodes.Models
         public string ProductTypeName => ProductType?.Name + ", " + ProductType?.Region;
         public string GiftCardKey { get; set; }
         public int SellerId { get; set; }
-
+        public string SellerName => Seller?.Name;
         public virtual Sellers Seller { get; set; }
 
 

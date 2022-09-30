@@ -28,7 +28,7 @@ namespace eCodes.Services
         public override Products Insert(ProductsInsertRequest insert)
         {
             var state = BaseState.CreateState("initial");
-
+            
             return state.Insert(insert);
         }
         public override Products Delete(int id)
@@ -111,7 +111,7 @@ namespace eCodes.Services
             }
             if (!string.IsNullOrWhiteSpace(search?.Code))
             {
-                filter = filter.Where(x => x.Code == search.Code);
+                filter = filter.Where(x => x.Code.Equals(search.Code));
             }
 
             if (!string.IsNullOrWhiteSpace(search?.Name))
@@ -137,8 +137,11 @@ namespace eCodes.Services
             {
                 filter = filter.Where(w => w.Platform == search.Platform);
             }
-
-            filter = filter.Where(w => w.StateMachine == "active");
+            if (!string.IsNullOrWhiteSpace(search?.StateMachine))
+            {
+                filter = filter.Where(w => w.StateMachine.Equals(search.StateMachine));
+            }
+           
 
             return filter;
         }

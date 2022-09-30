@@ -39,7 +39,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
   }
 
   Future loadData() async {
-    var tmpdata = await _productProvider?.get(null);
+    var productSearch = {'StateMachine': 'active'};
+    var tmpdata = await _productProvider?.get(productSearch);
     setState(() {
       data = tmpdata!;
     });

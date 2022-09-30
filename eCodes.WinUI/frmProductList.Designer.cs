@@ -38,6 +38,8 @@
             this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Version = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Platform = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductState = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Seller = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtCode = new System.Windows.Forms.TextBox();
@@ -66,15 +68,18 @@
             this.Duration,
             this.Value,
             this.Version,
-            this.Platform});
-            this.dgvProductsList.Location = new System.Drawing.Point(12, 141);
+            this.Platform,
+            this.ProductState,
+            this.Seller});
+            this.dgvProductsList.Location = new System.Drawing.Point(12, 67);
             this.dgvProductsList.MultiSelect = false;
             this.dgvProductsList.Name = "dgvProductsList";
             this.dgvProductsList.RowHeadersWidth = 51;
             this.dgvProductsList.RowTemplate.Height = 29;
             this.dgvProductsList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProductsList.Size = new System.Drawing.Size(1178, 297);
+            this.dgvProductsList.Size = new System.Drawing.Size(1626, 436);
             this.dgvProductsList.TabIndex = 0;
+            this.dgvProductsList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductsList_CellClick);
             this.dgvProductsList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductsList_CellDoubleClick);
             // 
             // Name
@@ -149,6 +154,22 @@
             this.Platform.Name = "Platform";
             this.Platform.Width = 125;
             // 
+            // ProductState
+            // 
+            this.ProductState.DataPropertyName = "StateMachine";
+            this.ProductState.HeaderText = "Product State";
+            this.ProductState.MinimumWidth = 6;
+            this.ProductState.Name = "ProductState";
+            this.ProductState.Width = 125;
+            // 
+            // Seller
+            // 
+            this.Seller.DataPropertyName = "SellerName";
+            this.Seller.HeaderText = "Seller";
+            this.Seller.MinimumWidth = 6;
+            this.Seller.Name = "Seller";
+            this.Seller.Width = 125;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -199,7 +220,7 @@
             // 
             // txtDuration
             // 
-            this.txtDuration.Location = new System.Drawing.Point(343, 87);
+            this.txtDuration.Location = new System.Drawing.Point(828, 32);
             this.txtDuration.Name = "txtDuration";
             this.txtDuration.Size = new System.Drawing.Size(141, 27);
             this.txtDuration.TabIndex = 8;
@@ -207,7 +228,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(343, 64);
+            this.label4.Location = new System.Drawing.Point(828, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 20);
             this.label4.TabIndex = 7;
@@ -215,7 +236,7 @@
             // 
             // txtVersion
             // 
-            this.txtVersion.Location = new System.Drawing.Point(12, 87);
+            this.txtVersion.Location = new System.Drawing.Point(497, 32);
             this.txtVersion.Name = "txtVersion";
             this.txtVersion.Size = new System.Drawing.Size(141, 27);
             this.txtVersion.TabIndex = 10;
@@ -223,7 +244,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 64);
+            this.label5.Location = new System.Drawing.Point(497, 9);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 20);
             this.label5.TabIndex = 9;
@@ -231,7 +252,7 @@
             // 
             // txtPlatform
             // 
-            this.txtPlatform.Location = new System.Drawing.Point(177, 87);
+            this.txtPlatform.Location = new System.Drawing.Point(662, 32);
             this.txtPlatform.Name = "txtPlatform";
             this.txtPlatform.Size = new System.Drawing.Size(141, 27);
             this.txtPlatform.TabIndex = 12;
@@ -239,7 +260,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(177, 64);
+            this.label6.Location = new System.Drawing.Point(662, 9);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 20);
             this.label6.TabIndex = 11;
@@ -247,7 +268,7 @@
             // 
             // btnShowProducts
             // 
-            this.btnShowProducts.Location = new System.Drawing.Point(557, 85);
+            this.btnShowProducts.Location = new System.Drawing.Point(1030, 30);
             this.btnShowProducts.Name = "btnShowProducts";
             this.btnShowProducts.Size = new System.Drawing.Size(94, 29);
             this.btnShowProducts.TabIndex = 13;
@@ -259,7 +280,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 450);
+            this.ClientSize = new System.Drawing.Size(1650, 515);
             this.Controls.Add(this.btnShowProducts);
             this.Controls.Add(this.txtPlatform);
             this.Controls.Add(this.label6);
@@ -285,15 +306,6 @@
         #endregion
 
         private DataGridView dgvProductsList;
-        private DataGridViewTextBoxColumn Name;
-        private DataGridViewTextBoxColumn Code;
-        private DataGridViewTextBoxColumn Price;
-        private DataGridViewTextBoxColumn ProductType;
-        private DataGridViewTextBoxColumn Description;
-        private DataGridViewTextBoxColumn Duration;
-        private DataGridViewTextBoxColumn Value;
-        private DataGridViewTextBoxColumn Version;
-        private DataGridViewTextBoxColumn Platform;
         private Label label1;
         private TextBox txtName;
         private TextBox txtCode;
@@ -307,5 +319,16 @@
         private TextBox txtPlatform;
         private Label label6;
         private Button btnShowProducts;
+        private DataGridViewTextBoxColumn Name;
+        private DataGridViewTextBoxColumn Code;
+        private DataGridViewTextBoxColumn Price;
+        private DataGridViewTextBoxColumn ProductType;
+        private DataGridViewTextBoxColumn Description;
+        private DataGridViewTextBoxColumn Duration;
+        private DataGridViewTextBoxColumn Value;
+        private DataGridViewTextBoxColumn Version;
+        private DataGridViewTextBoxColumn Platform;
+        private DataGridViewTextBoxColumn ProductState;
+        private DataGridViewTextBoxColumn Seller;
     }
 }

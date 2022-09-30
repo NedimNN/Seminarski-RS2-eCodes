@@ -21,8 +21,7 @@ namespace eCodes.WinUI
             InitializeComponent();
             dgvEmployeeList.AutoGenerateColumns = false;
         }
-
-        private async void btnShowEmployees_Click(object sender, EventArgs e)
+        public async void loadData()
         {
             EmployeeSearchObject emp = new EmployeeSearchObject();
 
@@ -38,7 +37,11 @@ namespace eCodes.WinUI
             var employees = await EmployeeService.Get<List<Models.Employees>>(emp);
 
             dgvEmployeeList.DataSource = employees;
+        }
 
+        private async void btnShowEmployees_Click(object sender, EventArgs e)
+        {
+            loadData();
         }
 
         private void dgvEmployeeList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

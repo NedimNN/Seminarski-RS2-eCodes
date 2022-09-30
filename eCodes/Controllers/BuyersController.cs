@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using eCodes.Models.SearchObjects;
 using eCodes.Models.Requests;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace eCodes.Controllers
 {
@@ -15,6 +15,13 @@ namespace eCodes.Controllers
         {
 
         }
+        [HttpPost]
+        [AllowAnonymous]
+        public override Buyers Insert([FromBody] BuyerInsertRequest insert)
+        {
+            return base.Insert(insert);
+        }
+
 
     }
 }

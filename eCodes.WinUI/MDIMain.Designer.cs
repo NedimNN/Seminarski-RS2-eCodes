@@ -48,7 +48,6 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripDropDownMenu();
-            this.addProductToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -67,7 +66,7 @@
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
-            this.menuStrip.Size = new System.Drawing.Size(158, 697);
+            this.menuStrip.Size = new System.Drawing.Size(119, 697);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "MenuStrip";
             // 
@@ -87,19 +86,19 @@
             // searchUsersToolStripMenuItem
             // 
             this.searchUsersToolStripMenuItem.Name = "searchUsersToolStripMenuItem";
-            this.searchUsersToolStripMenuItem.Size = new System.Drawing.Size(192, 26);
+            this.searchUsersToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.searchUsersToolStripMenuItem.Text = "Search Users";
             this.searchUsersToolStripMenuItem.Click += new System.EventHandler(this.searchUsersToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(189, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(221, 6);
             // 
             // addUserToolStripMenuItem
             // 
             this.addUserToolStripMenuItem.Name = "addUserToolStripMenuItem";
-            this.addUserToolStripMenuItem.Size = new System.Drawing.Size(192, 26);
+            this.addUserToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.addUserToolStripMenuItem.Text = "Add User";
             this.addUserToolStripMenuItem.Click += new System.EventHandler(this.addUserToolStripMenuItem_Click);
             // 
@@ -107,12 +106,11 @@
             // 
             this.ProductMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.searchProductsToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.addProductToolStripMenuItem});
+            this.toolStripSeparator2});
             this.ProductMenu.Font = new System.Drawing.Font("Tempus Sans ITC", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ProductMenu.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.ProductMenu.Name = "ProductMenu";
-            this.ProductMenu.Size = new System.Drawing.Size(141, 26);
+            this.ProductMenu.Size = new System.Drawing.Size(102, 26);
             this.ProductMenu.Text = "&Products";
             // 
             // searchProductsToolStripMenuItem
@@ -186,10 +184,10 @@
             this.statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(158, 671);
+            this.statusStrip.Location = new System.Drawing.Point(119, 671);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip.Size = new System.Drawing.Size(757, 26);
+            this.statusStrip.Size = new System.Drawing.Size(796, 26);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "StatusStrip";
             // 
@@ -205,13 +203,6 @@
             this.newToolStripMenuItem.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.Size = new System.Drawing.Size(61, 4);
-            // 
-            // addProductToolStripMenuItem
-            // 
-            this.addProductToolStripMenuItem.Name = "addProductToolStripMenuItem";
-            this.addProductToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.addProductToolStripMenuItem.Text = "Add Product";
-            this.addProductToolStripMenuItem.Click += new System.EventHandler(this.addProductToolStripMenuItem_Click);
             // 
             // MDIMain
             // 
@@ -255,7 +246,6 @@
         private ToolStripMenuItem searchEmployeesToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem addEmployeeToolStripMenuItem;
-        private ToolStripMenuItem addProductToolStripMenuItem;
     }
 }
 
