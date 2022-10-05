@@ -21,6 +21,7 @@ namespace eCodes.Services.Database
         public virtual DbSet<Country> Countries { get; set; } = null!;
         public virtual DbSet<Currency> Currencies { get; set; } = null!;
         public virtual DbSet<Employee> Employees { get; set; } = null!;
+        public virtual DbSet<LoyaltyPoint> LoyaltyPoints { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderItem> OrderItems { get; set; } = null!;
         public virtual DbSet<Output> Outputs { get; set; } = null!;
@@ -33,7 +34,6 @@ namespace eCodes.Services.Database
         public virtual DbSet<Seller> Sellers { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<UserRole> UserRoles { get; set; } = null!;
-        public virtual DbSet<Wallet> Wallets { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -108,13 +108,13 @@ namespace eCodes.Services.Database
 
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
-                entity.Property(e => e.PersonId).HasColumnName("PersonID");
-
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
-
                 entity.Property(e => e.PasswordHash).HasMaxLength(50);
 
                 entity.Property(e => e.PasswordSalt).HasMaxLength(50);
+
+                entity.Property(e => e.PersonId).HasColumnName("PersonID");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.Employees)
@@ -131,6 +131,23 @@ namespace eCodes.Services.Database
                     .WithMany(p => p.Employees)
                     .HasForeignKey(d => d.ProductId)
                     .HasConstraintName("FK_Employees_Products");
+            });
+
+            modelBuilder.Entity<LoyaltyPoint>(entity =>
+            {
+                entity.HasKey(e => e.LoyaltyPointsId);
+
+                entity.Property(e => e.LoyaltyPointsId).HasColumnName("LoyaltyPointsID");
+
+                entity.Property(e => e.Balance).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.BuyerId).HasColumnName("BuyerID");
+
+                entity.HasOne(d => d.Buyer)
+                    .WithMany(p => p.LoyaltyPoints)
+                    .HasForeignKey(d => d.BuyerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_LoyaltyPoints_Buyers");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -276,15 +293,17 @@ namespace eCodes.Services.Database
 
                 entity.Property(e => e.Name).HasMaxLength(50);
 
+                entity.Property(e => e.Platform).HasMaxLength(50);
+
                 entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.ProductTypeId).HasColumnName("ProductTypeID");
 
+                entity.Property(e => e.SellerId).HasColumnName("SellerID");
+
                 entity.Property(e => e.StateMachine).HasMaxLength(50);
 
                 entity.Property(e => e.Version).HasMaxLength(50);
-
-                entity.Property(e => e.Platform).HasMaxLength(50);
 
                 entity.HasOne(d => d.ProductType)
                     .WithMany(p => p.Products)
@@ -302,9 +321,17 @@ namespace eCodes.Services.Database
             {
                 entity.Property(e => e.ProductTypeId).HasColumnName("ProductTypeID");
 
+                entity.Property(e => e.CurrencyId).HasColumnName("CurrencyID");
+
                 entity.Property(e => e.Name).HasMaxLength(50);
 
                 entity.Property(e => e.Region).HasMaxLength(50);
+
+                entity.HasOne(d => d.Currency)
+                    .WithMany(p => p.ProductTypes)
+                    .HasForeignKey(d => d.CurrencyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductTypes_Currencies");
             });
 
             modelBuilder.Entity<Rating>(entity =>
@@ -316,6 +343,8 @@ namespace eCodes.Services.Database
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
                 entity.Property(e => e.Description).HasMaxLength(100);
+
+                entity.Property(e => e.Mark).HasColumnType("decimal(18, 1)");
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
@@ -351,15 +380,13 @@ namespace eCodes.Services.Database
 
                 entity.Property(e => e.Name).HasMaxLength(100);
 
-                entity.Property(e => e.PersonId).HasColumnName("PersonID");
-
-                entity.Property(e => e.PhoneNumber).HasMaxLength(20);
-
                 entity.Property(e => e.PasswordHash).HasMaxLength(50);
 
                 entity.Property(e => e.PasswordSalt).HasMaxLength(50);
 
+                entity.Property(e => e.PersonId).HasColumnName("PersonID");
 
+                entity.Property(e => e.PhoneNumber).HasMaxLength(20);
 
                 entity.Property(e => e.Website).HasMaxLength(100);
 
@@ -368,8 +395,6 @@ namespace eCodes.Services.Database
                     .HasForeignKey(d => d.PersonId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Sellers_Persons");
-
-                
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -416,29 +441,6 @@ namespace eCodes.Services.Database
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UserRoles_Users");
-            });
-
-            modelBuilder.Entity<Wallet>(entity =>
-            {
-                entity.Property(e => e.WalletId).HasColumnName("WalletID");
-
-                entity.Property(e => e.Balance).HasColumnType("decimal(18, 2)");
-
-                entity.Property(e => e.BuyerId).HasColumnName("BuyerID");
-
-                entity.Property(e => e.CurrencyId).HasColumnName("CurrencyID");
-
-                entity.HasOne(d => d.Buyer)
-                    .WithMany(p => p.Wallets)
-                    .HasForeignKey(d => d.BuyerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Wallets_Buyers");
-
-                entity.HasOne(d => d.Currency)
-                    .WithMany(p => p.Wallets)
-                    .HasForeignKey(d => d.CurrencyId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Wallets_Currencies");
             });
 
             OnModelCreatingPartial(modelBuilder);

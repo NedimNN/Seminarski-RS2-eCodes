@@ -32,8 +32,7 @@ namespace eCodes.WinUI
             actionColumn.UseColumnTextForButtonValue = true;
             dgvSellers.Columns.Add(actionColumn);
         }
-
-        private async void btnShowSellers_Click(object sender, EventArgs e)
+        public async void loadData()
         {
             var sellersSearch = new SellerSearchObject();
 
@@ -46,8 +45,10 @@ namespace eCodes.WinUI
             var list = await SellersService.Get<List<Models.Sellers>>(sellersSearch);
 
             dgvSellers.DataSource = list;
-
-
+        }
+        private async void btnShowSellers_Click(object sender, EventArgs e)
+        {
+            loadData();
         }
 
         private void dgvSellers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -88,6 +89,11 @@ namespace eCodes.WinUI
                     MessageBox.Show("Can't delete a seller that didn't request deletion !", "Seller Info Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             }
+        }
+
+        private void frmSellersList_Load(object sender, EventArgs e)
+        {
+            loadData();
         }
     }
 }

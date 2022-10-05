@@ -19,6 +19,7 @@ namespace eCodes.Models
         public string Description => Product?.Description;
         public string Value => Product?.Value.ToString();
         public string Price => Product?.Price.ToString();
+        public string SellerName => Product?.SellerName;
 
     }
 }

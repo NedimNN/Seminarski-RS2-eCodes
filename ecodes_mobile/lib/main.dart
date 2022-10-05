@@ -4,7 +4,7 @@ import 'package:ecodes_mobile/providers/orderItems_provider.dart';
 import 'package:ecodes_mobile/providers/order_provider.dart';
 import 'package:ecodes_mobile/providers/product_provider.dart';
 import 'package:ecodes_mobile/providers/rating_provider.dart';
-import 'package:ecodes_mobile/providers/wallet_provider.dart';
+import 'package:ecodes_mobile/providers/loyatlyPoints_provider.dart';
 import 'package:ecodes_mobile/screens/cart/cart_screen.dart';
 import 'package:ecodes_mobile/screens/order/order_items_screen.dart';
 import 'package:ecodes_mobile/screens/order/orders_screen.dart';
@@ -30,7 +30,7 @@ void main() => runApp(MultiProvider(
         ChangeNotifierProvider(create: (_) => OrderItemProvider()),
         ChangeNotifierProvider(create: (_) => RatingProvider()),
         ChangeNotifierProvider(create: (_) => CurrencyProvider()),
-        ChangeNotifierProvider(create: (_) => WalletProvider()),
+        ChangeNotifierProvider(create: (_) => LoyaltyPointsProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: true,
@@ -262,7 +262,7 @@ class HomePage extends StatelessWidget {
                                     builder: (BuildContext context) =>
                                         AlertDialog(
                                           title: Text("Error"),
-                                          content: Text(e.toString()),
+                                          content: Text(style:Theme.of(context).textTheme.subtitle2,e.toString()),
                                           actions: [
                                             TextButton(
                                                 onPressed: () =>

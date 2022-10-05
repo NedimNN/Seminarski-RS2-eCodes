@@ -7,13 +7,13 @@ namespace eCodes.Services.Database
     {
         public Currency()
         {
-            Wallets = new HashSet<Wallet>();
+            ProductTypes = new HashSet<ProductType>();
         }
 
         public int CurrencyId { get; set; }
         public string Name { get; set; } = null!;
         public string Abbreviation { get; set; } = null!;
 
-        public virtual ICollection<Wallet> Wallets { get; set; }
+        public virtual ICollection<ProductType> ProductTypes { get; set; }
     }
 }

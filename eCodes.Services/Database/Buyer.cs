@@ -7,9 +7,9 @@ namespace eCodes.Services.Database
     {
         public Buyer()
         {
+            LoyaltyPoints = new HashSet<LoyaltyPoint>();
             Orders = new HashSet<Order>();
             Ratings = new HashSet<Rating>();
-            Wallets = new HashSet<Wallet>();
         }
 
         public int BuyerId { get; set; }
@@ -22,8 +22,8 @@ namespace eCodes.Services.Database
         public bool Status { get; set; }
 
         public virtual Person Person { get; set; } = null!;
+        public virtual ICollection<LoyaltyPoint> LoyaltyPoints { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
-        public virtual ICollection<Wallet> Wallets { get; set; }
     }
 }

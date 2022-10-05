@@ -31,6 +31,7 @@ namespace eCodes.Services
             if(search?.IncludeItems == true)
             {
                 query = query.Include("OrderItems.Product.ProductType");
+                query = query.Include("OrderItems.Product.Seller");
             }
 
             return query;
@@ -67,10 +68,10 @@ namespace eCodes.Services
             {
                 filter = filter.Where(w=> w.OrderNumber.Contains(search.OrderNumber));
             }
-            //if (search?.Date != date)
-            //{
-            //    filter = filter.Where(w => w.Date.Equals(search.Date));
-            //}
+            if (search?.Date != date)
+            {
+                filter = filter.Where(w => w.Date.Date.Equals(search.Date.Date));
+            }
             if (search?.Canceled != null)
             {
                 filter = filter.Where(w => w.Canceled == search.Canceled);
@@ -121,7 +122,7 @@ namespace eCodes.Services
             {
                 var orderItems = _context.OrderItems.Where(w => w.OrderId == order.OrderId).ToList();
 
-                if(orderItems != null)
+                if(orderItems.FirstOrDefault() != null && update.Items != null)
                 {
                     foreach (var orderItem in orderItems)
                     {
@@ -137,10 +138,8 @@ namespace eCodes.Services
                         }
 
                     }
-
-                   order = base.Update(order.OrderId, update);
-                
                 }
+                order = base.Update(order.OrderId, update);
             }
             return order;
         }

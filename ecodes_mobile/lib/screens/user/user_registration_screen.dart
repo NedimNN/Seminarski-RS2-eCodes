@@ -52,224 +52,277 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
     );
   }
 
+  Widget _buildHeaderRegister() {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: Center(
+        child: Text(
+          "Register form",
+          style: Theme.of(context).textTheme.headline6,
+        ),
+      ),
+    );
+  }
+
   Widget _buildRegisterUserForm() {
     return Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
-            height: 80,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.headline4,
-              controller: _firstnameController,
-              minLines: null,
-              maxLines: null,
-              expands: true,
-              decoration: InputDecoration(
-                icon: Icon(size: 25, Icons.person),
-                hintText: 'Enter your firstname',
-                labelText: 'Firstname',
+          _buildHeaderRegister(),
+          Divider(
+            color: Colors.grey,
+            thickness: 2,
+          ),
+          Container(
+            padding: EdgeInsets.only(top:15,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.headline4,
+                controller: _firstnameController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.person,size: 35,),
+                  hintText: 'Enter your firstname',
+                  labelText: 'Firstname',
+                   isDense: true,
+                  contentPadding: EdgeInsets.all(8)
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
             ),
           ),
-          SizedBox(
-            height: 80,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.headline4,
-              controller: _lastnameController,
-              minLines: null,
-              maxLines: null,
-              expands: true,
-              decoration: InputDecoration(
-                icon: Icon(Icons.person),
-                hintText: 'Enter your lastname',
-                labelText: 'Lastame',
+          Container(
+            padding: EdgeInsets.only(top:7,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.headline4,
+                controller: _lastnameController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.person,size: 35,),
+                  hintText: 'Enter your lastname',
+                  labelText: 'Lastame',
+                   isDense: true,
+                  contentPadding: EdgeInsets.all(8)
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
             ),
           ),
-          SizedBox(
-            height: 80,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.headline4,
-              controller: _dateofbirthController,
-              minLines: null,
-              maxLines: null,
-              expands: true,
-              decoration: InputDecoration(
-                icon: Icon(Icons.calendar_today),
-                hintText: 'Enter your date of birth',
-                labelText: 'Dob',
+          Container(
+            padding: EdgeInsets.only(top:7,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.headline4,
+                controller: _dateofbirthController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.calendar_today,size: 35,),
+                  hintText: 'Enter your date of birth',
+                  labelText: 'Dob',
+                   isDense: true,
+                  contentPadding: EdgeInsets.all(8)
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
             ),
           ),
-          SizedBox(
-            height: 80,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.headline4,
-              controller: _cityNameController,
-              minLines: null,
-              maxLines: null,
-              expands: true,
-              decoration: InputDecoration(
-                icon: Icon(Icons.location_city_rounded),
-                hintText: 'Enter your City name',
-                labelText: 'City Name',
+          Container(
+            padding: EdgeInsets.only(top:7,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.headline4,
+                controller: _cityNameController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.location_city_rounded,size: 35,),
+                  hintText: 'Enter your City name',
+                  labelText: 'City Name',
+                   isDense: true,
+                  contentPadding: EdgeInsets.all(8)
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
             ),
           ),
-          SizedBox(
-            height: 80,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.headline4,
-              controller: _jmbgController,
-              minLines: null,
-              maxLines: null,
-              expands: true,
-              decoration: InputDecoration(
-                icon: Icon(Icons.numbers_rounded),
-                hintText: 'Enter your JMBG',
-                labelText: 'JMBG',
+          Container(
+            padding: EdgeInsets.only(top:7,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.headline4,
+                controller: _jmbgController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.numbers_rounded,size: 35,),
+                  hintText: 'Enter your JMBG',
+                  labelText: 'JMBG',
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(8)
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
             ),
           ),
-          SizedBox(
-            height: 80,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.headline4,
-              controller: _genderController,
-              minLines: null,
-              maxLines: null,
-              expands: true,
-              decoration: InputDecoration(
-                icon: Icon(Icons.male_rounded),
-                hintText: 'Enter your gender',
-                labelText: 'Gender',
+          Container(
+            padding: EdgeInsets.only(top:7,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.headline4,
+                controller: _genderController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.male_rounded,size: 35,),
+                  hintText: 'Enter your gender',
+                  labelText: 'Gender',
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(8)
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
             ),
           ),
-          SizedBox(
-            height: 80,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.headline4,
-              controller: _emailController,
-              minLines: null,
-              maxLines: null,
-              expands: true,
-              decoration: InputDecoration(
-                icon: Icon(Icons.email_rounded),
-                hintText: 'Enter your email',
-                labelText: 'Email',
+          Container(
+            padding: EdgeInsets.only(top:7,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.headline4,
+                controller: _emailController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.email_rounded,size: 35,),
+                  hintText: 'Enter your email',
+                  labelText: 'Email',
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(8)
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
             ),
           ),
-          SizedBox(
-            height: 80,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.headline4,
-              controller: _usernameController,
-              minLines: null,
-              maxLines: null,
-              expands: true,
-              decoration: InputDecoration(
-                icon: Icon(Icons.account_circle_rounded),
-                hintText: 'Enter your username',
-                labelText: 'Username',
+          Container(
+            padding: EdgeInsets.only(top:7,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.headline4,
+                controller: _usernameController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.account_circle_rounded,size: 35,),
+                  hintText: 'Enter your username',
+                  labelText: 'Username',
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(8)
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
             ),
           ),
-          SizedBox(
-            height: 85,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.headline4,
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                icon: Icon(Icons.password_rounded),
-                hintText: 'Enter your password',
-                labelText: 'Password',
+          Container(
+            padding: EdgeInsets.only(top:7,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.headline4,
+                controller: _passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.password_rounded,size: 35,),
+                  hintText: 'Enter your password',
+                  labelText: 'Password',
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(8)
+                ),
+                enableSuggestions: false,
+                autocorrect: false,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  } else if (value != _passwordConfirmController.text) {
+                    return "Password and confirmation don't match";
+                  }
+                  return null;
+                },
               ),
-              enableSuggestions: false,
-              autocorrect: false,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                } else if (value != _passwordConfirmController.text) {
-                  return "Password and confirmation don't match";
-                }
-                return null;
-              },
             ),
           ),
-          SizedBox(
-            height: 85,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.headline4,
-              controller: _passwordConfirmController,
-              decoration: InputDecoration(
-                icon: Icon(Icons.password_rounded),
-                hintText: 'Confirm your password',
-                labelText: 'Password Confirmation',
+          Container(
+            padding: EdgeInsets.only(top:7,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.headline4,
+                controller: _passwordConfirmController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.password_rounded,size: 35,),
+                  hintText: 'Confirm your password',
+                  labelText: 'Password Confirmation',
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(8)
+                ),
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  } else if (value != _passwordController.text) {
+                    return "Password and confirmation don't match";
+                  }
+                  return null;
+                },
               ),
-              obscureText: true,
-              enableSuggestions: false,
-              autocorrect: false,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                } else if (value != _passwordController.text) {
-                  return "Password and confirmation don't match";
-                }
-                return null;
-              },
             ),
           ),
           Center(
@@ -281,7 +334,7 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                       Color.fromARGB(222, 1, 93, 206),
                       Color.fromARGB(222, 0, 172, 172)
                     ])),
-                margin: EdgeInsets.only(top: 55,bottom: 25),
+                margin: EdgeInsets.only(top: 55, bottom: 25),
                 child: Center(
                   child: TextButton(
                     child: Text(

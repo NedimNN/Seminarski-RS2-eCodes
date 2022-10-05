@@ -16,7 +16,6 @@ namespace eCodes.Models
 
         public virtual ICollection<OrderItems> OrderItems { get; set; }
         public virtual Buyers Buyer { get; set; }
-        //Test the price needs to be Price of product * quantity
         public string Price =>  OrderItems?.Select(s => Convert.ToDecimal(s.Price) * s.Quantity).Sum().ToString();
         public string BuyerName => Buyer?.Username;
     }

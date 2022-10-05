@@ -38,18 +38,18 @@ namespace eCodes.Services
             {
                 filter = filter.Where(w => w.EmployeeNumber == search.EmployeeNumber);
             }
-            //if(search?.DateOfEmployement != date.Date)
-            //{
-            //    filter = filter.Where(w=> w.DateOfEmployement.Equals(search.DateOfEmployement));
-            //}
+            if (search?.DateOfEmployement != date.Date)
+            {
+                filter = filter.Where(w => w.DateOfEmployement.Date.Equals(search.DateOfEmployement.Date));
+            }
             return filter;
         }
-        public override void BeforeDelete(Employee dbentity)
+        public override void AfterDelete(Employee dbentity)
         {
             var personService = new PersonsService(_context, _mapper);
             personService.Delete(dbentity.PersonId);
 
-            base.BeforeDelete(dbentity);
+            base.AfterDelete(dbentity);
         }
         public override void BeforeInsert(EmployeeInsertRequest insert, Employee dbentity)
         {

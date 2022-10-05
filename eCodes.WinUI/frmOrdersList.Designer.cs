@@ -34,11 +34,12 @@
             this.dateTimeOrderDate = new System.Windows.Forms.DateTimePicker();
             this.cbCanceled = new System.Windows.Forms.CheckBox();
             this.dgvOrderList = new System.Windows.Forms.DataGridView();
+            this.OrderNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BuyerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Actions = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cancel = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.btnShowOrders = new System.Windows.Forms.Button();
             this.txtBuyerName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -48,7 +49,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(68, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(108, 20);
             this.label1.TabIndex = 0;
@@ -56,7 +57,7 @@
             // 
             // txtOrderNumber
             // 
-            this.txtOrderNumber.Location = new System.Drawing.Point(12, 32);
+            this.txtOrderNumber.Location = new System.Drawing.Point(68, 32);
             this.txtOrderNumber.Name = "txtOrderNumber";
             this.txtOrderNumber.Size = new System.Drawing.Size(155, 27);
             this.txtOrderNumber.TabIndex = 1;
@@ -64,7 +65,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(252, 8);
+            this.label2.Location = new System.Drawing.Point(389, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(86, 20);
             this.label2.TabIndex = 2;
@@ -72,7 +73,7 @@
             // 
             // dateTimeOrderDate
             // 
-            this.dateTimeOrderDate.Location = new System.Drawing.Point(200, 32);
+            this.dateTimeOrderDate.Location = new System.Drawing.Point(307, 32);
             this.dateTimeOrderDate.Name = "dateTimeOrderDate";
             this.dateTimeOrderDate.Size = new System.Drawing.Size(250, 27);
             this.dateTimeOrderDate.TabIndex = 3;
@@ -80,7 +81,7 @@
             // cbCanceled
             // 
             this.cbCanceled.AutoSize = true;
-            this.cbCanceled.Location = new System.Drawing.Point(477, 35);
+            this.cbCanceled.Location = new System.Drawing.Point(626, 34);
             this.cbCanceled.Name = "cbCanceled";
             this.cbCanceled.Size = new System.Drawing.Size(92, 24);
             this.cbCanceled.TabIndex = 5;
@@ -91,20 +92,30 @@
             // 
             this.dgvOrderList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOrderList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.OrderNumber,
             this.BuyerName,
             this.Date,
             this.Price,
             this.Status,
-            this.Actions});
+            this.Cancel});
             this.dgvOrderList.Location = new System.Drawing.Point(12, 118);
             this.dgvOrderList.MultiSelect = false;
             this.dgvOrderList.Name = "dgvOrderList";
             this.dgvOrderList.RowHeadersWidth = 51;
             this.dgvOrderList.RowTemplate.Height = 29;
             this.dgvOrderList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOrderList.Size = new System.Drawing.Size(681, 343);
+            this.dgvOrderList.Size = new System.Drawing.Size(926, 343);
             this.dgvOrderList.TabIndex = 6;
+            this.dgvOrderList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrderList_CellClick);
             this.dgvOrderList.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrderList_CellContentDoubleClick);
+            // 
+            // OrderNumber
+            // 
+            this.OrderNumber.DataPropertyName = "OrderNumber";
+            this.OrderNumber.HeaderText = "Order Number";
+            this.OrderNumber.MinimumWidth = 6;
+            this.OrderNumber.Name = "OrderNumber";
+            this.OrderNumber.Width = 125;
             // 
             // BuyerName
             // 
@@ -141,16 +152,19 @@
             this.Status.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Status.Width = 125;
             // 
-            // Actions
+            // Cancel
             // 
-            this.Actions.HeaderText = "Actions";
-            this.Actions.MinimumWidth = 6;
-            this.Actions.Name = "Actions";
-            this.Actions.Width = 125;
+            this.Cancel.DataPropertyName = "Canceled";
+            this.Cancel.HeaderText = "Cancel";
+            this.Cancel.MinimumWidth = 6;
+            this.Cancel.Name = "Cancel";
+            this.Cancel.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Cancel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Cancel.Width = 125;
             // 
             // btnShowOrders
             // 
-            this.btnShowOrders.Location = new System.Drawing.Point(599, 78);
+            this.btnShowOrders.Location = new System.Drawing.Point(767, 83);
             this.btnShowOrders.Name = "btnShowOrders";
             this.btnShowOrders.Size = new System.Drawing.Size(94, 29);
             this.btnShowOrders.TabIndex = 7;
@@ -160,7 +174,7 @@
             // 
             // txtBuyerName
             // 
-            this.txtBuyerName.Location = new System.Drawing.Point(12, 85);
+            this.txtBuyerName.Location = new System.Drawing.Point(68, 85);
             this.txtBuyerName.Name = "txtBuyerName";
             this.txtBuyerName.Size = new System.Drawing.Size(155, 27);
             this.txtBuyerName.TabIndex = 9;
@@ -168,7 +182,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 62);
+            this.label3.Location = new System.Drawing.Point(68, 62);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(119, 20);
             this.label3.TabIndex = 8;
@@ -178,7 +192,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(706, 466);
+            this.ClientSize = new System.Drawing.Size(949, 466);
             this.Controls.Add(this.txtBuyerName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnShowOrders);
@@ -190,6 +204,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmOrdersList";
             this.Text = "Orders List";
+            this.Load += new System.EventHandler(this.frmOrdersList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrderList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -207,10 +222,11 @@
         private Button btnShowOrders;
         private TextBox txtBuyerName;
         private Label label3;
+        private DataGridViewTextBoxColumn OrderNumber;
         private DataGridViewTextBoxColumn BuyerName;
         private DataGridViewTextBoxColumn Date;
         private DataGridViewTextBoxColumn Price;
         private DataGridViewCheckBoxColumn Status;
-        private DataGridViewTextBoxColumn Actions;
+        private DataGridViewCheckBoxColumn Cancel;
     }
 }

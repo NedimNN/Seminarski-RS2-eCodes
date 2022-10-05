@@ -1,7 +1,7 @@
 import 'package:ecodes_mobile/model/currency.dart';
-import 'package:ecodes_mobile/model/wallet.dart';
+import 'package:ecodes_mobile/model/loyaltyPoints.dart';
 import 'package:ecodes_mobile/providers/currency_provider.dart';
-import 'package:ecodes_mobile/providers/wallet_provider.dart';
+import 'package:ecodes_mobile/providers/loyatlyPoints_provider.dart';
 import 'package:ecodes_mobile/widgets/master_bottom_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +26,8 @@ class _CartScreenState extends State<CartScreen> {
   late CartProvider _cartProvider;
   late OrderProvider _orderProvider;
   late CurrencyProvider _currencyProvider;
-  late WalletProvider _walletProvider;
-  Wallet _wallet = new Wallet();
+  late LoyaltyPointsProvider _loyaltyProvider;
+  LoyaltyPoints _loyaltyPoints = new LoyaltyPoints();
   Currency _currency = new Currency();
 
   @override
@@ -35,7 +35,7 @@ class _CartScreenState extends State<CartScreen> {
     //TODO: implement initState
     super.initState();
     _currencyProvider = context.read<CurrencyProvider>();
-    _walletProvider = context.read<WalletProvider>();
+    _loyaltyProvider = context.read<LoyaltyPointsProvider>();
     loadData();
   }
 
@@ -49,11 +49,9 @@ class _CartScreenState extends State<CartScreen> {
 
   void loadData() async {
     var searchRequest = {'buyerId': Authorization.buyerId};
-    var wallet = await _walletProvider.get(searchRequest);
-    var currency = await _currencyProvider.getById(wallet.first.currencyId!);
+    var loyalty_points = await _loyaltyProvider.get(searchRequest);
     setState(() {
-      _wallet = wallet.first;
-      _currency = currency;
+      _loyaltyPoints = loyalty_points.first;
     });
   }
 
@@ -66,21 +64,21 @@ class _CartScreenState extends State<CartScreen> {
           Divider(
             color: Colors.grey,
           ),
-          _buildWalletHeader(),
+          _buildLoyaltyPointsHeader(),
           Divider(
             color: Colors.grey,
           ),
           Expanded(child: _buildProductCardList()),
           Container(
               width: MediaQuery.of(context).size.width,
-              child: _buildBuyButton()),
+              child: _buildCheckoutButton()),
         ],
       ),
     );
   }
 
-  Widget _buildWalletHeader() {
-    if (_wallet == null) {
+  Widget _buildLoyaltyPointsHeader() {
+   if (_loyaltyPoints == null) {
       return Container(
         padding: EdgeInsets.only(left: 25),
         child: Text(style: Theme.of(context).textTheme.headline6, "Loading..."),
@@ -97,7 +95,7 @@ class _CartScreenState extends State<CartScreen> {
               height: 75,
               width: 75,
               child: Container(
-                  child: Icon(size: 55, Icons.account_balance_wallet_outlined)),
+                  child: Icon(size: 55, Icons.loyalty_rounded)),
             ),
             SizedBox(
               height: 75,
@@ -105,45 +103,7 @@ class _CartScreenState extends State<CartScreen> {
               child: Center(
                 child: Text(
                     style: Theme.of(context).textTheme.bodyText2,
-                    "Total balance: ${_wallet.balance} ${_currency.abbreviation}"),
-              ),
-            )
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: 125,
-              child: Column(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      // Take user to add funds screen
-                    },
-                    child: Icon(size: 55, Icons.add_circle_outline),
-                  ),
-                  Center(child: Text("Add funds")),
-                ],
-              ),
-            ),
-            SizedBox(
-              width: 55,
-            ),
-            SizedBox(
-              width: 175,
-              child: Column(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      // Take user to change currency screen
-                    },
-                    child: Icon(size: 55, Icons.currency_exchange_rounded),
-                  ),
-                  Center(
-                    child: Text("Change currency"),
-                  ),
-                ],
+                    "Total points earned: ${_loyaltyPoints.balance} points"),
               ),
             )
           ],
@@ -212,7 +172,7 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Widget _buildBuyButton() {
+  Widget _buildCheckoutButton() {
     return TextButton(
       style: TextButton.styleFrom(
           backgroundColor: Color.fromARGB(195, 3, 125, 182)),
@@ -222,8 +182,8 @@ class _CartScreenState extends State<CartScreen> {
             fontWeight: FontWeight.bold,
             fontSize: 25,
           ),
-          "Buy"),
-      onPressed: () async {
+          "Checkout"),
+      onPressed: () async { // Need to implement payment system here onPressed (buybutton)
         List<Map> items = [];
         _cartProvider.cart.items.forEach((item) {
           items.add({

@@ -13,7 +13,9 @@ namespace eCodes.Services.Database
         public int ProductTypeId { get; set; }
         public string Name { get; set; } = null!;
         public string Region { get; set; } = null!;
+        public int CurrencyId { get; set; }
 
+        public virtual Currency Currency { get; set; } = null!;
         public virtual ICollection<Product> Products { get; set; }
     }
 }

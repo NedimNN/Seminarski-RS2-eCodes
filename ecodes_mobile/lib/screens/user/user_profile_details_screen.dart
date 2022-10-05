@@ -60,10 +60,26 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
   Widget build(BuildContext context) {
     return MasterWidget(
       selectedIndex: 3,
-      child: SingleChildScrollView(child: _buildEditUser()),
+      child: SingleChildScrollView(child: Column(
+        children: [
+          _buildHeader(),
+          Divider(
+            color: Colors.grey,
+            thickness: 2,
+          ),
+          _buildEditUser(),
+        ],
+      )),
     );
   }
-
+  Widget _buildHeader(){
+    return Container(
+      padding: EdgeInsets.only(top: 5,bottom: 5),
+      child: Center(
+        child: Text(style: Theme.of(context).textTheme.headline6,"Edit your profile"),
+      ),
+    );
+  }
   Widget _buildEditUser() {
     if (_user.person == null) {
       return Container(
@@ -81,151 +97,180 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
-            height: 65,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.subtitle2,
-              controller: _firstnameController,
-              minLines: null,
-              maxLines: null,
-              expands: true ,
-              decoration: InputDecoration(
-                icon: Icon(size:25 ,Icons.person),
-                hintText: 'Enter your firstname',
-                labelText: 'Firstname',
+          Container(
+            padding: EdgeInsets.only(top: 15,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.subtitle2,
+                controller: _firstnameController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.person,size: 35,),
+                  hintText: 'Enter your firstname',
+                  labelText: 'Firstname',
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(8)
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
             ),
           ),
-          SizedBox(
-            height: 65,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.subtitle2,
-              controller: _lastnameController,
-              minLines: null,
-              maxLines: null,
-              expands: true ,
-              decoration: InputDecoration(
-                icon: Icon(Icons.person),
-                hintText: 'Enter your lastname',
-                labelText: 'Lastame',
+          Container(
+            padding: EdgeInsets.only(top:7,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.subtitle2,
+                controller: _lastnameController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.person,size: 35,),
+                  hintText: 'Enter your lastname',
+                  labelText: 'Lastame',
+                 isDense: true,
+                  contentPadding: EdgeInsets.all(8)
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
             ),
           ),
-          SizedBox(
-            height: 65,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.subtitle2,
-              controller: _dateofbirthController,
-              minLines: null,
-                maxLines: null,
-                expands: true ,
-              decoration: InputDecoration(
-                icon: Icon(Icons.calendar_today),
-                hintText: 'Enter your date of birth',
-                labelText: 'Dob',
+          Container(
+            padding: EdgeInsets.only(top:7,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.subtitle2,
+                controller: _dateofbirthController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.calendar_today,size: 35,),
+                  hintText: 'Enter your date of birth',
+                  labelText: 'Dob',
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(8)
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
             ),
           ),
-          SizedBox(
-            height: 65,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.subtitle2,
-              controller: _genderController,
-              minLines: null,
-                maxLines: null,
-                expands: true ,
-              decoration: InputDecoration(
-                icon: Icon(Icons.male_rounded),
-                hintText: 'Enter your gender',
-                labelText: 'Gender',
+          Container(
+            padding: EdgeInsets.only(top:7,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.subtitle2,
+                controller: _genderController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.male_rounded,size: 35,),
+                  hintText: 'Enter your gender',
+                  labelText: 'Gender',
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(8)
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
             ),
           ),
-          SizedBox(
-            height: 65,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.subtitle2,
-              controller: _emailController,
-              minLines: null,
-                maxLines: null,
-                expands: true ,
-              decoration: InputDecoration(
-                icon: Icon(Icons.email_rounded),
-                hintText: 'Enter your email',
-                labelText: 'Email',
+          Container(
+            padding: EdgeInsets.only(top:7,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.subtitle2,
+                controller: _emailController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.email_rounded,size: 35,),
+                  hintText: 'Enter your email',
+                  labelText: 'Email',
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(8)
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
             ),
           ),
-          SizedBox(
-            height: 65,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.subtitle2,
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                icon: Icon(Icons.password_rounded),
-                hintText: 'Enter your new password',
-                labelText: 'Password',
+          Container(
+            padding: EdgeInsets.only(top:7,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.subtitle2,
+                controller: _passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    icon: Icon(Icons.password_rounded,size: 35,),
+                    hintText: 'Enter your new password',
+                    labelText: 'Password',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
+                enableSuggestions: false,
+                autocorrect: false,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  } else if (value != _passwordConfirmController.text) {
+                    return "Password and confirmation don't match";
+                  }
+                  return null;
+                },
               ),
-              enableSuggestions: false,
-              autocorrect: false,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
             ),
           ),
-          SizedBox(
-            height: 65,
-            child: TextFormField(
-              style: Theme.of(context).textTheme.subtitle2,
-              controller: _passwordConfirmController,
-              decoration: InputDecoration(
-                icon: Icon(Icons.password_rounded),
-                hintText: 'Confirm your password',
-                labelText: 'Password Confirmation',
+          Container(
+            padding: EdgeInsets.only(top:7,right: 5),
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.subtitle2,
+                controller: _passwordConfirmController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    icon: Icon(Icons.password_rounded,size: 35,),
+                    hintText: 'Confirm your password',
+                    labelText: 'Password Confirmation',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter some text';
+                  } else if (value != _passwordController.text) {
+                    return "Password and confirmation don't match";
+                  }
+                  return null;
+                },
               ),
-              obscureText: true,
-              enableSuggestions: false,
-              autocorrect: false,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
             ),
           ),
           Center(
@@ -237,7 +282,7 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
                       Color.fromARGB(222, 1, 93, 206),
                       Color.fromARGB(222, 0, 172, 172)
                     ])),
-                margin: EdgeInsets.only(top: 55),
+                margin: EdgeInsets.only(top: 15,bottom: 15 ),
                 child: Center(
                   child: TextButton(
                     child: Text(
@@ -245,8 +290,7 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         try {
-                          _userData.firstName =
-                              _firstnameController.text;
+                          _userData.firstName = _firstnameController.text;
                           _userData.lastName = _lastnameController.text;
                           _userData.dateOfBirth =
                               DateTime.parse(_dateofbirthController.text);
@@ -255,27 +299,36 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
                           _userData.password = _passwordController.text;
                           _userData.passwordConfirmation =
                               _passwordConfirmController.text;
-                          var user =await _userProvider!.update(_user.buyerId!, _userData);
-                          if(user!= null){
+                          var user = await _userProvider!
+                              .update(_user.buyerId!, _userData);
+                          if (user != null) {
                             showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                    title: Text("Updated!"),
-                                    content: Text(style: Theme.of(context).textTheme.subtitle2 ,"Successfully updated user ${user.person!.firstName}"),
-                                    actions: [
-                                      TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          child: Text("Ok"))
-                                    ],
-                                  ));
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                      title: Text("Updated!"),
+                                      content: Text(
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                          "Successfully updated user ${user.person!.firstName}"),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context),
+                                            child: Text("Ok"))
+                                      ],
+                                    ));
                           }
                         } catch (e) {
                           showDialog(
                               context: context,
                               builder: (BuildContext context) => AlertDialog(
                                     title: Text("Error"),
-                                    content: Text(style: Theme.of(context).textTheme.subtitle2 ,e.toString()),
+                                    content: Text(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2,
+                                        e.toString()),
                                     actions: [
                                       TextButton(
                                           onPressed: () =>

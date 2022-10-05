@@ -30,12 +30,12 @@ namespace eCodes.Services
 
             return query;
         }
-        public override void BeforeDelete(Buyer dbentity)
+        public override void AfterDelete(Buyer dbentity)
         {
             var personService = new PersonsService(_context, _mapper);
             personService.Delete(dbentity.PersonId);
 
-            base.BeforeDelete(dbentity);
+            base.AfterDelete(dbentity);
         }
         public override Buyer AddIncludeforGetById(Buyer query)
         {
@@ -84,12 +84,11 @@ namespace eCodes.Services
             insert.RegistrationDate = DateTime.Now;
             insert.Status = true;
             var dbentity = base.Insert(insert);
-            var walletService = new WalletsService(_context, _mapper);
-            WalletUpsertRequest insertWallet = new WalletUpsertRequest();
-            insertWallet.CurrencyId = 1;
-            insertWallet.BuyerId = dbentity.BuyerId;
-            insertWallet.Balance = 0;
-            var wallet = walletService.Insert(insertWallet);
+            var loyaltyService = new LoyaltyPointService(_context, _mapper); // Points insert
+            LoyaltyPointsUpsertRequest insertPoints = new LoyaltyPointsUpsertRequest();
+            insertPoints.BuyerId = dbentity.BuyerId;
+            insertPoints.Balance = 0;
+            var loyaltyPoints = loyaltyService.Insert(insertPoints);
 
             _context.SaveChanges();
             return dbentity;

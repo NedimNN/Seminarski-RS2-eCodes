@@ -43,6 +43,7 @@
             this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Seller = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -141,6 +142,7 @@
             this.Code,
             this.ProductType,
             this.Description,
+            this.Seller,
             this.Value,
             this.Price,
             this.Quantity});
@@ -148,7 +150,7 @@
             this.dgvOrderItems.Name = "dgvOrderItems";
             this.dgvOrderItems.RowHeadersWidth = 51;
             this.dgvOrderItems.RowTemplate.Height = 29;
-            this.dgvOrderItems.Size = new System.Drawing.Size(928, 317);
+            this.dgvOrderItems.Size = new System.Drawing.Size(1053, 317);
             this.dgvOrderItems.TabIndex = 8;
             // 
             // dataGridViewTextBoxColumn1
@@ -183,6 +185,14 @@
             this.Description.Name = "Description";
             this.Description.Width = 125;
             // 
+            // Seller
+            // 
+            this.Seller.DataPropertyName = "SellerName";
+            this.Seller.HeaderText = "Seller";
+            this.Seller.MinimumWidth = 6;
+            this.Seller.Name = "Seller";
+            this.Seller.Width = 125;
+            // 
             // Value
             // 
             this.Value.DataPropertyName = "Value";
@@ -211,7 +221,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(951, 450);
+            this.ClientSize = new System.Drawing.Size(1075, 450);
             this.Controls.Add(this.dgvOrderItems);
             this.Controls.Add(this.cbCanceled);
             this.Controls.Add(this.cbStatus);
@@ -246,6 +256,7 @@
         private DataGridViewTextBoxColumn Code;
         private DataGridViewTextBoxColumn ProductType;
         private DataGridViewTextBoxColumn Description;
+        private DataGridViewTextBoxColumn Seller;
         private DataGridViewTextBoxColumn Value;
         private DataGridViewTextBoxColumn Price;
         private DataGridViewTextBoxColumn Quantity;

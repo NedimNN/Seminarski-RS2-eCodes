@@ -132,8 +132,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 icon: Icon(Icons.arrow_drop_down),
                 items: items.map(_buildMenuItem).toList(),
                 onChanged: (value) async {
+                  var productSearch = {'StateMachine': 'active','platform': value};
                   var tempdata =
-                      await _productProvider?.get({'platform': value});
+                      await _productProvider?.get(productSearch);
                   setState(() {
                     data = tempdata!;
                     this.value = value!;
@@ -153,16 +154,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
         item,
         style: Theme.of(context).textTheme.subtitle2,
       ));
-
-  Widget _buildProductIcons() {
-    if (data.length == 0) {
-      return Text("Loading.....");
-    }
-
-    return Row(
-      children: [],
-    );
-  }
 
   List<Widget> _buildProductGrid() {
     if (data.length == 0) {

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using eCodes.Services.Database;
 using eCodes.Models.SearchObjects;
 using eCodes.Services.Database;
 using System;

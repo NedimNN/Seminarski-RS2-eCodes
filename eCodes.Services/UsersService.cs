@@ -134,10 +134,21 @@ namespace eCodes.Services
         }
         public override void BeforeDelete(User dbentity)
         {
+            var roles = _context.UserRoles.Where(w => w.UserId == dbentity.UserId).ToList();
+
+            foreach (var role in roles)
+            {
+                _context.UserRoles.Remove(role);
+            }
+
+            base.BeforeDelete(dbentity);
+        }
+        public override void AfterDelete(User dbentity)
+        {
             var personService = new PersonsService(_context, _mapper);
             personService.Delete(dbentity.PersonId);
 
-            base.BeforeDelete(dbentity);
+            base.AfterDelete(dbentity);
         }
 
         public Models.Users Login(string username, string password)

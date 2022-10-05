@@ -77,7 +77,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             thickness: 2,
           ),
         ),
-        _buildWalletButton(),
+        _buildPointsButton(),
         Flexible(
           fit: FlexFit.loose,
           child: Divider(
@@ -173,16 +173,16 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         ));
   }
 
-  Widget _buildWalletButton() {
+  Widget _buildPointsButton() {
     return Container(
         child: InkWell(
           onTap: () {
-              //Navigator.pushNamed(Wallet.routeName); <- Go to Settings page
+              //Navigator.pushNamed(LoyaltyPoints.routeName); <- Go to Points page
             },
           child: ListTile(
-              leading: Icon(Icons.account_balance_wallet_rounded),
+              leading: Icon(Icons.loyalty_rounded),
               title: Text(
-          "My wallet",
+          "My Loyalty Points",
           style: Theme.of(context).textTheme.bodyText2,
               ),
               trailing: Icon(Icons.arrow_forward_ios),

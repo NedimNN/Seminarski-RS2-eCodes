@@ -27,10 +27,10 @@ namespace eCodes.Services.Database
         public int Value { get; set; }
         public string? Version { get; set; }
         public string? Platform { get; set; }
-        public int SellerId { get; set; }
+        public int? SellerId { get; set; }
 
         public virtual ProductType ProductType { get; set; } = null!;
-        public virtual Seller Seller { get; set; } = null!;
+        public virtual Seller? Seller { get; set; }
         public virtual ICollection<Employee> Employees { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
         public virtual ICollection<OutputItem> OutputItems { get; set; }

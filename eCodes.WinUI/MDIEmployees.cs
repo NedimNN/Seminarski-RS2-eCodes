@@ -1,4 +1,5 @@
-﻿using eCodes.Models.SearchObjects;
+﻿using AutoMapper;
+using eCodes.Models.SearchObjects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

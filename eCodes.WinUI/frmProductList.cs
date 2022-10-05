@@ -58,7 +58,7 @@ namespace eCodes.WinUI
             deleteBtn.Text = "Delete";
             deleteBtn.Name = "btnDelete";
             deleteBtn.UseColumnTextForButtonValue = true;
-            hideBtn.CellTemplate.Style.BackColor = Color.Red;
+            deleteBtn.CellTemplate.Style.BackColor = Color.Red;
             deleteBtn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
 

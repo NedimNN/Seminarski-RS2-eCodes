@@ -47,7 +47,7 @@ builder.Services.AddTransient<ICountriesService, CountriesService>();
 builder.Services.AddTransient<IRolesService, RolesService>();
 builder.Services.AddTransient<IBuyersService, BuyersService>();
 builder.Services.AddTransient<ICurrenciesService, CurrenciesService>();
-builder.Services.AddTransient<IWalletsService, WalletsService>();
+builder.Services.AddTransient<ILoyaltyPointService, LoyaltyPointService>();
 builder.Services.AddTransient<IEmployeeService, EmployeesService>();
 builder.Services.AddTransient<IRatingsService, RatingService>();
 builder.Services.AddTransient<ISellersService, SellersService>();

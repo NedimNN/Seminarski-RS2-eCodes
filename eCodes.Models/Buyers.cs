@@ -16,6 +16,5 @@ namespace eCodes.Models
         public virtual Persons Person { get; set; }
         //public virtual ICollection<Order> Orders { get; set; }
         //public virtual ICollection<Rating> Ratings { get; set; }
-        //public virtual ICollection<Wallet> Wallets { get; set; }
     }
 }

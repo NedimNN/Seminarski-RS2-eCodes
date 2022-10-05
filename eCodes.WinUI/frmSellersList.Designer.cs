@@ -140,7 +140,7 @@
             this.dgvSellers.RowHeadersWidth = 51;
             this.dgvSellers.RowTemplate.Height = 29;
             this.dgvSellers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSellers.Size = new System.Drawing.Size(957, 375);
+            this.dgvSellers.Size = new System.Drawing.Size(934, 375);
             this.dgvSellers.TabIndex = 9;
             this.dgvSellers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSellers_CellClick);
             this.dgvSellers.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSellers_CellDoubleClick);
@@ -220,7 +220,7 @@
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
                 | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.label6.ForeColor = System.Drawing.Color.Firebrick;
-            this.label6.Location = new System.Drawing.Point(584, 83);
+            this.label6.Location = new System.Drawing.Point(561, 83);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(385, 20);
             this.label6.TabIndex = 12;
@@ -230,7 +230,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(981, 493);
+            this.ClientSize = new System.Drawing.Size(965, 493);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cbStatus);
             this.Controls.Add(this.label5);
@@ -245,6 +245,7 @@
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label1);
             this.Text = "Sellers List";
+            this.Load += new System.EventHandler(this.frmSellersList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSellers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
