@@ -39,7 +39,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
   }
 
   Future loadData() async {
-    var productSearch = {'StateMachine': 'active'};
+    var productSearch = {'StateMachine': 'active', 'IncludeType': true};
     var tmpdata = await _productProvider?.get(productSearch);
     setState(() {
       data = tmpdata!;
@@ -191,7 +191,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                               x.name ?? ""),
                           Text(
                               style: Theme.of(context).textTheme.subtitle1,
-                              formatNumber(x.price)),
+                              formatNumber(x.price)+" "+ x.productType!.currency!.abbreviation!),
                         ],
                       ),
                       IconButton(

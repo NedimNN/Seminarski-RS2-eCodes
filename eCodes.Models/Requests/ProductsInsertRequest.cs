@@ -24,8 +24,11 @@ namespace eCodes.Models.Requests
         public string Duration { get; set; }
         [Required(AllowEmptyStrings = false)]
         public int Value { get; set; }
+        [Required(AllowEmptyStrings = false)]
         public string Version { get; set; }
+        [Required(AllowEmptyStrings = false)]
         public string Platform { get; set; }
+        [Required(AllowEmptyStrings = false)]
         public int SellerId { get; set; }
 
     }

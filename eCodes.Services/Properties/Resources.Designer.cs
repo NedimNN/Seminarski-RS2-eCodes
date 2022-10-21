@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace eCodes.WinUI.Properties {
+namespace eCodes.Services.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace eCodes.WinUI.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("eCodes.WinUI.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("eCodes.Services.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,12 +61,29 @@ namespace eCodes.WinUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to hcbc2pqgtd5gzdn7.
         /// </summary>
-        internal static System.Drawing.Bitmap Xbox_10_US_dollar {
+        internal static string PaymentMerchantId {
             get {
-                object obj = ResourceManager.GetObject("Xbox 10 US dollar", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("PaymentMerchantId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to fdef4db99254f26345b1a4b4fc573535.
+        /// </summary>
+        internal static string PaymentPrivateKey {
+            get {
+                return ResourceManager.GetString("PaymentPrivateKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mqy7hdkdc77d48th.
+        /// </summary>
+        internal static string PaymentPublicKey {
+            get {
+                return ResourceManager.GetString("PaymentPublicKey", resourceCulture);
             }
         }
     }

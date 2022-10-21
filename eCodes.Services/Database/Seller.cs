@@ -7,7 +7,7 @@ namespace eCodes.Services.Database
     {
         public Seller()
         {
-            Outputs = new HashSet<Output>();
+            OutputItems = new HashSet<OutputItem>();
             Products = new HashSet<Product>();
         }
 
@@ -21,9 +21,10 @@ namespace eCodes.Services.Database
         public bool Status { get; set; }
         public string PasswordHash { get; set; } = null!;
         public string PasswordSalt { get; set; } = null!;
+        public string PayPalEmail { get; set; } = null!;
 
         public virtual Person Person { get; set; } = null!;
-        public virtual ICollection<Output> Outputs { get; set; }
+        public virtual ICollection<OutputItem> OutputItems { get; set; }
         public virtual ICollection<Product> Products { get; set; }
     }
 }

@@ -9,7 +9,6 @@ class RatingProvider extends BaseProvider<Rating>{
 
 @override
   Rating fromJson(data) {
-    // TODO: implement fromJson
     return Rating.fromJson(data);
   }
 

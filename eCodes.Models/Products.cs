@@ -26,11 +26,5 @@ namespace eCodes.Models
         public string SellerName => Seller?.Name;
         public virtual Sellers Seller { get; set; }
 
-
-        //public virtual ICollection<Employee> Employees { get; set; }
-        //public virtual ICollection<OrderItem> OrderItems { get; set; }
-        //public virtual ICollection<OutputItem> OutputItems { get; set; }
-        //public virtual ICollection<Rating> Ratings { get; set; }
-        //public virtual ICollection<Seller> Sellers { get; set; }
     }
 }

@@ -7,7 +7,6 @@ namespace eCodes.Services.Database
     {
         public User()
         {
-            Outputs = new HashSet<Output>();
             UserRoles = new HashSet<UserRole>();
         }
 
@@ -21,7 +20,6 @@ namespace eCodes.Services.Database
         public bool Status { get; set; }
 
         public virtual Person Person { get; set; } = null!;
-        public virtual ICollection<Output> Outputs { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

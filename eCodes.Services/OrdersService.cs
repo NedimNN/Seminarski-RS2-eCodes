@@ -89,13 +89,13 @@ namespace eCodes.Services
             {
                 throw new UserErrorException("Not a valid buyer !");
             }
-
             base.BeforeInsert(insert, dbentity);
         }
 
         public override Orders Insert(OrdersInsertRequest insert)
         {
             var result = base.Insert(insert);
+
             OrderItemsService orderItemsService = new OrderItemsService(_context, _mapper);
 
             if (insert.Items.Count() > 0)
@@ -143,8 +143,6 @@ namespace eCodes.Services
             }
             return order;
         }
-
-
 
     }
 }

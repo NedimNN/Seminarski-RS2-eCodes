@@ -1,0 +1,35 @@
+version: '3'
+services:
+#mssql docker
+  ecodes-sql:
+    image: mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=QWElkj132!
+      - MSSQL_PID=Developer
+    ports:
+      - 1401:1433
+    expose:
+        - 1433
+    networks:
+      - ecodesnet
+
+  ecodes-api:
+    restart: unless-stopped
+    build:
+      context: .
+    environment:
+      - ConnectionStrings:DefaultConnection=Server=ecodes-sql,1433;Database=210331;User=sa;Password=QWElkj132!;ConnectRetryCount=0
+    ports:
+      - 5203:5203
+    networks:
+      - ecodesnet
+    links:
+      - ecodes-sql
+    depends_on:
+      - ecodes-sql
+      
+networks:
+  ecodesnet:
+    driver: bridge      

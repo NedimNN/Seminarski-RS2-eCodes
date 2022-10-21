@@ -77,19 +77,19 @@
             // menuSearchProducts
             // 
             this.menuSearchProducts.Name = "menuSearchProducts";
-            this.menuSearchProducts.Size = new System.Drawing.Size(204, 26);
+            this.menuSearchProducts.Size = new System.Drawing.Size(224, 26);
             this.menuSearchProducts.Text = "My Products";
             this.menuSearchProducts.Click += new System.EventHandler(this.menuSearchProducts_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(201, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(221, 6);
             // 
             // menuAddProducts
             // 
             this.menuAddProducts.Name = "menuAddProducts";
-            this.menuAddProducts.Size = new System.Drawing.Size(204, 26);
+            this.menuAddProducts.Size = new System.Drawing.Size(224, 26);
             this.menuAddProducts.Text = "Add Products";
             this.menuAddProducts.Click += new System.EventHandler(this.menuAddProducts_Click);
             // 

@@ -13,6 +13,7 @@ using eCodes.Services.HelperMethods;
 using eCodes.Services.ProductStateMachine;
 using eCodes.Models.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace eCodes.Services
 {
@@ -75,7 +76,7 @@ namespace eCodes.Services
             }
 
 
-            //First insert person then the buyer
+            //First insert person then the seller
             var personService = new PersonsService(_context, _mapper);
             var person = _mapper.Map<PersonInsertRequest>(insert);
 

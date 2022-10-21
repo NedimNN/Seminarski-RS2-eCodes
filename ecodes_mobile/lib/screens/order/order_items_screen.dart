@@ -164,65 +164,176 @@ class _OrderItemsScreenState extends State<OrderItemsScreen> {
               subtitle: Text(
                   style: TextStyle(color: Colors.black, fontSize: 15),
                   "${x.product!.productTypeName}\nSeller: ${x.product!.seller!.name}"),
-              trailing: InkWell(
-                  onTap: () async{
-                    var ratings = await _ratingProvider?.get() as List<Rating>;
-                    Rating? storedRating = null;
-                    for (var item in ratings) {
-                      if (item.buyerId == Authorization.buyerId && item.productId == x.product!.productId ) {
-                        storedRating = item;
-                      }
-                    }
-                    if (storedRating == null) {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Dialog(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: RatingScreen(
-                                  Authorization.buyerId.toString(),
-                                  x.product!.productId.toString()),
-                            );
-                          }
-                          );
-                    }
-                    else{
-                      showDialog(context: context, builder: (BuildContext context) => AlertDialog(
-                                          title: Text(style: Theme.of(context).textTheme.bodyText2,"Product was rated"),
-                                          content: Container(
-                                            height: 150,
-                                            child: Column(
-                                              children: [
-                                                Text(style: Theme.of(context).textTheme.subtitle2,"Can't rate a product twice!"),
-                                                SizedBox(height: 15,),
-                                                Text(style: Theme.of(context).textTheme.subtitle2,"Date od rating: ${formatter.format(storedRating!.date!)}"),
-                                                SizedBox(height: 15,),
-                                                Wrap(children:[Text(style: Theme.of(context).textTheme.subtitle2,"Rating: ${storedRating.mark} "),
-                                                Icon(Icons.sentiment_satisfied_alt_rounded)]),
-                                              ],
-                                            ),
+              trailing: SizedBox(
+                width: 130,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: InkWell(
+                        onTap: () async {
+                          bool hidden = true;
+                          TextEditingController keyController =
+                              new TextEditingController();
+                          keyController.text = x.product!.giftCardKey!;
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return StatefulBuilder(
+                                    builder: (context, setState) {
+                                  return AlertDialog(
+                                    title: Center(
+                                      child: Text(
+                                        "Gift Card key",
+                                        style:
+                                            Theme.of(context).textTheme.headline4,
+                                      ),
+                                    ),
+                                    content: Container(
+                                      child: TextField(
+                                        controller: keyController,
+                                        readOnly: true,
+                                        obscureText: hidden,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2,
+                                            textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            hidden
+                                                ? hidden = false
+                                                : hidden = true;
+                                          });
+                                        },
+                                        child: Text(
+                                          "Show Key",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                        ),
+                                        style: ButtonStyle(),
+                                      ),
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text(
+                                            "Ok",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2,
+                                          )),
+                                    ],
+                                  );
+                                });
+                              });
+                        },
+                        child: RotatedBox(
+                            quarterTurns: 1,
+                            child: Icon(
+                              Icons.key_rounded,
+                              size: 35,
+                              color: Color.fromARGB(195, 31, 173, 238),
+                            )),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 15),
+                      child: InkWell(
+                          onTap: () async {
+                            var ratings =
+                                await _ratingProvider?.get() as List<Rating>;
+                            Rating? storedRating = null;
+                            for (var item in ratings) {
+                              if (item.buyerId == Authorization.buyerId &&
+                                  item.productId == x.product!.productId) {
+                                storedRating = item;
+                              }
+                            }
+                            if (storedRating == null) {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Dialog(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0)),
+                                      child: RatingScreen(
+                                          Authorization.buyerId.toString(),
+                                          x.product!.productId.toString()),
+                                    );
+                                  });
+                            } else {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                        title: Text(
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            "Product was rated"),
+                                        content: Container(
+                                          height: 150,
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle2,
+                                                  "Can't rate a product twice!"),
+                                              SizedBox(
+                                                height: 15,
+                                              ),
+                                              Text(
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle2,
+                                                  "Date of rating: ${formatter.format(storedRating!.date!)}"),
+                                              SizedBox(
+                                                height: 15,
+                                              ),
+                                              Wrap(children: [
+                                                Text(
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .subtitle2,
+                                                    "Rating: ${storedRating.mark} "),
+                                                Icon(Icons
+                                                    .sentiment_satisfied_alt_rounded)
+                                              ]),
+                                            ],
                                           ),
-                                          actions: [
-                                            TextButton(
-                                                onPressed: () =>
-                                                    Navigator.pop(context),
-                                                child: Text("Ok"))
-                                          ],
-                                        ));
-                    }
-                  },
-                  child: Column(
-                    children: [
-                      Icon(Icons.star_rate_rounded),
-                      Container(
-                        margin: EdgeInsets.only(top: 5),
-                        child: Text(
-                            style: TextStyle(color: Colors.black, fontSize: 15),
-                            "Price: ${x.product!.price}\nQuantity: ${x.quantity} "),
-                      )
-                    ],
-                  )),
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: Text("Ok"))
+                                        ],
+                                      ));
+                            }
+                          },
+                          child: Column(
+                            children: [
+                              Icon(Icons.star_rate_rounded),
+                              Container(
+                                margin: EdgeInsets.only(top: 5),
+                                child: Text(
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 15),
+                                    "Price: ${x.product!.price}\nQuantity: ${x.quantity} "),
+                              )
+                            ],
+                          )),
+                    ),
+                  ],
+                ),
+              ),
             )))
         .cast<Widget>()
         .toList();

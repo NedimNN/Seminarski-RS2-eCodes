@@ -1,11 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
+import 'package:ecodes_mobile/model/payment.dart';
 import 'package:ecodes_mobile/model/product.dart';
 import 'package:ecodes_mobile/utils/util.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 import 'package:flutter/foundation.dart';
+
+import '../model/order.dart';
 
 abstract class BaseProvider<T> with ChangeNotifier {
   String? _baseUrl;
@@ -33,7 +36,6 @@ abstract class BaseProvider<T> with ChangeNotifier {
     var uri = Uri.parse(url);
 
     Map<String, String> headers = createHeaders();
-
 
     var response = await http!.get(uri, headers: headers);
 
@@ -147,6 +149,73 @@ abstract class BaseProvider<T> with ChangeNotifier {
       }
     });
     return query;
+  }
+
+  Future<T?> beginTransaction(dynamic payment) async {
+    if (T == Payment) {
+      var url = "$_baseUrl$_endpoint/BeginTransaction";
+      var uri = Uri.parse(url);
+
+      Map<String, String> headers = createHeaders();
+
+      var jsonRequest = jsonEncode(payment);
+      var response = await http!.post(uri, headers: headers, body: jsonRequest);
+
+      if (isValidResponseCode(response)) {
+        var data = jsonDecode(response.body);
+        return fromJson(data) as T;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
+  Future<Order?> saveTransaction(int orderId, double loyaltyPoints) async {
+    if (T == Payment) {
+      var url = "$_baseUrl$_endpoint/SaveTransaction";
+      var query = {'orderId': orderId, 'loyaltyPoints': loyaltyPoints};
+      
+      if (query != null) {
+        String queryString = getQueryString(query);
+        url = url + "?" + queryString;
+      }
+
+      var uri = Uri.parse(url);
+
+      Map<String, String> headers = createHeaders();
+
+      var response = await http!.post(uri, headers: headers);
+
+      if (isValidResponseCode(response)) {
+        var data = jsonDecode(response.body);
+        if(data == null){
+          return null;
+        }
+        return Order.fromJson(data) as Order;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<T>> getRecommended(int id) async {
+    var url = "$_baseUrl$_endpoint/$id/Recommend";
+
+    var uri = Uri.parse(url);
+
+    Map<String, String> headers = createHeaders();
+    var response = await http!.get(uri, headers: headers);
+
+    if (isValidResponseCode(response)) {
+      var data = jsonDecode(response.body);
+      return data.map((x) => fromJson(x)).cast<T>().toList();
+    } else {
+      throw Exception("Exception... handle this gracefully");
+    }
   }
 
   bool isValidResponseCode(Response response) {

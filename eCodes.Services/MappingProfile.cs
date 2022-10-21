@@ -29,6 +29,9 @@ namespace eCodes.Services
             CreateMap<Database.Seller, Models.Sellers>();
             CreateMap<Database.Order, Models.Orders>();
             CreateMap<Database.OrderItem, Models.OrderItems>();
+            CreateMap<Database.Output, Models.Outputs>();
+            CreateMap<Database.OutputItem, Models.OutputItems>();
+
 
 
             // Add more conditions on update requests
@@ -130,7 +133,14 @@ namespace eCodes.Services
             {
                 opts.Condition((src, dest, srcMember) => srcMember != null);
             });
-
+            CreateMap<Models.Requests.OutputUpsertRequest, Database.Output>().ForAllMembers(opts =>
+            {
+                opts.Condition((src, dest, srcMember) => srcMember != null);
+            });
+            CreateMap<Models.Requests.OutputItemUpsertRequest, Database.OutputItem>().ForAllMembers(opts =>
+            {
+                opts.Condition((src, dest, srcMember) => srcMember != null);
+            });
 
         }
     }

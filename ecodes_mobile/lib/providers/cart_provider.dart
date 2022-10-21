@@ -13,7 +13,8 @@ class CartProvider with ChangeNotifier {
     } else {
       cart.items.add(CartItem(product, 1));
     }
-    
+    cart.PriceToPay += product.price!;
+    cart.currencyId = product.productType?.currencyId;
     notifyListeners();
   }
 
@@ -23,6 +24,7 @@ class CartProvider with ChangeNotifier {
     } else{
       cart.items.removeWhere((item) => item.product.productId == product.productId);
     }
+    cart.PriceToPay -= product.price!;
     notifyListeners();
   }
 

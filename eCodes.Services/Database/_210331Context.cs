@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace eCodes.Services.Database
 {
@@ -46,6 +48,7 @@ namespace eCodes.Services.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<Buyer>(entity =>
             {
                 entity.Property(e => e.BuyerId).HasColumnName("BuyerID");
@@ -196,6 +199,8 @@ namespace eCodes.Services.Database
 
                 entity.Property(e => e.AmountWithoutTax).HasColumnType("decimal(18, 2)");
 
+                entity.Property(e => e.BuyerId).HasColumnName("BuyerID");
+
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
@@ -204,27 +209,17 @@ namespace eCodes.Services.Database
 
                 entity.Property(e => e.ReceiptNumber).HasMaxLength(50);
 
-                entity.Property(e => e.SellerId).HasColumnName("SellerID");
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.HasOne(d => d.Buyer)
+                    .WithMany(p => p.Outputs)
+                    .HasForeignKey(d => d.BuyerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Outputs_Buyers");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.Outputs)
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Outputs_Orders");
-
-                entity.HasOne(d => d.Seller)
-                    .WithMany(p => p.Outputs)
-                    .HasForeignKey(d => d.SellerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Outputs_Sellers");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Outputs)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Outputs_Users");
             });
 
             modelBuilder.Entity<OutputItem>(entity =>
@@ -241,6 +236,8 @@ namespace eCodes.Services.Database
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
+                entity.Property(e => e.SellerId).HasColumnName("SellerID");
+
                 entity.HasOne(d => d.Output)
                     .WithMany(p => p.OutputItems)
                     .HasForeignKey(d => d.OutputId)
@@ -252,6 +249,12 @@ namespace eCodes.Services.Database
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OutputItems_Products");
+
+                entity.HasOne(d => d.Seller)
+                    .WithMany(p => p.OutputItems)
+                    .HasForeignKey(d => d.SellerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OutputItems_Sellers");
             });
 
             modelBuilder.Entity<Person>(entity =>
@@ -383,6 +386,8 @@ namespace eCodes.Services.Database
                 entity.Property(e => e.PasswordHash).HasMaxLength(50);
 
                 entity.Property(e => e.PasswordSalt).HasMaxLength(50);
+
+                entity.Property(e => e.PayPalEmail).HasMaxLength(100);
 
                 entity.Property(e => e.PersonId).HasColumnName("PersonID");
 

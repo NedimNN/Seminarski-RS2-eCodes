@@ -8,9 +8,13 @@ namespace eCodes.Models.Requests
     public class EmployeeUpdateRequest
     {
         //PersonUpdateRequest
+        [Required(AllowEmptyStrings = false)]
         public string FirstName { get; set; }
+        [Required(AllowEmptyStrings = false)]
         public string LastName { get; set; }
+        [Required(AllowEmptyStrings = false)]
         public DateTime DateOfBirth { get; set; }
+        [Required(AllowEmptyStrings = false)]
         public string Gender { get; set; }
         //----------------------------------
         public bool Status { get; set; }

@@ -47,7 +47,8 @@ namespace eCodes.WinUI
                         Status = true,
                         DateOfBirth = dateTimeBirth.Value,
                         Password = txtPassword.Text,
-                        PasswordConfirmation = txtConfirmPass.Text
+                        PasswordConfirmation = txtConfirmPass.Text,
+                        PayPalEmail = txtPayPalEmail.Text,                        
                     };
 
                     var seller = await SellersService.Post<Models.Sellers>(insert);
@@ -68,7 +69,8 @@ namespace eCodes.WinUI
                         Status = true,
                         DateOfBirth = dateTimeBirth.Value,
                         Password = txtPassword.Text,
-                        PasswordConfirmation = txtConfirmPass.Text
+                        PasswordConfirmation = txtConfirmPass.Text,
+                        PayPalEmail = txtPayPalEmail.Text,
                     };
                     _model = await SellersService.Put<Models.Sellers>(_model.SellerId, update);
                     if (_model != null)

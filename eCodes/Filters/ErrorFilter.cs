@@ -20,6 +20,11 @@ namespace eCodes.Filters
                 context.ModelState.AddModelError("ERROR", context.Exception.Message);
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
             }
+            else if (context.Exception is PaymentException)
+            {
+                context.ModelState.AddModelError("ERROR", context.Exception.Message);
+                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            }
             else
             {
                 context.ModelState.AddModelError("ERROR", "Server Error !");

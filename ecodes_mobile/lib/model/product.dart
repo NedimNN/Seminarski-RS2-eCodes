@@ -1,3 +1,4 @@
+import 'package:ecodes_mobile/model/productType.dart';
 import 'package:ecodes_mobile/model/seller.dart';
 import 'package:json_annotation/json_annotation.dart';
 //import 'package:json_serializable/json_serializable.dart';
@@ -14,8 +15,10 @@ class Product{
   String? description;
   String? duration;
   String? productTypeName;
+  String? giftCardKey;
   Seller? seller;
   String? stateMachine;
+  ProductType? productType;
 
   Product(){
     

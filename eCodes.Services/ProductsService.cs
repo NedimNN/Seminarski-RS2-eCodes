@@ -149,7 +149,7 @@ namespace eCodes.Services
         {
             if (search?.IncludeType == true)
             {
-                query = query.Include(i=> i.ProductType);
+                query = query.Include(i=> i.ProductType.Currency);
                 query = query.Include(i => i.Seller);
             }
 
@@ -157,7 +157,7 @@ namespace eCodes.Services
         }
         public override Product AddIncludeforGetById(Product query)
         {
-            query.ProductType = _context.ProductTypes.Where(w => w.ProductTypeId == query.ProductTypeId).FirstOrDefault();
+            query.ProductType = _context.ProductTypes.Include(i=> i.Currency).Where(w => w.ProductTypeId == query.ProductTypeId).FirstOrDefault();
             query.Seller = _context.Sellers.Where(w => w.SellerId == query.SellerId).FirstOrDefault();
 
             return query;
@@ -169,7 +169,7 @@ namespace eCodes.Services
         public List<Products> Recommend(int id)
         {
             //Implement either cache or database to store the trained model and the prediction so it does not train or predict everytime someone calls it
-            var allItems = _context.Products.Where(w => w.ProductId != id);
+            var allItems = _context.Products.Include(i => i.ProductType.Currency).Include(i => i.Seller).Where(w => w.ProductId != id);
             var trainedModel = ModelTrainer();
 
             var predictionResult = new List<Tuple<Database.Product, float>>();

@@ -46,6 +46,7 @@ namespace eCodes.WinUI
         {
             SellerSearchObject search = new SellerSearchObject();
             search.Name = APIService.username;
+            search.Status = true;
             List<Sellers> seller = await SellerService.Get<List<Sellers>>(search);
             frmSellerDetails childForm = new frmSellerDetails(seller.FirstOrDefault());
             childForm.MdiParent = this;
@@ -68,5 +69,20 @@ namespace eCodes.WinUI
             childForm.WindowState = FormWindowState.Maximized;
             childForm.Show();
         }
+
+        //private async void soldProductsToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    SellerSearchObject search = new SellerSearchObject();
+        //    search.Name = APIService.username;
+        //    search.Status = true;
+        //    List<Sellers> sellers = await SellerService.Get<List<Sellers>>(search);
+        //    Sellers seller = sellers.FirstOrDefault();
+        //    frmSoldProducts childForm = new frmSoldProducts(seller);
+        //    childForm.MdiParent = this;
+        //    childForm.MdiParent.Size = new Size(childForm.Width + childForm.MdiParent.MainMenuStrip.Size.Width, this.Height);
+        //    childForm.Text = "Window " + childFormNumber++;
+        //    childForm.WindowState = FormWindowState.Maximized;
+        //    childForm.Show();
+        //}
     }
 }

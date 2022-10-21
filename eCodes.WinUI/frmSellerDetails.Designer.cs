@@ -57,6 +57,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.txtPayPalEmail = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderSellers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -231,7 +233,7 @@
             // 
             // dateTimeBirth
             // 
-            this.dateTimeBirth.Location = new System.Drawing.Point(97, 374);
+            this.dateTimeBirth.Location = new System.Drawing.Point(97, 424);
             this.dateTimeBirth.Name = "dateTimeBirth";
             this.dateTimeBirth.Size = new System.Drawing.Size(250, 27);
             this.dateTimeBirth.TabIndex = 22;
@@ -239,7 +241,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(163, 351);
+            this.label12.Location = new System.Drawing.Point(163, 401);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(101, 20);
             this.label12.TabIndex = 23;
@@ -247,7 +249,7 @@
             // 
             // btnSaveSeller
             // 
-            this.btnSaveSeller.Location = new System.Drawing.Point(163, 422);
+            this.btnSaveSeller.Location = new System.Drawing.Point(163, 472);
             this.btnSaveSeller.Name = "btnSaveSeller";
             this.btnSaveSeller.Size = new System.Drawing.Size(94, 29);
             this.btnSaveSeller.TabIndex = 24;
@@ -295,11 +297,29 @@
             this.label14.TabIndex = 25;
             this.label14.Text = "Password:";
             // 
+            // txtPayPalEmail
+            // 
+            this.txtPayPalEmail.Location = new System.Drawing.Point(125, 361);
+            this.txtPayPalEmail.Name = "txtPayPalEmail";
+            this.txtPayPalEmail.Size = new System.Drawing.Size(185, 27);
+            this.txtPayPalEmail.TabIndex = 30;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(125, 338);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(94, 20);
+            this.label11.TabIndex = 29;
+            this.label11.Text = "PayPal Email:";
+            // 
             // frmSellerDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(430, 457);
+            this.ClientSize = new System.Drawing.Size(430, 499);
+            this.Controls.Add(this.txtPayPalEmail);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.txtConfirmPass);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.txtPassword);
@@ -366,5 +386,7 @@
         private Label label13;
         private TextBox txtPassword;
         private Label label14;
+        private TextBox txtPayPalEmail;
+        private Label label11;
     }
 }

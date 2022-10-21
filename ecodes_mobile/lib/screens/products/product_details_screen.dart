@@ -36,6 +36,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   Product _product = new Product();
   List<Rating> _ratings = [];
+  List<Product> _recommendedProducts = [];
 
   @override
   void initState() {
@@ -50,8 +51,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   void loadProduct(String id) async {
     var identity = int.parse(id);
     var tmpproduct = await _productProvider?.getById(identity);
+    var tmprecommended = await _productProvider?.getRecommended(identity);
     setState(() {
       _product = tmpproduct!;
+      _recommendedProducts = tmprecommended!;
       loadRatings(_product.productId!);
     });
   }
@@ -133,7 +136,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             thickness: 5,
           ),
           Container(
-            decoration: BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.blue,
                 borderRadius: BorderRadius.all(Radius.circular(25)),
               ),
@@ -143,9 +146,38 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 "User ratings",
                 style: Theme.of(context).textTheme.headline3,
               )),
-          
           Column(
             children: _buildRatingsForProduct(),
+          ),
+          Divider(
+            color: Colors.white,
+            thickness: 5,
+          ),
+          Container(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.all(Radius.circular(25)),
+              ),
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.only(top: 10,bottom: 10 ),
+              child: Text(
+                "Recommended products",
+                style: Theme.of(context).textTheme.headline3,
+              )),
+          Container(
+            height: 178,
+            margin: EdgeInsets.only(top: 10,bottom: 10 ),
+            child: GridView(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              physics: ScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                childAspectRatio: 1,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5),
+              children: _buildRecommendedProdcuts(),
+            ),
           )
         ],
       ),
@@ -255,14 +287,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         Container(
           margin: EdgeInsets.only(right: 30, bottom: 5),
           padding: EdgeInsets.all(15),
-          width: 125,
+          width: 135,
           decoration: BoxDecoration(
             color: Colors.blue,
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
           child: Center(
             child: Text(
-              _product.price!.toString(),
+              _product.price!.toString()+" "+_product.productType!.currency!.abbreviation!.toString(),
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
@@ -371,6 +403,66 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       style: Theme.of(context).textTheme.subtitle1,
                       "Date of rating: ${formatter.format(x.date!).toString()}"),
                 ]),
+              ),
+            ))
+        .cast<Widget>()
+        .toList();
+
+    return list;
+  }
+
+  List<Widget> _buildRecommendedProdcuts() {
+    // build recommended products slider
+    if (_recommendedProducts.isEmpty) {
+      return [
+        Text(style: Theme.of(context).textTheme.headline6, "Loading.....")
+      ];
+    }
+
+    List<Widget> list = _recommendedProducts
+        .map((e) => Container(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(195, 31, 173, 238),
+                borderRadius: BorderRadius.all(Radius.circular(25)),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Flexible(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context,
+                            "${ProductDetailsScreen.routeName}/${e.productId}");
+                      },
+                      child: Container(
+                          margin: EdgeInsets.only(top: 8),
+                          height: 250,
+                          child: imageFromBase64String(e.picture!)),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                              style: Theme.of(context).textTheme.subtitle1,
+                              e.name ?? ""),
+                          Text(
+                              style: Theme.of(context).textTheme.subtitle1,
+                              formatNumber(e.price)+" "+ e.productType!.currency!.abbreviation!),
+                        ],
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            _cartProvider?.addToCart(e);
+                          },
+                          icon: Icon(
+                              color: Colors.white, Icons.shopping_bag_rounded)),
+                    ],
+                  )
+                ],
               ),
             ))
         .cast<Widget>()

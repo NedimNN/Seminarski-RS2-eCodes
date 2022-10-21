@@ -14,6 +14,9 @@ namespace eCodes.Models
         public string Email { get; set; } 
         public int PersonId { get; set; }
         public bool Status { get; set; }
+        public string PayPalEmail { get; set; }
+
+
         //public string PasswordHash { get; set; }
         //public string PasswordSalt { get; set; }
 

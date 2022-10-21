@@ -14,10 +14,14 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product()
   ..description = json['description'] as String?
   ..duration = json['duration'] as String?
   ..productTypeName = json['productTypeName'] as String?
+  ..giftCardKey = json['giftCardKey'] as String?
   ..seller = json['seller'] == null
       ? null
       : Seller.fromJson(json['seller'] as Map<String, dynamic>)
-  ..stateMachine = json['stateMachine'] as String?;
+  ..stateMachine = json['stateMachine'] as String?
+  ..productType = json['productType'] == null
+      ? null
+      : ProductType.fromJson(json['productType'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'productId': instance.productId,
@@ -27,6 +31,8 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'description': instance.description,
       'duration': instance.duration,
       'productTypeName': instance.productTypeName,
+      'giftCardKey': instance.giftCardKey,
       'seller': instance.seller?.toJson(),
       'stateMachine': instance.stateMachine,
+      'productType': instance.productType?.toJson(),
     };

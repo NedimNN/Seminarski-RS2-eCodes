@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using eCodes.Models;
 using eCodes.Models.SearchObjects;
+using eCodes.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,6 +60,16 @@ namespace eCodes.WinUI
         private void searchSellersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmSellersList childForm = new frmSellersList();
+            childForm.MdiParent = this;
+            childForm.MdiParent.Size = new Size(childForm.Width + childForm.MdiParent.MainMenuStrip.Size.Width, this.Height);
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.WindowState = FormWindowState.Maximized;
+            childForm.Show();
+        }
+
+        private async void transactionReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmGenerateReport childForm = new frmGenerateReport();
             childForm.MdiParent = this;
             childForm.MdiParent.Size = new Size(childForm.Width + childForm.MdiParent.MainMenuStrip.Size.Width, this.Height);
             childForm.Text = "Window " + childFormNumber++;

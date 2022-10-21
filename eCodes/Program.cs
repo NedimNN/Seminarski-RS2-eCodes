@@ -6,11 +6,13 @@ using eCodes.Services.ProductStateMachine;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Hosting;
+using Microsoft.ML.Runtime;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
+// Add services to the container.
 builder.Services.AddControllers(x=>
 {
     x.Filters.Add<ErrorFilter>();
@@ -53,6 +55,11 @@ builder.Services.AddTransient<IRatingsService, RatingService>();
 builder.Services.AddTransient<ISellersService, SellersService>();
 builder.Services.AddTransient<IOrdersService, OrdersService>();
 builder.Services.AddTransient<IOrderItemsService, OrderItemsService>();
+builder.Services.AddTransient<IPaymentService, PaymentService>();
+builder.Services.AddTransient<IOutputService, OutputService>();
+builder.Services.AddTransient<IOutputItemsService, OutputItemsService>();
+
+
 
 
 //statemachine registering all states
@@ -70,13 +77,20 @@ builder.Services.AddAutoMapper(typeof(IProductsService));
 builder.Services.AddAuthentication("BasicAuthentication")
     .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
+
+
 //ConnectionString
 var connectionstring = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<_210331Context>(options =>
     options.UseSqlServer(connectionstring));
 
-
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var service = scope.ServiceProvider.GetRequiredService<_210331Context>();
+    service.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

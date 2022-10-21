@@ -6,13 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using eCodes.Models;
 using eCodes.Services.HelperMethods;
+using eCodes.WinUI.Properties;
 
 namespace eCodes.WinUI
 {
     public class APIService
     {
         private string _resource = null;
-        public string _endpoint = "https://localhost:7203/";
+        public string _endpoint = Settings.Default.ApiUrl;
 
         public static string username = null;
         public static string password = null;

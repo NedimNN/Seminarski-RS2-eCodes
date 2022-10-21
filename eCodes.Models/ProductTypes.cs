@@ -9,7 +9,9 @@ namespace eCodes.Models
         public int ProductTypeId { get; set; }
         public string Name { get; set; } 
         public string Region { get; set; }
+        public int CurrencyId { get; set; }
+        public virtual Currencies Currency { get; set; }
 
-        //public virtual ICollection<Product> Products { get; set; }
+
     }
 }

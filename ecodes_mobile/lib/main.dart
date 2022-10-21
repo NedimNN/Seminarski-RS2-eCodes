@@ -2,6 +2,7 @@ import 'package:ecodes_mobile/providers/cart_provider.dart';
 import 'package:ecodes_mobile/providers/currency_provider.dart';
 import 'package:ecodes_mobile/providers/orderItems_provider.dart';
 import 'package:ecodes_mobile/providers/order_provider.dart';
+import 'package:ecodes_mobile/providers/payment_provider.dart';
 import 'package:ecodes_mobile/providers/product_provider.dart';
 import 'package:ecodes_mobile/providers/rating_provider.dart';
 import 'package:ecodes_mobile/providers/loyatlyPoints_provider.dart';
@@ -31,6 +32,7 @@ void main() => runApp(MultiProvider(
         ChangeNotifierProvider(create: (_) => RatingProvider()),
         ChangeNotifierProvider(create: (_) => CurrencyProvider()),
         ChangeNotifierProvider(create: (_) => LoyaltyPointsProvider()),
+        ChangeNotifierProvider(create: (_) => PaymentProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: true,

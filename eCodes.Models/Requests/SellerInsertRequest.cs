@@ -35,5 +35,8 @@ namespace eCodes.Models.Requests
         public string Password { get; set; }
         [Required(AllowEmptyStrings = false)]
         public string PasswordConfirmation { get; set; }
+        [Required(AllowEmptyStrings = false)]
+        public string PayPalEmail { get; set; }
+
     }
 }
