@@ -50,7 +50,7 @@ namespace eCodes.Services
         }
         public override Order AddIncludeforGetById(Order query)
         {
-            query.OrderItems = _context.OrderItems.Include("Product.ProductType")
+            query.OrderItems = _context.OrderItems.Include(i=> i.Product.ProductType.Currency)
                                                   .Include("Product.Seller").Where(w => w.OrderId == query.OrderId).ToList();
             return query;
         }

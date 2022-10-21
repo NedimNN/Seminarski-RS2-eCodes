@@ -326,7 +326,7 @@ class _OrderItemsScreenState extends State<OrderItemsScreen> {
                                 child: Text(
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 15),
-                                    "Price: ${x.product!.price}\nQuantity: ${x.quantity} "),
+                                    "${x.product!.price} ${x.product!.productType!.currency!.abbreviation}\nQuantity: ${x.quantity} "),
                               )
                             ],
                           )),

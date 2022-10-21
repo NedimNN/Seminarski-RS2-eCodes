@@ -25,7 +25,7 @@ namespace eCodes.WinUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://localhost:7203/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:5203/")]
         public string ApiUrl {
             get {
                 return ((string)(this["ApiUrl"]));

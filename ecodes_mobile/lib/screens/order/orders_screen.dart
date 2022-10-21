@@ -47,7 +47,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
       child: SingleChildScrollView(
         child: Column(children: [
           SizedBox(
-            height: 500,
+            height: MediaQuery.of(context).size.height - 125,
             child: ListView(
               scrollDirection: Axis.vertical,
               padding: const EdgeInsets.all(10),
