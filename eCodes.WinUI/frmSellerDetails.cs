@@ -95,6 +95,7 @@ namespace eCodes.WinUI
                 txtName.Text = _model.Name;
                 txtWebsite.Text = _model.Website;
                 txtAddress.Text = _model.Address;
+                txtPayPalEmail.Text = _model.PayPalEmail;
             }
         }
         private void txtFirstname_Validating(object sender, CancelEventArgs e)

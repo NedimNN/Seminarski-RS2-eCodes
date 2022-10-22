@@ -67,7 +67,7 @@ namespace eCodes.WinUI
             childForm.Show();
         }
 
-        private async void transactionReportToolStripMenuItem_Click(object sender, EventArgs e)
+        private void transactionReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmGenerateReport childForm = new frmGenerateReport();
             childForm.MdiParent = this;

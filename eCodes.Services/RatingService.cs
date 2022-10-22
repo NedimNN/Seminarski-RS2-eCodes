@@ -20,9 +20,9 @@ namespace eCodes.Services
         {
             var filter = base.AddFilter(query, search);
 
-            if(search?.ProductId > 0)
+            if(search?.SellerId > 0)
             {
-                filter = filter.Where(w => w.ProductId.Equals(search.ProductId));
+                filter = filter.Where(w => w.SellerId.Equals(search.SellerId));
             }
 
             return filter;

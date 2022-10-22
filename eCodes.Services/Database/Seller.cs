@@ -9,6 +9,7 @@ namespace eCodes.Services.Database
         {
             OutputItems = new HashSet<OutputItem>();
             Products = new HashSet<Product>();
+            Ratings = new HashSet<Rating>();
         }
 
         public int SellerId { get; set; }
@@ -26,5 +27,6 @@ namespace eCodes.Services.Database
         public virtual Person Person { get; set; } = null!;
         public virtual ICollection<OutputItem> OutputItems { get; set; }
         public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }

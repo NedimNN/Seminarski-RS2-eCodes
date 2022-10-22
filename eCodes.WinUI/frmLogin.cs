@@ -27,38 +27,38 @@ namespace eCodes.WinUI
             APIService.username = txtUsername.Text;
             APIService.password = txtPassword.Text;
             APIService.accountType = LoginHelper.GetAccType(APIService.username);
-
-            try
-            {
-                var result = await _api.Get<dynamic>();
-
-                if(APIService.accountType == "Seller")
+            if (ValidateChildren()) { 
+                try
                 {
+                    var result = await _api.Get<dynamic>();
 
-                    MDISellers MainForm = new MDISellers();
-                    MainForm.Show();
-                }
-                else if(APIService.accountType == "Employee")
-                {
-                    MDIEmployees MainForm = new MDIEmployees();
-                    MainForm.Show();
-                }
-                else if (APIService.accountType.Contains("Administrator") || APIService.accountType.Contains("Manager"))
-                {
-                    MDIMain MainForm = new MDIMain();
-                    MainForm.Show();
-                }
-                else
-                {
-                    MessageBox.Show("Login failed for User: " + APIService.username + " ! Please try again...");
-                }
+                    if(APIService.accountType == "Seller")
+                    {
 
+                        MDISellers MainForm = new MDISellers();
+                        MainForm.Show();
+                    }
+                    else if(APIService.accountType == "Employee")
+                    {
+                        MDIEmployees MainForm = new MDIEmployees();
+                        MainForm.Show();
+                    }
+                    else if (APIService.accountType.Contains("Administrator") || APIService.accountType.Contains("Manager"))
+                    {
+                        MDIMain MainForm = new MDIMain();
+                        MainForm.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Login failed for User: " + APIService.username + " ! Please try again...");
+                    }
+
+                }
+                catch ( Exception ex )
+                {
+                    MessageBox.Show("Wrong username or password");
+                }
             }
-            catch ( Exception ex )
-            {
-                MessageBox.Show("Wrong username or password");
-            }
-
 
         }
 

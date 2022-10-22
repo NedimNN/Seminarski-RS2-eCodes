@@ -8,7 +8,7 @@ namespace eCodes.Models.Requests
     public class RatingUpsertRequest
     {
         [Required(AllowEmptyStrings = false)]
-        public int ProductId { get; set; }
+        public int SellerId { get; set; }
         [Required(AllowEmptyStrings = false)]
         public int BuyerId { get; set; }
         [Required(AllowEmptyStrings = false)]

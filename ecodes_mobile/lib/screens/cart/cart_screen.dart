@@ -4,6 +4,7 @@ import 'package:ecodes_mobile/model/payment.dart';
 import 'package:ecodes_mobile/providers/currency_provider.dart';
 import 'package:ecodes_mobile/providers/loyatlyPoints_provider.dart';
 import 'package:ecodes_mobile/providers/payment_provider.dart';
+import 'package:ecodes_mobile/providers/product_provider.dart';
 import 'package:ecodes_mobile/screens/order/order_items_screen.dart';
 import 'package:ecodes_mobile/widgets/master_bottom_drawer.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,8 +33,10 @@ class _CartScreenState extends State<CartScreen> {
   late CurrencyProvider _currencyProvider;
   late PaymentProvider _paymentProvider;
   late LoyaltyPointsProvider _loyaltyProvider;
+  late ProductProvider _productProvider;
   LoyaltyPoints _loyaltyPoints = new LoyaltyPoints();
   Currency _currency = new Currency();
+  var isLoading = false;
   TextEditingController _loyaltyPointsController = new TextEditingController();
 
   @override
@@ -43,6 +46,7 @@ class _CartScreenState extends State<CartScreen> {
     _currencyProvider = context.read<CurrencyProvider>();
     _loyaltyProvider = context.read<LoyaltyPointsProvider>();
     _paymentProvider = context.read<PaymentProvider>();
+    _productProvider = context.read<ProductProvider>();
     _loyaltyPointsController.text = "0.00";
     loadData();
   }
@@ -225,7 +229,16 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
-
+  void _buildLoading(){
+    if(isLoading == true){
+    showDialog(context: context, builder: (BuildContext build) => AlertDialog(
+      title: Text("Loading.."),
+      content: CircularProgressIndicator(),
+    ));}
+    else{
+     Navigator.pop(context);
+    }
+  }
   Widget _buildCheckoutButton() {
     return TextButton(
       style: TextButton.styleFrom(
@@ -282,7 +295,7 @@ class _CartScreenState extends State<CartScreen> {
               collectDeviceData: true,
               paypalRequest: BraintreePayPalRequest(
                 amount: (item.product.price! * item.count).toString(),
-                currencyCode: _currency.abbreviation,
+                currencyCode: "USD",
                 displayName: "eCodes",
               ),
             );
@@ -298,10 +311,16 @@ class _CartScreenState extends State<CartScreen> {
               // Check if buyer used loyaltypoints and then add them to payment variable (preferably with a input box)
               payment.usedLoyaltyPoints =
                   double.parse(_loyaltyPointsController.text);
-
+              setState(() {
+                isLoading = true;
+              });
+              _buildLoading();
               var transaction =
                   await _paymentProvider.beginTransaction(payment);
-              //Navigator.popAndPushNamed(context, ProductListScreen.routeName);
+              setState(() {
+                isLoading = false;
+              });
+              _buildLoading();
               if (transaction?.successful == true) {
                 payments.add(transaction!);
                 await showDialog(
@@ -312,7 +331,7 @@ class _CartScreenState extends State<CartScreen> {
                             style: Theme.of(context).textTheme.headline4,
                           ),
                           content: Text(
-                            "Successfully paid for product ${item.product.name}\nPrice: ${item.product.price} ",
+                            "Successfully paid for product ${item.product.name}\nPrice: ${item.product.price} ${item.product.productType!.currency!.abbreviation} ",
                             style: Theme.of(context).textTheme.subtitle2,
                           ),
                           actions: [
@@ -326,6 +345,7 @@ class _CartScreenState extends State<CartScreen> {
                                 child: Text("Ok")),
                           ],
                         ));
+                var hiddenProduct = await _productProvider.hideProduct(item.product.productId!);
 
                 items.add({
                   "productId": item.product.productId,
@@ -354,10 +374,10 @@ class _CartScreenState extends State<CartScreen> {
           //   });
           // });
           // Map order = {"items": items, "status": true, "canceled": false};
-          var insertedOrder = await _orderProvider.insert(order);
+          var reutrnedOrder = await _orderProvider.insert(order);
+          var insertedOrder = await _orderProvider.getById(reutrnedOrder!.orderId!);
           var output = await _paymentProvider.saveTransaction(
-              insertedOrder!.orderId!, payment.usedLoyaltyPoints!);
-          
+              insertedOrder.orderId!, payment.usedLoyaltyPoints!);
           await showDialog(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
@@ -366,7 +386,7 @@ class _CartScreenState extends State<CartScreen> {
                             style: Theme.of(context).textTheme.headline4,
                           ),
                           content: Text(
-                            "Successfully paid for order number: ${insertedOrder.orderNumber}, with total price of ${insertedOrder.price} . ",
+                            "Successfully paid for order number: ${insertedOrder.orderNumber}, with total price of ${insertedOrder.price} ${_currency.abbreviation} . ",
                             style: Theme.of(context).textTheme.subtitle2,
                           ),
                           actions: [
@@ -385,6 +405,7 @@ class _CartScreenState extends State<CartScreen> {
 
           _cartProvider.cart.items.clear();
           _cartProvider.cart.PriceToPay = 0.00;
+          _loyaltyPoints.balance = _loyaltyPoints.balance! - payment.usedLoyaltyPoints!;
           setState(() {});
         } else {
           showDialog(

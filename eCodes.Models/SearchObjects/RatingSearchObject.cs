@@ -6,7 +6,7 @@ namespace eCodes.Models.SearchObjects
 {
     public class RatingSearchObject: BaseSearchObject
     {
-        public int ProductId { get; set; }
+        public int SellerId { get; set; }
 
 
     }

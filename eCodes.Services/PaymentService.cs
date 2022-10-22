@@ -39,33 +39,6 @@ namespace eCodes.Services
                 PrivateKey = Resources.PaymentPrivateKey,  
             };
 
-            LoyaltyPointService pointsService = new LoyaltyPointService(_context, _mapper);
-            LoyaltyPointsSearchObject search = new LoyaltyPointsSearchObject() { BuyerId = payment.BuyerId };
-            var points = pointsService.Get(search);
-            if (points.FirstOrDefault() != null)
-            {
-                LoyaltyPointsUpsertRequest update = new LoyaltyPointsUpsertRequest();
-                update.BuyerId = payment.BuyerId;
-                update.Balance = points.FirstOrDefault().Balance;
-                if (payment.UsedLoyaltyPoints > 0)
-                {
-                    update.Balance -= payment.UsedLoyaltyPoints;
-                    pointsService.Update(payment.BuyerId, update);
-                }
-                else
-                {
-                    update.Balance += Convert.ToDecimal(payment.Amount) / 12;
-                    pointsService.Update(payment.BuyerId, update);
-                }
-            }
-            else
-            {
-                LoyaltyPointsUpsertRequest insert = new LoyaltyPointsUpsertRequest();
-                insert.BuyerId = payment.BuyerId;
-                insert.Balance = points.FirstOrDefault().Balance;
-                insert.Balance += Convert.ToDecimal(payment.Amount) / 12;
-                pointsService.Insert(insert);
-            }
             decimal percentage = payment.UsedLoyaltyPoints / 100;
             decimal priceToPay = payment.Amount - (payment.Amount * percentage);
             priceToPay = Convert.ToDecimal(string.Format("{0:0.00}", priceToPay));
@@ -93,7 +66,7 @@ namespace eCodes.Services
             if (result.IsSuccess())
             {
                 payment.Successful = true;
-               
+                _context.SaveChanges();
             }
             else if (result.Transaction != null)
             {
@@ -153,7 +126,27 @@ namespace eCodes.Services
 
                 }
             }
-                        
+            LoyaltyPointService pointsService = new LoyaltyPointService(_context, _mapper);
+            LoyaltyPointsSearchObject search = new LoyaltyPointsSearchObject() { BuyerId = order.BuyerId };
+            var points = pointsService.Get(search);
+            if (points.FirstOrDefault() != null)
+            {
+                LoyaltyPointsUpsertRequest update = new LoyaltyPointsUpsertRequest();
+                update.BuyerId = order.BuyerId;
+                update.Balance = points.FirstOrDefault().Balance;
+                if (loyaltyPoints > 0)
+                {
+                    update.Balance -= loyaltyPoints;
+                    pointsService.Update(points.FirstOrDefault().LoyaltyPointsId, update);
+                }
+                else
+                {
+                    update.Balance += Convert.ToDecimal(order.Price) / 12;
+                    pointsService.Update(order.BuyerId, update);
+                }
+            }
+
+
             return order;
         }
 

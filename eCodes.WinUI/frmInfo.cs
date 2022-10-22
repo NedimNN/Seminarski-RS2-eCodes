@@ -17,8 +17,8 @@ namespace eCodes.WinUI
 {
     public partial class frmInfo : Form
     {
-        public APIService SellersService { get; set; } = new APIService("Sellers");
-        public APIService ProductService { get; set; } = new APIService("Products");
+        public SellersAPIService SellersService { get; set; } = new SellersAPIService("Sellers");
+        public ProductAPIService ProductService { get; set; } = new ProductAPIService("Products");
         public APIService PersonService { get; set; } = new APIService("Persons");
 
 
@@ -33,39 +33,27 @@ namespace eCodes.WinUI
         {
             if(_model != null)
             {
-                Persons person = await PersonService.GetById<Persons>(_model.PersonId);
-
-                SellerUpdateRequest update = new SellerUpdateRequest
-                {
-                    FirstName = person.FirstName,
-                    LastName = person.LastName,
-                    Email = _model.Email,
-                    Gender = person.Gender,
-                    Address = _model.Address,
-                    PhoneNumber = _model.PhoneNumber,
-                    Website = _model.Website,
-                    Status = false,
-                    DateOfBirth = person.DateOfBirth,
-                    Password = "0",
-                    PasswordConfirmation = "0"
-                };
-
                 ProductSearchObjects search = new ProductSearchObjects();
                 search.SellerName = _model.Name;
                 search.StateMachine = "all";
                 List<Products> products = await ProductService.Get<List<Products>>(search);
                 List<Products> updatedProducts = new List<Products>();
-                foreach (var product in products)
-                {
-                    product.StateMachine = "hidden";
-                    var updated = await ProductService.Put<Products>(product.ProductId, product);
-                    updatedProducts.Add(updated);
+                if(products.Count > 0) { 
+                    foreach (var product in products)
+                    {
+                        product.StateMachine = "hidden";
+                        var updated = await ProductService.Hide<Models.Products>(product.ProductId);
+                        updatedProducts.Add(updated);
+                    }
                 }
-
-                _model = await SellersService.Put<Models.Sellers>(_model.SellerId, update);
-
-                if (_model != null && updatedProducts.FirstOrDefault() != null)
-                    MessageBox.Show("Your account was sent to employees for deletion and your products are currently hidden !", "Delete Seller", MessageBoxButtons.OK,MessageBoxIcon.Information);
+                _model = await SellersService.RequestDelete<Models.Sellers>(_model.SellerId);
+                if (_model != null) {
+                if(products.Count == 0 || updatedProducts.FirstOrDefault() != null) { 
+                        MessageBox.Show("Your account was sent to employees for deletion and your products are currently hidden !", "Delete Seller", MessageBoxButtons.OK,MessageBoxIcon.Information);
+                        var mdiParent = this.Parent.FindForm();
+                        mdiParent.Close();
+                    }
+                }
                 else
                     MessageBox.Show("Something went wrong!","Delete Seller", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

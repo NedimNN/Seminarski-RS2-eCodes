@@ -80,17 +80,26 @@ namespace eCodes.WinUI
                         var deletedSeller = await SellersService.Delete<Sellers>(seller.SellerId);
 
                         if (deletedSeller != null)
+                        {
                             MessageBox.Show("You have successfully deleted seller " + deletedSeller.Name + " and all of their products !", "Seller Deleted Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            loadData();
+                        }
                     }
                     else
+                    {
                         MessageBox.Show("The operation was canceled !");
+                        loadData();
+
+                    }
                 }
                 else
+                {
                     MessageBox.Show("Can't delete a seller that didn't request deletion !", "Seller Info Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    loadData();
+                }
 
             }
         }
-
         private void frmSellersList_Load(object sender, EventArgs e)
         {
             loadData();

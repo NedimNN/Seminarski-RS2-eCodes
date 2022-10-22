@@ -6,7 +6,7 @@ namespace eCodes.Models
 {
     public class Ratings
     {
-        public int ProductId { get; set; }
+        public int SellerId { get; set; }
         public int BuyerId { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }

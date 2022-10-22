@@ -22,19 +22,21 @@ namespace eCodes.WinUI
 
         private async void btnGenerate_Click(object sender, EventArgs e)
         {
-            var output = new OutputSearchObject();
-            output.BuyerName = txtBuyerUsername.Text;
-            output.Include = true;
-            var outputs = await OutputService.Get<List<Models.Outputs>>(output);
-            if(outputs.FirstOrDefault() != null) 
-            {
-                frmReport report = new frmReport(outputs);
-                report.WindowState = FormWindowState.Maximized;
-                report.Show();
-            }
-            else
-            {
-                MessageBox.Show("Buyer with this username doesn't exist!", "Report Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (ValidateChildren()) {
+                var output = new OutputSearchObject();
+                output.BuyerName = txtBuyerUsername.Text;
+                output.Include = true;
+                var outputs = await OutputService.Get<List<Models.Outputs>>(output);
+                if(outputs.FirstOrDefault() != null) 
+                {
+                    frmReport report = new frmReport(outputs);
+                    report.WindowState = FormWindowState.Normal;
+                    report.Show();
+                }
+                else
+                {
+                    MessageBox.Show("This buyer has no transactions yet!", "Report Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
 

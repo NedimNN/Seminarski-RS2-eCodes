@@ -1,4 +1,6 @@
 ﻿using eCodes.Models;
+using eCodes.Models.Requests;
+using eCodes.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,9 +27,27 @@ namespace eCodes.WinUI
             _model = model;
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
-
+            if (ValidateChildren())
+            {
+                EmployeeUpdateRequest update = new EmployeeUpdateRequest
+                {
+                    FirstName = txtFirstName.Text,
+                    LastName = txtLastName.Text,
+                    Gender = txtGender.Text,
+                    Status = true,
+                    DateOfBirth = dateTimeofBirth.Value,
+                    Password = txtPassword.Text,
+                    PasswordConfirmation = txtConfirmPass.Text,
+                };
+                _model = await EmployeeService.Put<Models.Employees>(_model.EmployeeId, update);
+                if (_model != null)
+                    MessageBox.Show("Your account was updated successfully!", "Employee Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show("Something went wrong!", "Employee Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+            }
         }
 
         private async void EmployeeDetails_Load(object sender, EventArgs e)
@@ -76,36 +96,6 @@ namespace eCodes.WinUI
             }
         }
 
-        private void txtCityName_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtCityName.Text))
-            {
-                e.Cancel = true;
-                txtCityName.Focus();
-                errorProviderEmployees.SetError(txtCityName, "City name should not be left blank!");
-            }
-            else
-            {
-                e.Cancel = false;
-                errorProviderEmployees.SetError(txtCityName, "");
-            }
-        }
-
-        private void txtJMBG_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtJMBG.Text))
-            {
-                e.Cancel = true;
-                txtJMBG.Focus();
-                errorProviderEmployees.SetError(txtJMBG, "JMBG should not be left blank!");
-            }
-            else
-            {
-                e.Cancel = false;
-                errorProviderEmployees.SetError(txtJMBG, "");
-            }
-        }
-
         private void txtGender_Validating(object sender, CancelEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtGender.Text))
@@ -118,21 +108,6 @@ namespace eCodes.WinUI
             {
                 e.Cancel = false;
                 errorProviderEmployees.SetError(txtGender, "");
-            }
-        }
-
-        private void txtEmployeeNumber_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtEmployeeNumber.Text))
-            {
-                e.Cancel = true;
-                txtEmployeeNumber.Focus();
-                errorProviderEmployees.SetError(txtEmployeeNumber, "Employee Number should not be left blank!");
-            }
-            else
-            {
-                e.Cancel = false;
-                errorProviderEmployees.SetError(txtEmployeeNumber, "");
             }
         }
 
@@ -165,6 +140,5 @@ namespace eCodes.WinUI
                 errorProviderEmployees.SetError(txtConfirmPass, "");
             }
         }
-
     }
 }

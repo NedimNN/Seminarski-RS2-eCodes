@@ -10,8 +10,10 @@ namespace eCodes.Controllers
 {
     public class SellersController : BaseCRUDController<Models.Sellers, SellerSearchObject, SellerInsertRequest, SellerUpdateRequest>
     {
+        public ISellersService _sellersService { get; set; }
         public SellersController(ISellersService sellerService) : base(sellerService)
         {
+            _sellersService = sellerService;
         }
 
         [HttpPost]
@@ -19,6 +21,13 @@ namespace eCodes.Controllers
         public override Sellers Insert([FromBody] SellerInsertRequest insert)
         {
             return base.Insert(insert);
+        }
+        [HttpPut("{id}/RequestDelete")]
+        public Models.Sellers RequestDelete(int id)
+        {
+            var result = _sellersService.RequestDelete(id);
+
+            return result;
         }
 
     }

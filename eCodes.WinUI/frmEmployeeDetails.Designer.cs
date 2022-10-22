@@ -55,7 +55,7 @@
             // 
             // txtGender
             // 
-            this.txtGender.Location = new System.Drawing.Point(12, 270);
+            this.txtGender.Location = new System.Drawing.Point(12, 153);
             this.txtGender.Name = "txtGender";
             this.txtGender.Size = new System.Drawing.Size(201, 27);
             this.txtGender.TabIndex = 32;
@@ -64,7 +64,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 247);
+            this.label5.Location = new System.Drawing.Point(12, 130);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(60, 20);
             this.label5.TabIndex = 31;
@@ -72,16 +72,16 @@
             // 
             // txtJMBG
             // 
-            this.txtJMBG.Location = new System.Drawing.Point(12, 211);
+            this.txtJMBG.Location = new System.Drawing.Point(275, 153);
             this.txtJMBG.Name = "txtJMBG";
+            this.txtJMBG.ReadOnly = true;
             this.txtJMBG.Size = new System.Drawing.Size(201, 27);
             this.txtJMBG.TabIndex = 30;
-            this.txtJMBG.Validating += new System.ComponentModel.CancelEventHandler(this.txtJMBG_Validating);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 188);
+            this.label4.Location = new System.Drawing.Point(275, 130);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 20);
             this.label4.TabIndex = 29;
@@ -89,16 +89,16 @@
             // 
             // txtCityName
             // 
-            this.txtCityName.Location = new System.Drawing.Point(12, 153);
+            this.txtCityName.Location = new System.Drawing.Point(275, 95);
             this.txtCityName.Name = "txtCityName";
+            this.txtCityName.ReadOnly = true;
             this.txtCityName.Size = new System.Drawing.Size(201, 27);
             this.txtCityName.TabIndex = 28;
-            this.txtCityName.Validating += new System.ComponentModel.CancelEventHandler(this.txtCityName_Validating);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 130);
+            this.label3.Location = new System.Drawing.Point(275, 72);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 20);
             this.label3.TabIndex = 27;
@@ -140,7 +140,7 @@
             // 
             // txtConfirmPass
             // 
-            this.txtConfirmPass.Location = new System.Drawing.Point(275, 153);
+            this.txtConfirmPass.Location = new System.Drawing.Point(12, 264);
             this.txtConfirmPass.Name = "txtConfirmPass";
             this.txtConfirmPass.PasswordChar = '*';
             this.txtConfirmPass.Size = new System.Drawing.Size(201, 27);
@@ -150,7 +150,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(275, 130);
+            this.label9.Location = new System.Drawing.Point(12, 241);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(132, 20);
             this.label9.TabIndex = 41;
@@ -158,7 +158,7 @@
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(275, 95);
+            this.txtPassword.Location = new System.Drawing.Point(12, 206);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(201, 27);
@@ -168,7 +168,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(275, 72);
+            this.label8.Location = new System.Drawing.Point(12, 183);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(73, 20);
             this.label8.TabIndex = 39;
@@ -178,9 +178,9 @@
             // 
             this.txtEmployeeNumber.Location = new System.Drawing.Point(275, 37);
             this.txtEmployeeNumber.Name = "txtEmployeeNumber";
+            this.txtEmployeeNumber.ReadOnly = true;
             this.txtEmployeeNumber.Size = new System.Drawing.Size(201, 27);
             this.txtEmployeeNumber.TabIndex = 38;
-            this.txtEmployeeNumber.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmployeeNumber_Validating);
             // 
             // label7
             // 
@@ -203,7 +203,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(277, 320);
+            this.btnSave.Location = new System.Drawing.Point(180, 327);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(94, 29);
             this.btnSave.TabIndex = 44;
@@ -235,7 +235,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 392);
+            this.ClientSize = new System.Drawing.Size(500, 372);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.dateTimeofBirth);
             this.Controls.Add(this.btnSave);

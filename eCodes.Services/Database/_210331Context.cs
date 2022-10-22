@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace eCodes.Services.Database
 {
@@ -42,15 +40,16 @@ namespace eCodes.Services.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=localhost, 1434;Initial Catalog=210331; user=sa; Password=QWEsaD187!?");
+                optionsBuilder.UseSqlServer("Data Source=localhost, 1401;Initial Catalog=210331; user=sa; Password=QWElkj132!");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<Buyer>(entity =>
             {
+                entity.HasIndex(e => e.PersonId, "IX_Buyers_PersonID");
+
                 entity.Property(e => e.BuyerId).HasColumnName("BuyerID");
 
                 entity.Property(e => e.Email).HasMaxLength(100);
@@ -74,6 +73,8 @@ namespace eCodes.Services.Database
 
             modelBuilder.Entity<City>(entity =>
             {
+                entity.HasIndex(e => e.CountryId, "IX_Cities_CountryID");
+
                 entity.Property(e => e.CityId).HasColumnName("CityID");
 
                 entity.Property(e => e.CountryId).HasColumnName("CountryID");
@@ -105,6 +106,12 @@ namespace eCodes.Services.Database
 
             modelBuilder.Entity<Employee>(entity =>
             {
+                entity.HasIndex(e => e.OrderId, "IX_Employees_OrderID");
+
+                entity.HasIndex(e => e.PersonId, "IX_Employees_PersonID");
+
+                entity.HasIndex(e => e.ProductId, "IX_Employees_ProductID");
+
                 entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
 
                 entity.Property(e => e.DateOfEmployement).HasColumnType("datetime");
@@ -140,6 +147,8 @@ namespace eCodes.Services.Database
             {
                 entity.HasKey(e => e.LoyaltyPointsId);
 
+                entity.HasIndex(e => e.BuyerId, "IX_LoyaltyPoints_BuyerID");
+
                 entity.Property(e => e.LoyaltyPointsId).HasColumnName("LoyaltyPointsID");
 
                 entity.Property(e => e.Balance).HasColumnType("decimal(18, 2)");
@@ -155,6 +164,8 @@ namespace eCodes.Services.Database
 
             modelBuilder.Entity<Order>(entity =>
             {
+                entity.HasIndex(e => e.BuyerId, "IX_Orders_BuyerID");
+
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
                 entity.Property(e => e.BuyerId).HasColumnName("BuyerID");
@@ -172,6 +183,10 @@ namespace eCodes.Services.Database
 
             modelBuilder.Entity<OrderItem>(entity =>
             {
+                entity.HasIndex(e => e.OrderId, "IX_OrderItems_OrderID");
+
+                entity.HasIndex(e => e.ProductId, "IX_OrderItems_ProductID");
+
                 entity.Property(e => e.OrderItemId).HasColumnName("OrderItemID");
 
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
@@ -193,6 +208,10 @@ namespace eCodes.Services.Database
 
             modelBuilder.Entity<Output>(entity =>
             {
+                entity.HasIndex(e => e.BuyerId, "IX_Outputs_BuyerID");
+
+                entity.HasIndex(e => e.OrderId, "IX_Outputs_OrderID");
+
                 entity.Property(e => e.OutputId).HasColumnName("OutputID");
 
                 entity.Property(e => e.AmountWithTax).HasColumnType("decimal(18, 2)");
@@ -225,6 +244,12 @@ namespace eCodes.Services.Database
             modelBuilder.Entity<OutputItem>(entity =>
             {
                 entity.HasKey(e => e.OutputItemsId);
+
+                entity.HasIndex(e => e.OutputId, "IX_OutputItems_OutputID");
+
+                entity.HasIndex(e => e.ProductId, "IX_OutputItems_ProductID");
+
+                entity.HasIndex(e => e.SellerId, "IX_OutputItems_SellerID");
 
                 entity.Property(e => e.OutputItemsId).HasColumnName("OutputItemsID");
 
@@ -259,6 +284,8 @@ namespace eCodes.Services.Database
 
             modelBuilder.Entity<Person>(entity =>
             {
+                entity.HasIndex(e => e.CityId, "IX_Persons_CityID");
+
                 entity.Property(e => e.PersonId).HasColumnName("PersonID");
 
                 entity.Property(e => e.CityId).HasColumnName("CityID");
@@ -284,6 +311,10 @@ namespace eCodes.Services.Database
 
             modelBuilder.Entity<Product>(entity =>
             {
+                entity.HasIndex(e => e.ProductTypeId, "IX_Products_ProductTypeID");
+
+                entity.HasIndex(e => e.SellerId, "IX_Products_SellerID");
+
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
                 entity.Property(e => e.Code).HasMaxLength(20);
@@ -322,6 +353,8 @@ namespace eCodes.Services.Database
 
             modelBuilder.Entity<ProductType>(entity =>
             {
+                entity.HasIndex(e => e.CurrencyId, "IX_ProductTypes_CurrencyID");
+
                 entity.Property(e => e.ProductTypeId).HasColumnName("ProductTypeID");
 
                 entity.Property(e => e.CurrencyId).HasColumnName("CurrencyID");
@@ -339,6 +372,10 @@ namespace eCodes.Services.Database
 
             modelBuilder.Entity<Rating>(entity =>
             {
+                entity.HasIndex(e => e.BuyerId, "IX_Ratings_BuyerID");
+
+                entity.HasIndex(e => e.SellerId, "IX_Ratings_ProductID");
+
                 entity.Property(e => e.RatingId).HasColumnName("RatingID");
 
                 entity.Property(e => e.BuyerId).HasColumnName("BuyerID");
@@ -349,7 +386,7 @@ namespace eCodes.Services.Database
 
                 entity.Property(e => e.Mark).HasColumnType("decimal(18, 1)");
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+                entity.Property(e => e.SellerId).HasColumnName("SellerID");
 
                 entity.HasOne(d => d.Buyer)
                     .WithMany(p => p.Ratings)
@@ -357,11 +394,11 @@ namespace eCodes.Services.Database
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Ratings_Buyers");
 
-                entity.HasOne(d => d.Product)
+                entity.HasOne(d => d.Seller)
                     .WithMany(p => p.Ratings)
-                    .HasForeignKey(d => d.ProductId)
+                    .HasForeignKey(d => d.SellerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Ratings_Products");
+                    .HasConstraintName("FK_Ratings_Sellers");
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -375,6 +412,8 @@ namespace eCodes.Services.Database
 
             modelBuilder.Entity<Seller>(entity =>
             {
+                entity.HasIndex(e => e.PersonId, "IX_Sellers_PersonID");
+
                 entity.Property(e => e.SellerId).HasColumnName("SellerID");
 
                 entity.Property(e => e.Address).HasMaxLength(100);
@@ -404,6 +443,8 @@ namespace eCodes.Services.Database
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.HasIndex(e => e.PersonId, "IX_Users_PersonID");
+
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.Property(e => e.Email).HasMaxLength(100);
@@ -427,6 +468,10 @@ namespace eCodes.Services.Database
 
             modelBuilder.Entity<UserRole>(entity =>
             {
+                entity.HasIndex(e => e.RoleId, "IX_UserRoles_RoleID");
+
+                entity.HasIndex(e => e.UserId, "IX_UserRoles_UserID");
+
                 entity.Property(e => e.UserRoleId).HasColumnName("UserRoleID");
 
                 entity.Property(e => e.Date).HasColumnType("datetime");

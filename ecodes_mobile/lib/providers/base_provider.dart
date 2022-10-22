@@ -202,20 +202,45 @@ abstract class BaseProvider<T> with ChangeNotifier {
     }
   }
 
-  Future<List<T>> getRecommended(int id) async {
-    var url = "$_baseUrl$_endpoint/$id/Recommend";
+  Future<List<T>?> getRecommended(int id) async {
+    if(T == Product){
+      var url = "$_baseUrl$_endpoint/$id/Recommend";
 
-    var uri = Uri.parse(url);
+      var uri = Uri.parse(url);
 
-    Map<String, String> headers = createHeaders();
-    var response = await http!.get(uri, headers: headers);
+      Map<String, String> headers = createHeaders();
+      var response = await http!.get(uri, headers: headers);
 
-    if (isValidResponseCode(response)) {
-      var data = jsonDecode(response.body);
-      return data.map((x) => fromJson(x)).cast<T>().toList();
+      if (isValidResponseCode(response)) {
+        var data = jsonDecode(response.body);
+        return data.map((x) => fromJson(x)).cast<T>().toList();
+      } else {
+        throw Exception("Exception... handle this gracefully");
+      }
     } else {
-      throw Exception("Exception... handle this gracefully");
+      return null;
     }
+  }
+
+   Future<T?> hideProduct(int id) async {
+    if(T == Product){
+      var url = "$_baseUrl$_endpoint/$id/Hide"; 
+      var uri = Uri.parse(url);
+
+      Map<String, String> headers = createHeaders();
+ 
+      var response = await http!.put(uri, headers: headers,);
+
+      if (isValidResponseCode(response)) {
+        var data = jsonDecode(response.body);
+        return fromJson(data) as T;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+    
   }
 
   bool isValidResponseCode(Response response) {

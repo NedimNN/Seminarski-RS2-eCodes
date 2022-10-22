@@ -385,7 +385,7 @@ namespace eCodes.Services.Migrations
                 {
                     RatingID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductID = table.Column<int>(type: "int", nullable: false),
+                    SellerID = table.Column<int>(type: "int", nullable: false),
                     BuyerID = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -400,10 +400,10 @@ namespace eCodes.Services.Migrations
                         principalTable: "Buyers",
                         principalColumn: "BuyerID");
                     table.ForeignKey(
-                        name: "FK_Ratings_Products",
-                        column: x => x.ProductID,
-                        principalTable: "Products",
-                        principalColumn: "ProductID");
+                        name: "FK_Ratings_Sellers",
+                        column: x => x.SellerID,
+                        principalTable: "Sellers",
+                        principalColumn: "SellerID");
                 });
 
             migrationBuilder.CreateTable(
@@ -535,9 +535,9 @@ namespace eCodes.Services.Migrations
                 column: "BuyerID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ratings_ProductID",
+                name: "IX_Ratings_SellerID",
                 table: "Ratings",
-                column: "ProductID");
+                column: "SellerID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sellers_PersonID",
