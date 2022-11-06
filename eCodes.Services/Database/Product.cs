@@ -10,6 +10,7 @@ namespace eCodes.Services.Database
             Employees = new HashSet<Employee>();
             OrderItems = new HashSet<OrderItem>();
             OutputItems = new HashSet<OutputItem>();
+            Ratings = new HashSet<Rating>();
         }
 
         public int ProductId { get; set; }
@@ -33,5 +34,6 @@ namespace eCodes.Services.Database
         public virtual ICollection<Employee> Employees { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
         public virtual ICollection<OutputItem> OutputItems { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }

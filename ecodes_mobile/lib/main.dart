@@ -1,17 +1,21 @@
 import 'package:ecodes_mobile/providers/cart_provider.dart';
 import 'package:ecodes_mobile/providers/currency_provider.dart';
+import 'package:ecodes_mobile/providers/notification_provider.dart';
 import 'package:ecodes_mobile/providers/orderItems_provider.dart';
 import 'package:ecodes_mobile/providers/order_provider.dart';
 import 'package:ecodes_mobile/providers/payment_provider.dart';
 import 'package:ecodes_mobile/providers/product_provider.dart';
 import 'package:ecodes_mobile/providers/rating_provider.dart';
 import 'package:ecodes_mobile/providers/loyatlyPoints_provider.dart';
+import 'package:ecodes_mobile/providers/seller_provider.dart';
 import 'package:ecodes_mobile/screens/cart/cart_screen.dart';
+import 'package:ecodes_mobile/screens/notifications/notifications_screen.dart';
 import 'package:ecodes_mobile/screens/order/order_items_screen.dart';
 import 'package:ecodes_mobile/screens/order/orders_screen.dart';
 import 'package:ecodes_mobile/screens/products/product_details_screen.dart';
 import 'package:ecodes_mobile/screens/products/product_list_screen.dart';
 import 'package:ecodes_mobile/screens/products/products_search_screen.dart';
+import 'package:ecodes_mobile/screens/seller/seller_profile_screen.dart';
 import 'package:ecodes_mobile/screens/user/user_profile_details_screen.dart';
 import 'package:ecodes_mobile/screens/user/user_profile_screen.dart';
 import 'package:ecodes_mobile/screens/user/user_registration_screen.dart';
@@ -33,7 +37,8 @@ void main() => runApp(MultiProvider(
         ChangeNotifierProvider(create: (_) => CurrencyProvider()),
         ChangeNotifierProvider(create: (_) => LoyaltyPointsProvider()),
         ChangeNotifierProvider(create: (_) => PaymentProvider()),
-      ],
+        ChangeNotifierProvider(create: (_) => SellerProvider()),
+        ChangeNotifierProvider(create: (_) => NotificationProvider()),      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: true,
         theme: ThemeData(
@@ -46,11 +51,11 @@ void main() => runApp(MultiProvider(
             headline1: TextStyle(
                 color: Colors.blue, fontSize: 35, fontWeight: FontWeight.bold),
             headline2: TextStyle(
-                color: Colors.black, fontSize: 35, fontWeight: FontWeight.bold) ,
+                color: Colors.black, fontSize: 35, fontWeight: FontWeight.bold),
             headline3: TextStyle(
-                color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold) ,
+                color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
             headline4: TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25) ,
+                color: Colors.black, fontWeight: FontWeight.bold,fontStyle: FontStyle.italic, fontSize: 25),
             headline6: TextStyle(
                 color: Color.fromARGB(255, 4, 104, 150),
                 fontSize: 36.0,
@@ -81,9 +86,12 @@ void main() => runApp(MultiProvider(
                 builder: ((context) => ProductsSearchScreen()));
           } else if (settings.name == OrdersScreen.routeName) {
             return MaterialPageRoute(builder: ((context) => OrdersScreen()));
-          }
-          else if (settings.name == UserRegistrationScreen.routeName) {
-            return MaterialPageRoute(builder: ((context) => UserRegistrationScreen()));
+          } else if (settings.name == UserRegistrationScreen.routeName) {
+            return MaterialPageRoute(
+                builder: ((context) => UserRegistrationScreen()));
+          }else if (settings.name == NotificationScreen.routeName) {
+            return MaterialPageRoute(
+                builder: ((context) => NotificationScreen()));
           }
 
           var uri = Uri.parse(settings.name!);
@@ -108,6 +116,11 @@ void main() => runApp(MultiProvider(
             var id = uri.pathSegments[1];
             return MaterialPageRoute(
                 builder: (context) => OrderItemsScreen(id));
+          } else if (uri.pathSegments.length == 2 &&
+              "/${uri.pathSegments.first}" == SellerProfileScreen.routeName) {
+            var id = uri.pathSegments[1];
+            return MaterialPageRoute(
+                builder: (context) => SellerProfileScreen(id));
           }
         },
       ),
@@ -120,6 +133,18 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _userProvider = Provider.of<UserProvider>(context, listen: false);
+    void _buildLoading(bool isLoading) {
+      if (isLoading == true) {
+        showDialog(
+            context: context,
+            builder: (BuildContext build) => AlertDialog(
+                  title: Text("Loading.."),
+                  content: CircularProgressIndicator(),
+                ));
+      } else {
+        Navigator.pop(context);
+      }
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -248,13 +273,13 @@ class HomePage extends StatelessWidget {
                                     _usernameController.text;
                                 Authorization.password =
                                     _passwordController.text;
-
+                                _buildLoading(true);
                                 var users = await _userProvider.get();
                                 Authorization.buyerId = users
                                     .firstWhereOrNull((user) =>
                                         user.username == Authorization.username)
                                     ?.buyerId;
-
+                                _buildLoading(false);
                                 Navigator.pushNamed(
                                     context, ProductListScreen.routeName);
                               } catch (e) {
@@ -264,7 +289,11 @@ class HomePage extends StatelessWidget {
                                     builder: (BuildContext context) =>
                                         AlertDialog(
                                           title: Text("Error"),
-                                          content: Text(style:Theme.of(context).textTheme.subtitle2,e.toString()),
+                                          content: Text(
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle2,
+                                              e.toString()),
                                           actions: [
                                             TextButton(
                                                 onPressed: () =>
@@ -299,7 +328,8 @@ class HomePage extends StatelessWidget {
                                 ])),
                             child: InkWell(
                               onTap: () {
-                                Navigator.pushNamed(context, UserRegistrationScreen.routeName);
+                                Navigator.pushNamed(
+                                    context, UserRegistrationScreen.routeName);
                               },
                               child: Text(
                                   style: TextStyle(

@@ -8,6 +8,7 @@ namespace eCodes.Services.Database
         public Buyer()
         {
             LoyaltyPoints = new HashSet<LoyaltyPoint>();
+            Notifications = new HashSet<Notification>();
             Orders = new HashSet<Order>();
             Outputs = new HashSet<Output>();
             Ratings = new HashSet<Rating>();
@@ -24,6 +25,7 @@ namespace eCodes.Services.Database
 
         public virtual Person Person { get; set; } = null!;
         public virtual ICollection<LoyaltyPoint> LoyaltyPoints { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<Output> Outputs { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }

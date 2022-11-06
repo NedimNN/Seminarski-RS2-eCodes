@@ -17,10 +17,11 @@ namespace eCodes.Services.HelperMethods
         public static int ID { get; set; }
         public static string Username { get; set; }
         public static string AccountType { get; set; }
+        public static string Connection { get; set; }
    
         public static string GetAccType(string username)
         {
-            var _context = new _210331Context() ;
+            var _context = new _210331Context();
 
             var employee = _context.Employees.Where(w => w.EmployeeNumber.ToString() == username).FirstOrDefault();
             var user = _context.Users.Where(w => w.Username == username).Include("UserRoles.Role").FirstOrDefault();

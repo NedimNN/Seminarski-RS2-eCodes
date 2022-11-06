@@ -24,12 +24,17 @@ namespace eCodes.Services
             {
                 filter = filter.Where(w => w.SellerId.Equals(search.SellerId));
             }
+            if (search?.ProductId > 0)
+            {
+                filter = filter.Where(w => w.ProductId.Equals(search.ProductId));
+            }
 
             return filter;
         }
         public override IQueryable<Rating> AddInclude(IQueryable<Rating> query, RatingSearchObject search = null)
         {
             query = query.Include(i => i.Buyer);
+            query = query.Include(i => i.Product.ProductType.Currency);
 
             return base.AddInclude(query, search);
         }

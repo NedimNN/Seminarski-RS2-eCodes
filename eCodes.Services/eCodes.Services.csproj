@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Migrations\20221019175823_DatabaseSeed.sql" />
+    <None Remove="Migrations\20221030163852_DatabaseSeed.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\20221019175823_DatabaseSeed.sql">
+    <EmbeddedResource Include="Migrations\20221030163852_DatabaseSeed.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

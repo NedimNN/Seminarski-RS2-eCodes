@@ -2,7 +2,6 @@ import 'package:ecodes_mobile/providers/cart_provider.dart';
 import 'package:ecodes_mobile/providers/product_provider.dart';
 import 'package:ecodes_mobile/screens/products/product_details_screen.dart';
 import 'package:ecodes_mobile/utils/util.dart';
-import 'package:ecodes_mobile/widgets/ecodes_drawer.dart';
 import 'package:ecodes_mobile/widgets/master_bottom_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -27,7 +26,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
   CartProvider? _cartProvider = null;
   List<Product> data = [];
   TextEditingController _searchController = new TextEditingController();
-  final items = ['PlayStation', 'Xbox', 'Netflix'];
+  final items = ['None','PlayStation', 'Xbox', 'Netflix'];
   String? value;
   @override
   void initState() {
@@ -50,34 +49,44 @@ class _ProductListScreenState extends State<ProductListScreen> {
   Widget build(BuildContext context) {
     return MasterWidget(
         selectedIndex: 0,
-        child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [
-                _buidHeader(),
-                Divider(
-                  color: Colors.grey,
-                  indent: 25,
-                  endIndent: 25,
-                  thickness: 2,
-                ),
-                _buildProductSearchAndSort(),
-                Container(
-                  margin: EdgeInsets.all(16),
-                  child: GridView(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    physics: ScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 16),
-                    children: _buildProductGrid(),
-                  ),
-                )
-              ],
-            ),
+        child: Stack(
+          children: [
+            Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage("assets/images/giftcards_image.png"))),
           ),
+            SingleChildScrollView(
+              child: Container(
+                child: Column(
+                  children: [
+                    _buidHeader(),
+                    Divider(
+                      color: Colors.grey,
+                      indent: 25,
+                      endIndent: 25,
+                      thickness: 2,
+                    ),
+                    _buildProductSearchAndSort(),
+                    Container(
+                      margin: EdgeInsets.all(16),
+                      child: GridView(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        physics: ScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 16),
+                        children: _buildProductGrid(),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
         ));
   }
 
@@ -98,20 +107,27 @@ class _ProductListScreenState extends State<ProductListScreen> {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             child: TextField(
-              style: TextStyle(color: Colors.black),
+              style: Theme.of(context).textTheme.subtitle2,
               controller: _searchController,
               onSubmitted: (value) async {
-                var tempdata = await _productProvider?.get({'name': value});
+                var tempdata = await _productProvider?.get({'name': value,'StateMachine': 'active', 'IncludeType': true});
                 setState(() {
                   data = tempdata!;
                 });
               },
               decoration: InputDecoration(
                   hintText: "Search",
-                  prefixIcon: Icon(Icons.search),
+                  prefixIcon: Icon(Icons.search,color: Colors.black,),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Colors.black,width: 3)) ,
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.grey))),
+                      borderSide: const BorderSide(color: Colors.black)),
+                  filled: true,
+                  fillColor: Color.fromARGB(192, 226, 226, 226)
+                      ),
+                      
             ),
           ),
         ),
@@ -120,19 +136,23 @@ class _ProductListScreenState extends State<ProductListScreen> {
           child: Container(
             padding: EdgeInsets.all(3),
             decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
+              color: Color.fromARGB(192, 226, 226, 226),
+                border: Border.all(color: Colors.black,width: 3),
                 borderRadius: BorderRadius.circular(10)),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
                 value: value,
                 hint: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Sort by"),
+                  child: Text("Sort by",style: Theme.of(context).textTheme.subtitle2)
                 ),
-                icon: Icon(Icons.arrow_drop_down),
+                icon: Icon(Icons.arrow_drop_down,color: Colors.black,),
                 items: items.map(_buildMenuItem).toList(),
                 onChanged: (value) async {
-                  var productSearch = {'StateMachine': 'active','platform': value};
+                  var productSearch = {'StateMachine': 'active','platform': value, 'IncludeType': true};
+                  if(value == "None"){
+                    productSearch = {'StateMachine': 'active','IncludeType': true}; 
+                  }
                   var tempdata =
                       await _productProvider?.get(productSearch);
                   setState(() {

@@ -11,6 +11,11 @@ namespace eCodes.Models
         public DateTime Date { get; set; }
         public string Description { get; set; }
         public decimal Mark { get; set; }
-        public virtual Buyers Buyer { get; set; }
+        public int ProductId { get; set; }
+
+        public virtual Buyers Buyer { get; set; } 
+        public virtual Products Product { get; set; } 
+        public virtual Sellers Seller { get; set; } 
+
     }
 }

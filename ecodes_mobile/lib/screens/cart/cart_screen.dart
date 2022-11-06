@@ -1,5 +1,6 @@
 import 'package:ecodes_mobile/model/currency.dart';
 import 'package:ecodes_mobile/model/loyaltyPoints.dart';
+import 'package:ecodes_mobile/model/notification.dart';
 import 'package:ecodes_mobile/model/payment.dart';
 import 'package:ecodes_mobile/providers/currency_provider.dart';
 import 'package:ecodes_mobile/providers/loyatlyPoints_provider.dart';
@@ -14,6 +15,7 @@ import 'package:provider/provider.dart';
 
 import '../../model/cart.dart';
 import '../../providers/cart_provider.dart';
+import '../../providers/notification_provider.dart';
 import '../../providers/order_provider.dart';
 import '../../utils/util.dart';
 import '../products/product_list_screen.dart';
@@ -34,6 +36,7 @@ class _CartScreenState extends State<CartScreen> {
   late PaymentProvider _paymentProvider;
   late LoyaltyPointsProvider _loyaltyProvider;
   late ProductProvider _productProvider;
+  late NotificationProvider _notificationProvider;
   LoyaltyPoints _loyaltyPoints = new LoyaltyPoints();
   Currency _currency = new Currency();
   var isLoading = false;
@@ -47,6 +50,7 @@ class _CartScreenState extends State<CartScreen> {
     _loyaltyProvider = context.read<LoyaltyPointsProvider>();
     _paymentProvider = context.read<PaymentProvider>();
     _productProvider = context.read<ProductProvider>();
+    _notificationProvider = context.read<NotificationProvider>();
     _loyaltyPointsController.text = "0.00";
     loadData();
   }
@@ -229,16 +233,20 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
-  void _buildLoading(){
-    if(isLoading == true){
-    showDialog(context: context, builder: (BuildContext build) => AlertDialog(
-      title: Text("Loading.."),
-      content: CircularProgressIndicator(),
-    ));}
-    else{
-     Navigator.pop(context);
+
+  void _buildLoading() {
+    if (isLoading == true) {
+      showDialog(
+          context: context,
+          builder: (BuildContext build) => AlertDialog(
+                title: Text("Loading.."),
+                content: CircularProgressIndicator(),
+              ));
+    } else {
+      Navigator.pop(context);
     }
   }
+
   Widget _buildCheckoutButton() {
     return TextButton(
       style: TextButton.styleFrom(
@@ -308,7 +316,7 @@ class _CartScreenState extends State<CartScreen> {
               payment.paymentMethodNonce = result.paymentMethodNonce.nonce;
               payment.productId = item.product.productId;
               payment.successful = false;
-              // Check if buyer used loyaltypoints and then add them to payment variable (preferably with a input box)
+              // Check if buyer used loyaltypoints and then add them to payment variable
               payment.usedLoyaltyPoints =
                   double.parse(_loyaltyPointsController.text);
               setState(() {
@@ -345,7 +353,8 @@ class _CartScreenState extends State<CartScreen> {
                                 child: Text("Ok")),
                           ],
                         ));
-                var hiddenProduct = await _productProvider.hideProduct(item.product.productId!);
+                var hiddenProduct =
+                    await _productProvider.hideProduct(item.product.productId!);
 
                 items.add({
                   "productId": item.product.productId,
@@ -375,37 +384,48 @@ class _CartScreenState extends State<CartScreen> {
           // });
           // Map order = {"items": items, "status": true, "canceled": false};
           var reutrnedOrder = await _orderProvider.insert(order);
-          var insertedOrder = await _orderProvider.getById(reutrnedOrder!.orderId!);
+          var insertedOrder =
+              await _orderProvider.getById(reutrnedOrder!.orderId!);
           var output = await _paymentProvider.saveTransaction(
               insertedOrder.orderId!, payment.usedLoyaltyPoints!);
           await showDialog(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                          title: Text(
-                            "Transaction completed successfully",
-                            style: Theme.of(context).textTheme.headline4,
-                          ),
-                          content: Text(
-                            "Successfully paid for order number: ${insertedOrder.orderNumber}, with total price of ${insertedOrder.price} ${_currency.abbreviation} . ",
-                            style: Theme.of(context).textTheme.subtitle2,
-                          ),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text("Ok")),
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context,"${OrderItemsScreen.routeName}/${insertedOrder.orderId}");
-                                },
-                                child: Text("Order Details")),
-                          ],
-                        ));
-
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                    title: Text(
+                      "Transaction completed successfully",
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                    content: Text(
+                      "Successfully paid for order number: ${insertedOrder.orderNumber}, with total price of ${insertedOrder.price} ${_currency.abbreviation} . ",
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text("Ok")),
+                      TextButton(
+                          onPressed: () async {
+                            Notif? _newNotif = new Notif();
+                            _newNotif.buyerId = Authorization.buyerId;
+                            _newNotif.notificationDateTime = DateTime.now();
+                            _newNotif.notificationDesc =
+                                "Successfull transaction for order number: ${insertedOrder.orderNumber}";
+                            var insertedNotif =
+                                await _notificationProvider.insert(_newNotif);
+                            _cartProvider.cart.items.clear();
+                            _cartProvider.cart.PriceToPay = 0.00;
+                            Navigator.pushNamed(context,
+                                "${OrderItemsScreen.routeName}/${insertedOrder.orderId}");
+                          },
+                          child: Text("Order Details")),
+                    ],
+                  ));
           _cartProvider.cart.items.clear();
           _cartProvider.cart.PriceToPay = 0.00;
-          _loyaltyPoints.balance = _loyaltyPoints.balance! - payment.usedLoyaltyPoints!;
+          _loyaltyPoints.balance =
+              _loyaltyPoints.balance! - payment.usedLoyaltyPoints!;
           setState(() {});
         } else {
           showDialog(
@@ -425,6 +445,12 @@ class _CartScreenState extends State<CartScreen> {
                           child: Text("Ok"))
                     ],
                   ));
+          Notif? _newNotif = new Notif();
+          _newNotif.buyerId = Authorization.buyerId;
+          _newNotif.notificationDateTime = DateTime.now();
+          _newNotif.notificationDesc =
+              "Transaction failed please try again later";
+          var insertedNotif = await _notificationProvider.insert(_newNotif);
         }
       },
     );

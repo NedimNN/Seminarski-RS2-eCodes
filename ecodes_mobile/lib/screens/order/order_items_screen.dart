@@ -264,7 +264,7 @@ class _OrderItemsScreenState extends State<OrderItemsScreen> {
                                               BorderRadius.circular(20.0)),
                                       child: RatingScreen(
                                           Authorization.buyerId.toString(),
-                                          x.product!.productId.toString()),
+                                          x.product!.productId.toString(),x.product!.seller!.sellerId.toString()),
                                     );
                                   });
                             } else {

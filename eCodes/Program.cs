@@ -50,6 +50,7 @@ builder.Services.AddTransient<IRolesService, RolesService>();
 builder.Services.AddTransient<IBuyersService, BuyersService>();
 builder.Services.AddTransient<ICurrenciesService, CurrenciesService>();
 builder.Services.AddTransient<ILoyaltyPointService, LoyaltyPointService>();
+builder.Services.AddTransient<INotificationService, NotificationService>();
 builder.Services.AddTransient<IEmployeeService, EmployeesService>();
 builder.Services.AddTransient<IRatingsService, RatingService>();
 builder.Services.AddTransient<ISellersService, SellersService>();
@@ -81,8 +82,10 @@ builder.Services.AddAuthentication("BasicAuthentication")
 
 //ConnectionString
 var connectionstring = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<_210331Context>(options =>
+LoginHelper.Connection = connectionstring;
+var context = builder.Services.AddDbContext<_210331Context>(options =>
     options.UseSqlServer(connectionstring));
+
 
 var app = builder.Build();
 

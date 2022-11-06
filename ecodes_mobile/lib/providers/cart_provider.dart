@@ -25,6 +25,9 @@ class CartProvider with ChangeNotifier {
       cart.items.removeWhere((item) => item.product.productId == product.productId);
     }
     cart.PriceToPay -= product.price!;
+    if(cart.PriceToPay < 0){
+      cart.PriceToPay = 0;
+    }
     notifyListeners();
   }
 

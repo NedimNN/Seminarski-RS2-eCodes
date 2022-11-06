@@ -61,12 +61,6 @@ namespace eCodes.WinUI
             }
 
         }
-
-        private void frmLogin_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void txtUsername_Validating(object sender, CancelEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtUsername.Text))

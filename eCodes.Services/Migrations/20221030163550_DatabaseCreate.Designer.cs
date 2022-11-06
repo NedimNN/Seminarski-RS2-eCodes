@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eCodes.Services.Database;
 
@@ -11,9 +12,10 @@ using eCodes.Services.Database;
 namespace eCodes.Services.Migrations
 {
     [DbContext(typeof(_210331Context))]
-    partial class _210331ContextModelSnapshot : ModelSnapshot
+    [Migration("20221030163550_DatabaseCreate")]
+    partial class DatabaseCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

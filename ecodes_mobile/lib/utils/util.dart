@@ -29,3 +29,4 @@ String formatNumber(dynamic) {
 
   return f.format(dynamic);
 }
+

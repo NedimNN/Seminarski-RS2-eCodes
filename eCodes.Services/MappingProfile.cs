@@ -24,6 +24,7 @@ namespace eCodes.Services
             CreateMap<Database.Buyer, Models.Buyers>();
             CreateMap<Database.Currency, Models.Currencies>();
             CreateMap<Database.LoyaltyPoint, Models.LoyaltyPoints>();
+            CreateMap<Database.Notification, Models.Notifications>();
             CreateMap<Database.Employee, Models.Employees>();
             CreateMap<Database.Rating, Models.Ratings>();
             CreateMap<Database.Seller, Models.Sellers>();
@@ -126,6 +127,10 @@ namespace eCodes.Services
                 opts.Condition((src, dest, srcMember) => srcMember != null);
             }); 
             CreateMap<Models.Requests.LoyaltyPointsUpsertRequest, Database.LoyaltyPoint>().ForAllMembers(opts =>
+            {
+                opts.Condition((src, dest, srcMember) => srcMember != null);
+            });
+            CreateMap<Models.Requests.NotificationUpsertRequest, Database.Notification>().ForAllMembers(opts =>
             {
                 opts.Condition((src, dest, srcMember) => srcMember != null);
             });

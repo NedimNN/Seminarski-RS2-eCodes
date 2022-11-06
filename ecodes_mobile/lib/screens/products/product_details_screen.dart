@@ -2,6 +2,7 @@ import 'package:ecodes_mobile/model/product.dart';
 import 'package:ecodes_mobile/model/rating.dart';
 import 'package:ecodes_mobile/providers/rating_provider.dart';
 import 'package:ecodes_mobile/providers/user_provider.dart';
+import 'package:ecodes_mobile/screens/seller/seller_profile_screen.dart';
 import 'package:ecodes_mobile/screens/user/user_profile_details_screen.dart';
 import 'package:ecodes_mobile/utils/util.dart';
 import 'package:ecodes_mobile/widgets/master_bottom_drawer.dart';
@@ -71,10 +72,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Widget build(BuildContext context) {
     return MasterWidget(
         selectedIndex: 0,
-        child: SingleChildScrollView(
-          child: Container(
-            child: _buildProductDetails(),
+        child: Stack(
+          children: [
+            Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage("assets/images/giftcards_image.png"))),
           ),
+            SingleChildScrollView(
+              child: Container(
+                child: _buildProductDetails(),
+              ),
+            ),
+          ],
         ));
   }
 
@@ -86,10 +97,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     }
     var productPic = _product.picture;
     return Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage("assets/images/giftcards_image.png"))),
       child: Column(
         children: [
           Container(
@@ -224,59 +231,22 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Widget _buildSellerInfo() {
     return Container(
       height: 78,
-      child: GridView(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1,
-              childAspectRatio: 1 / 5,
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5),
-          scrollDirection: Axis.horizontal,
-          children: [
-            Container(
+      child: Container(
               margin: EdgeInsets.only(top: 5, bottom: 5, right: 5, left: 5),
               decoration: BoxDecoration(
                 color: Colors.blue,
                 borderRadius: BorderRadius.all(Radius.circular(15)),
               ),
-              child: Center(
-                child: Text("Seller name: ${_product.seller!.name}",
-                    style: Theme.of(context).textTheme.bodyText1),
+              child: InkWell(
+                child: Center(
+                  child: Text("Seller name: ${_product.seller!.name}",
+                      style: Theme.of(context).textTheme.bodyText1),
+                ),
+                onTap: (){
+                  Navigator.pushNamed(context, "${SellerProfileScreen.routeName}/${_product.seller?.sellerId}");
+                },
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: 5, bottom: 5, right: 5, left: 5),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-              ),
-              child: Center(
-                child: Text("Phone Number: ${_product.seller!.phoneNumber}",
-                    style: Theme.of(context).textTheme.bodyText1),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 5, bottom: 5, right: 5, left: 5),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-              ),
-              child: Center(
-                child: Text("Address: ${_product.seller!.address}",
-                    style: Theme.of(context).textTheme.bodyText1),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 5, bottom: 5, right: 5, left: 5),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-              ),
-              child: Center(
-                child: Text("Website: ${_product.seller!.website}",
-                    style: Theme.of(context).textTheme.bodyText1),
-              ),
-            )
-          ]),
     );
   }
 

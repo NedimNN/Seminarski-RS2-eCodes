@@ -15,7 +15,8 @@ import '../../model/rating.dart';
 class RatingScreen extends StatefulWidget {
   String buyerID;
   String productID;
-  RatingScreen(this.buyerID, this.productID, {Key? key}) : super(key: key);
+  String sellerID;
+  RatingScreen(this.buyerID, this.productID, this.sellerID, {Key? key}) : super(key: key);
 
   @override
   State<RatingScreen> createState() => _RatingScreenState();
@@ -143,14 +144,15 @@ class _RatingScreenState extends State<RatingScreen> {
             onPressed: () async {
               try {
                 if (int.parse(widget.buyerID) != 0 &&
-                    int.parse(widget.productID) != 0) {
+                    int.parse(widget.productID) != 0 && int.parse(widget.sellerID) != 0) {
                   _rating.buyerId = int.parse(widget.buyerID);
                   _rating.productId = int.parse(widget.productID);
+                  _rating.sellerId = int.parse(widget.sellerID);
                   _rating.date = DateTime.now();
                   _rating.description = _descriptionController.text;
                 } else {
                   throw new Exception(
-                      "Sorry, the rating system is not working now!");
+                      "Sorry, the rating system is not working right now!");
                 }
 
                 var ratingResponse = await _ratingProvider?.insert(_rating);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using eCodes.Services.HelperMethods;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -22,6 +23,7 @@ namespace eCodes.Services.Database
         public virtual DbSet<Currency> Currencies { get; set; } = null!;
         public virtual DbSet<Employee> Employees { get; set; } = null!;
         public virtual DbSet<LoyaltyPoint> LoyaltyPoints { get; set; } = null!;
+        public virtual DbSet<Notification> Notifications { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderItem> OrderItems { get; set; } = null!;
         public virtual DbSet<Output> Outputs { get; set; } = null!;
@@ -39,8 +41,7 @@ namespace eCodes.Services.Database
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=localhost, 1401;Initial Catalog=210331; user=sa; Password=QWElkj132!");
+                optionsBuilder.UseSqlServer(LoginHelper.Connection);
             }
         }
 
@@ -160,6 +161,25 @@ namespace eCodes.Services.Database
                     .HasForeignKey(d => d.BuyerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_LoyaltyPoints_Buyers");
+            });
+
+            modelBuilder.Entity<Notification>(entity =>
+            {
+                entity.HasIndex(e => e.BuyerId, "IX_Notifications_BuyerID");
+
+                entity.Property(e => e.NotificationId).HasColumnName("NotificationID");
+
+                entity.Property(e => e.BuyerId).HasColumnName("BuyerID");
+
+                entity.Property(e => e.NotificationDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.NotificationDesc).HasMaxLength(200);
+
+                entity.HasOne(d => d.Buyer)
+                    .WithMany(p => p.Notifications)
+                    .HasForeignKey(d => d.BuyerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Notifications_Buyers");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -374,7 +394,9 @@ namespace eCodes.Services.Database
             {
                 entity.HasIndex(e => e.BuyerId, "IX_Ratings_BuyerID");
 
-                entity.HasIndex(e => e.SellerId, "IX_Ratings_ProductID");
+                entity.HasIndex(e => e.ProductId, "IX_Ratings_ProductID");
+
+                entity.HasIndex(e => e.SellerId, "IX_Ratings_SellerID");
 
                 entity.Property(e => e.RatingId).HasColumnName("RatingID");
 
@@ -386,6 +408,8 @@ namespace eCodes.Services.Database
 
                 entity.Property(e => e.Mark).HasColumnType("decimal(18, 1)");
 
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
                 entity.Property(e => e.SellerId).HasColumnName("SellerID");
 
                 entity.HasOne(d => d.Buyer)
@@ -393,6 +417,12 @@ namespace eCodes.Services.Database
                     .HasForeignKey(d => d.BuyerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Ratings_Buyers");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.Ratings)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Ratings_Products");
 
                 entity.HasOne(d => d.Seller)
                     .WithMany(p => p.Ratings)

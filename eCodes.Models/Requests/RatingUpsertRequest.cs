@@ -12,6 +12,8 @@ namespace eCodes.Models.Requests
         [Required(AllowEmptyStrings = false)]
         public int BuyerId { get; set; }
         [Required(AllowEmptyStrings = false)]
+        public int ProductId { get; set; }
+        [Required(AllowEmptyStrings = false)]
         public DateTime Date { get; set; }
         [Required(AllowEmptyStrings = false)]
         public string Description { get; set; }
