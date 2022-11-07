@@ -8,9 +8,6 @@ namespace eCodes.Services.Database
 {
     public partial class _210331Context : DbContext
     {
-        public _210331Context()
-        {
-        }
 
         public _210331Context(DbContextOptions<_210331Context> options)
             : base(options)
@@ -36,14 +33,6 @@ namespace eCodes.Services.Database
         public virtual DbSet<Seller> Sellers { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<UserRole> UserRoles { get; set; } = null!;
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(LoginHelper.Connection);
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

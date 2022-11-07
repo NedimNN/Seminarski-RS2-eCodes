@@ -166,5 +166,37 @@ namespace eCodes.Services
             return _mapper.Map<Models.Users>(entity);
         }
 
+        public string GetAccType(string username)
+        {
+            string AccountType = "";
+
+            var employee = _context.Employees.Where(w => w.EmployeeNumber.ToString() == username).FirstOrDefault();
+            var user = _context.Users.Where(w => w.Username == username).Include("UserRoles.Role").FirstOrDefault();
+            var seller = _context.Sellers.Where(w => w.Name == username).FirstOrDefault();
+            var buyer = _context.Buyers.Where(w => w.Username == username).FirstOrDefault();
+
+            if (employee != null)
+            {
+                AccountType = "Employee";
+            }
+            else if (user != null)
+            {
+                var userRoles = user.UserRoles;
+                foreach (var role in userRoles)
+                {
+                    AccountType += role.Role.Name + ", ";
+                }
+            }
+            else if (seller != null)
+            {
+                AccountType = "Seller";
+            }
+            else if (buyer != null)
+            {
+                AccountType = "Buyer";
+            }
+
+            return AccountType;
+        }
     }
 }

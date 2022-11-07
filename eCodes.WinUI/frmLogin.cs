@@ -16,7 +16,7 @@ namespace eCodes.WinUI
 {
     public partial class frmLogin : Form
     {
-        private readonly APIService _api = new APIService("User");
+        private readonly UsersAPIService _api = new UsersAPIService("User");
         public frmLogin()
         {
             InitializeComponent();
@@ -26,11 +26,10 @@ namespace eCodes.WinUI
         {
             APIService.username = txtUsername.Text;
             APIService.password = txtPassword.Text;
-            APIService.accountType = LoginHelper.GetAccType(APIService.username);
             if (ValidateChildren()) { 
                 try
                 {
-                    var result = await _api.Get<dynamic>();
+                    APIService.accountType = await _api.GetAccType(APIService.username);
 
                     if(APIService.accountType == "Seller")
                     {

@@ -74,8 +74,7 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
             var ticket = new AuthenticationTicket(principal, Scheme.Name);
 
             LoginHelper.ID = user.UserId;
-            LoginHelper.Username = user.Username;
-           
+            LoginHelper.AccountType = "User";
 
             return AuthenticateResult.Success(ticket);
 
@@ -95,7 +94,8 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
             var ticket = new AuthenticationTicket(principal, Scheme.Name);
 
             LoginHelper.ID = buyer.BuyerId;
-            LoginHelper.Username = buyer.Username;
+            LoginHelper.AccountType = "Buyer";
+
 
             return AuthenticateResult.Success(ticket);
 
@@ -115,7 +115,7 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
             var ticket = new AuthenticationTicket(principal, Scheme.Name);
 
             LoginHelper.ID = employee.EmployeeId;
-            LoginHelper.Username = employee.EmployeeNumber.ToString();
+            LoginHelper.AccountType = "Employee";
 
 
             return AuthenticateResult.Success(ticket);
@@ -136,7 +136,8 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
             var ticket = new AuthenticationTicket(principal, Scheme.Name);
 
             LoginHelper.ID = seller.SellerId;
-            LoginHelper.Username = seller.Name;
+            LoginHelper.AccountType = "Seller";
+
 
             return AuthenticateResult.Success(ticket);
 

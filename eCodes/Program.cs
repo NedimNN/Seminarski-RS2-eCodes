@@ -82,7 +82,6 @@ builder.Services.AddAuthentication("BasicAuthentication")
 
 //ConnectionString
 var connectionstring = builder.Configuration.GetConnectionString("DefaultConnection");
-LoginHelper.Connection = connectionstring;
 var context = builder.Services.AddDbContext<_210331Context>(options =>
     options.UseSqlServer(connectionstring));
 

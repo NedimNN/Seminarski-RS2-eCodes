@@ -9,21 +9,25 @@ namespace eCodes.Controllers
 {
     public class UserController : BaseCRUDController<Models.Users, UserSearchObject,UserInsertRequest,UserUpdateRequest>
     {
-
+        public IUsersService _userService { get; set; }
         public UserController (IUsersService userService)
             :base(userService)
         {
+            _userService = userService;
         }
-        //[Authorize("Administrator")]
         public override Users Insert([FromBody] UserInsertRequest insert)
         {
             return base.Insert(insert);
         }
 
-        //[Authorize("Administrator")]
         public override Users Update(int id, [FromBody] UserUpdateRequest update)
         {
             return base.Update(id, update);
+        }
+        [HttpGet("GetAccType")]
+        public string GetAccType(string username)
+        {
+            return _userService.GetAccType(username);
         }
 
     }

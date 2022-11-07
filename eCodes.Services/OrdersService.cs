@@ -83,7 +83,7 @@ namespace eCodes.Services
         {
             dbentity.Date = DateTime.Now;
             dbentity.OrderNumber = (_context.Orders.Count() + 1).ToString();
-            if(LoginHelper.GetAccType(LoginHelper.Username).Contains("Buyer")) 
+            if(LoginHelper.AccountType.Contains("Buyer")) 
                  dbentity.BuyerId = LoginHelper.ID;
             else
             {

@@ -10,5 +10,6 @@ namespace eCodes.Services
     public interface IUsersService : ICRUDService<Users, UserSearchObject, UserInsertRequest, UserUpdateRequest>
     {
         Models.Users Login(string username, string password);
+        string GetAccType(string username);
     }
 }

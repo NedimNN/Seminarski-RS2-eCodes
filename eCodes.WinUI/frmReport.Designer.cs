@@ -37,14 +37,15 @@
             this.rVReports.Location = new System.Drawing.Point(0, 0);
             this.rVReports.Name = "ReportViewer";
             this.rVReports.ServerReport.BearerToken = null;
-            this.rVReports.Size = new System.Drawing.Size(839, 663);
+            this.rVReports.Size = new System.Drawing.Size(740, 808);
             this.rVReports.TabIndex = 0;
+            this.rVReports.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.PageWidth;
             // 
             // frmReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(839, 663);
+            this.ClientSize = new System.Drawing.Size(740, 808);
             this.Controls.Add(this.rVReports);
             this.Name = "frmReport";
             this.Text = "Report";

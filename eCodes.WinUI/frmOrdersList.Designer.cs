@@ -104,7 +104,7 @@
             this.dgvOrderList.RowHeadersWidth = 51;
             this.dgvOrderList.RowTemplate.Height = 29;
             this.dgvOrderList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOrderList.Size = new System.Drawing.Size(926, 343);
+            this.dgvOrderList.Size = new System.Drawing.Size(948, 343);
             this.dgvOrderList.TabIndex = 6;
             this.dgvOrderList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrderList_CellClick);
             this.dgvOrderList.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrderList_CellContentDoubleClick);
@@ -192,7 +192,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(949, 466);
+            this.ClientSize = new System.Drawing.Size(972, 466);
             this.Controls.Add(this.txtBuyerName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnShowOrders);

@@ -95,6 +95,7 @@
             // 
             // dateTimeOrderDate
             // 
+            this.dateTimeOrderDate.Enabled = false;
             this.dateTimeOrderDate.Location = new System.Drawing.Point(347, 44);
             this.dateTimeOrderDate.Name = "dateTimeOrderDate";
             this.dateTimeOrderDate.Size = new System.Drawing.Size(250, 27);
@@ -103,6 +104,7 @@
             // cbStatus
             // 
             this.cbStatus.AutoSize = true;
+            this.cbStatus.Enabled = false;
             this.cbStatus.Location = new System.Drawing.Point(619, 44);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(71, 24);
@@ -113,6 +115,7 @@
             // cbCanceled
             // 
             this.cbCanceled.AutoSize = true;
+            this.cbCanceled.Enabled = false;
             this.cbCanceled.Location = new System.Drawing.Point(696, 44);
             this.cbCanceled.Name = "cbCanceled";
             this.cbCanceled.Size = new System.Drawing.Size(92, 24);
