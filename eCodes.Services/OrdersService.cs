@@ -105,7 +105,6 @@ namespace eCodes.Services
                     OrderItemsInsertRequest dbitem = new OrderItemsInsertRequest();
                     dbitem.OrderId = result.OrderId;
                     dbitem.ProductId = item.ProductId;
-                    dbitem.Quantity = item.Quantity;
 
                     orderItemsService.Insert(dbitem);
                 }
@@ -131,7 +130,6 @@ namespace eCodes.Services
                             if(orderItem.ProductId == item.ProductId)
                             {
                                 OrderItemsUpdateRequest dbitem = new OrderItemsUpdateRequest();
-                                dbitem.Quantity = item.Quantity;
                                 dbitem.ProductId = item.ProductId;
                                 orderItemsService.Update(orderItem.OrderItemId, dbitem);
                             }

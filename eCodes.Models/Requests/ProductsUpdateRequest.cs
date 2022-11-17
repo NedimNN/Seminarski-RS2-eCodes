@@ -15,7 +15,6 @@ namespace eCodes.Models.Requests
         public string GiftCardKey { get; set; }
         public int ProductTypeId { get; set; }
         public byte[] Picture { get; set; }
-        public byte[] PictureThumb { get; set; }
         public string StateMachine { get; set; }
         [Required(AllowEmptyStrings = false)]
         public string Description { get; set; }

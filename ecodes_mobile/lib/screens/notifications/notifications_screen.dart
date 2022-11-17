@@ -87,7 +87,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     }
     var list = _notifications
         .map((x) => Container(
-              padding: EdgeInsets.only(left: 15, right: 15, top: 15),
+              padding: EdgeInsets.only(left: 5, right: 5, top: 15),
               child: ListTile(
                 leading: Icon(Icons.info_outlined),
                 title: Text(

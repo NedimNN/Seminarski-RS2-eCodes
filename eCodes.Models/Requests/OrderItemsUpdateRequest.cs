@@ -9,8 +9,6 @@ namespace eCodes.Models.Requests
     {
         [Required(AllowEmptyStrings = false)]
         public int ProductId { get; set; }
-        [Required(AllowEmptyStrings = false)]
-        public int Quantity { get; set; }
 
     }
 }

@@ -8,7 +8,6 @@ part of 'payment.dart';
 
 Payment _$PaymentFromJson(Map<String, dynamic> json) => Payment()
   ..paymentMethodNonce = json['paymentMethodNonce'] as String?
-  ..deviceData = json['deviceData'] as String?
   ..amount = (json['amount'] as num?)?.toDouble()
   ..buyerId = json['buyerId'] as int?
   ..successful = json['successful'] as bool?
@@ -17,7 +16,6 @@ Payment _$PaymentFromJson(Map<String, dynamic> json) => Payment()
 
 Map<String, dynamic> _$PaymentToJson(Payment instance) => <String, dynamic>{
       'paymentMethodNonce': instance.paymentMethodNonce,
-      'deviceData': instance.deviceData,
       'amount': instance.amount,
       'buyerId': instance.buyerId,
       'successful': instance.successful,

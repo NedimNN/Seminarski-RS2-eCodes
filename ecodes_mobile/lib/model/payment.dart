@@ -7,7 +7,6 @@ part 'payment.g.dart';
 @JsonSerializable()
 class Payment{
   String? paymentMethodNonce;
-  String? deviceData;
   double? amount;
   int? buyerId;
   bool? successful;

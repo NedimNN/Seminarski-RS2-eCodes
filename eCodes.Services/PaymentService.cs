@@ -30,7 +30,7 @@ namespace eCodes.Services
         {
             var products = _context.Products.Include(i=> i.Seller).Where(w => w.ProductId == payment.ProductId);
             var product = products.FirstOrDefault();
-            //Implement payment here (recive nonce and device data and begin transaction)
+            //Implement payment here (recive nonce and begin transaction)
             var gateway = new BraintreeGateway()
             {
                 Environment = Braintree.Environment.SANDBOX,
@@ -42,12 +42,12 @@ namespace eCodes.Services
             decimal percentage = payment.UsedLoyaltyPoints / 100;
             decimal priceToPay = payment.Amount - (payment.Amount * percentage);
             priceToPay = Convert.ToDecimal(string.Format("{0:0.00}", priceToPay));
+            payment.Amount = priceToPay;
 
             TransactionRequest request = new TransactionRequest()
             {
                 Amount = priceToPay,
                 PaymentMethodNonce = payment.PaymentMethodNonce,
-                DeviceData = payment.DeviceData,
                 Options = new TransactionOptionsRequest()
                 {
                     SubmitForSettlement = true,
@@ -117,7 +117,6 @@ namespace eCodes.Services
                     {
                         OutputId = insertedOutput.OutputId,
                         ProductId = item.ProductId,
-                        Quantity = item.Quantity,
                         Price = Convert.ToDecimal(item.Price),
                         Discount = loyaltyPoints,
                         SellerId = item.Product.SellerId,
@@ -142,7 +141,7 @@ namespace eCodes.Services
                 else
                 {
                     update.Balance += Convert.ToDecimal(order.Price) / 12;
-                    pointsService.Update(order.BuyerId, update);
+                    pointsService.Update(points.FirstOrDefault().LoyaltyPointsId, update);
                 }
             }
 

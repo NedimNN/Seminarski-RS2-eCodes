@@ -168,8 +168,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.only(top: 10,bottom: 10 ),
               child: Text(
-                "Recommended products",
-                style: Theme.of(context).textTheme.headline3,
+                "Frequently bought together ",
+                style: Theme.of(context).textTheme.headline5,
               )),
           Container(
             height: 178,

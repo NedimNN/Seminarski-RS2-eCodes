@@ -29,4 +29,13 @@ String formatNumber(dynamic) {
 
   return f.format(dynamic);
 }
+Future<double?> exchangeToUSD (double amount,String fromCurrency)async{
+  if(fromCurrency.isEmpty || amount <= 0.00){
+    return 0.00;
+  }else if(fromCurrency == "EUR"){
+    var convertedToUSD = amount * 1.038 ;
+    return double.parse(convertedToUSD.toStringAsFixed(2));
+  }
+  return 0.00;
+}
 

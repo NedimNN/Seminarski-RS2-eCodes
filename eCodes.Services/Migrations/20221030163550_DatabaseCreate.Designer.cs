@@ -289,10 +289,7 @@ namespace eCodes.Services.Migrations
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int")
-                        .HasColumnName("ProductID");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                        .HasColumnName("ProductID");                                    
 
                     b.HasKey("OrderItemId");
 
@@ -372,9 +369,6 @@ namespace eCodes.Services.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int")
                         .HasColumnName("ProductID");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
 
                     b.Property<int>("SellerId")
                         .HasColumnType("int")
@@ -469,9 +463,6 @@ namespace eCodes.Services.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<byte[]>("Picture")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<byte[]>("PictureThumb")
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Platform")

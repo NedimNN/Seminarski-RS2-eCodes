@@ -9,9 +9,9 @@ class CartProvider with ChangeNotifier {
   Cart cart = Cart();
   addToCart(Product product) {
     if (findInCart(product) != null) {
-      findInCart(product)?.count++;
+      return;
     } else {
-      cart.items.add(CartItem(product, 1));
+      cart.items.add(CartItem(product));
     }
     cart.PriceToPay += product.price!;
     cart.currencyId = product.productType?.currencyId;
@@ -19,11 +19,7 @@ class CartProvider with ChangeNotifier {
   }
 
   removeFromCart(Product product) {
-    if (findInCart(product)!.count > 1) {
-      findInCart(product)?.count--;
-    } else{
-      cart.items.removeWhere((item) => item.product.productId == product.productId);
-    }
+    cart.items.removeWhere((item) => item.product.productId == product.productId);
     cart.PriceToPay -= product.price!;
     if(cart.PriceToPay < 0){
       cart.PriceToPay = 0;

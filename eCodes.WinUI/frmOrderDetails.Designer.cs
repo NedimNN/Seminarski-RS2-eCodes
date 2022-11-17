@@ -46,7 +46,6 @@
             this.Seller = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrderItems)).BeginInit();
             this.SuspendLayout();
             // 
@@ -147,13 +146,12 @@
             this.Description,
             this.Seller,
             this.Value,
-            this.Price,
-            this.Quantity});
+            this.Price});
             this.dgvOrderItems.Location = new System.Drawing.Point(12, 96);
             this.dgvOrderItems.Name = "dgvOrderItems";
             this.dgvOrderItems.RowHeadersWidth = 51;
             this.dgvOrderItems.RowTemplate.Height = 29;
-            this.dgvOrderItems.Size = new System.Drawing.Size(1053, 317);
+            this.dgvOrderItems.Size = new System.Drawing.Size(929, 317);
             this.dgvOrderItems.TabIndex = 8;
             // 
             // dataGridViewTextBoxColumn1
@@ -212,19 +210,11 @@
             this.Price.Name = "Price";
             this.Price.Width = 125;
             // 
-            // Quantity
-            // 
-            this.Quantity.DataPropertyName = "Quantity";
-            this.Quantity.HeaderText = "Quantity";
-            this.Quantity.MinimumWidth = 6;
-            this.Quantity.Name = "Quantity";
-            this.Quantity.Width = 125;
-            // 
             // frmOrderDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1075, 450);
+            this.ClientSize = new System.Drawing.Size(947, 450);
             this.Controls.Add(this.dgvOrderItems);
             this.Controls.Add(this.cbCanceled);
             this.Controls.Add(this.cbStatus);
@@ -262,6 +252,5 @@
         private DataGridViewTextBoxColumn Seller;
         private DataGridViewTextBoxColumn Value;
         private DataGridViewTextBoxColumn Price;
-        private DataGridViewTextBoxColumn Quantity;
     }
 }

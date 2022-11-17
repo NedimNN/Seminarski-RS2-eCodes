@@ -33,7 +33,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
   }
 
   Future loadData() async {
-    var searchRequest = {'buyerName': Authorization.username, 'includeItems': true };
+    var searchRequest = {
+      'buyerName': Authorization.username,
+      'includeItems': true
+    };
     var tmpdata = await _orderProvider?.get(searchRequest);
     setState(() {
       data = tmpdata!;
@@ -44,17 +47,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
   Widget build(BuildContext context) {
     return MasterWidget(
       selectedIndex: 3,
-      child: SingleChildScrollView(
-        child: Column(children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height - 125,
-            child: ListView(
-              scrollDirection: Axis.vertical,
-              padding: const EdgeInsets.all(10),
-              children: _buildOrdersListView(),
-            ),
-          )
-        ]),
+      child: ListView(
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        children: _buildOrdersGridView(),
       ),
     );
   }
@@ -71,36 +67,133 @@ class _OrdersScreenState extends State<OrdersScreen> {
     }
     List<Widget> list = data
         .map((x) => Container(
+            height: 120,
+            padding: EdgeInsets.only(left: 5, right: 5, top: 15),
             child: ListTile(
               leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(5),
                   child: SizedBox(
-                    height: 125, 
-                    width: 100,// Image radius
+                    height: 135,
+                    width: 100, // Image radius
                     child: GridView(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          childAspectRatio: 1/3),
+                          crossAxisCount: _buildImageList(x).length,
+                          childAspectRatio: 1 / _buildImageList(x).length),
                       children: _buildImageList(x),
                     ),
                   )),
-                  dense: true,
               visualDensity: VisualDensity(vertical: 4),
               title: Text(
-                  style: Theme.of(context).textTheme.bodyText2, x.orderNumber!),
-              subtitle:
-                  Text(style: Theme.of(context).textTheme.subtitle2, formatter.format(DateTime.parse(x.date!))),
+                  style: Theme.of(context).textTheme.bodyText2,
+                  "Order number: ${x.orderNumber!}"),
+              subtitle: Text(
+                  style: Theme.of(context).textTheme.subtitle2,
+                  "Date : ${formatter.format(DateTime.parse(x.date!))}"),
               trailing: InkWell(
                   onTap: () {
-          Navigator.pushNamed(context,"${OrderItemsScreen.routeName}/${x.orderId}"); //<- Go to OrderItems of this order
+                    Navigator.pushNamed(context,
+                        "${OrderItemsScreen.routeName}/${x.orderId}"); //<- Go to OrderItems of this order
                   },
-                  child: Icon(Icons.more_horiz)),
+                  child: Icon(Icons.more_vert)),
+              style: ListTileStyle.drawer,
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                      color: Color.fromARGB(255, 249, 219, 128), width: 3),
+                  borderRadius: BorderRadius.circular(10)),
             )))
         .cast<Widget>()
         .toList();
     return list;
   }
 
+  List<Widget> _buildOrdersGridView() {
+    if (data.length == 0) {
+      return [
+        Container(
+          padding: EdgeInsets.only(left: 25),
+          child:
+              Text(style: Theme.of(context).textTheme.headline6, "Loading..."),
+        )
+      ];
+    }
+    List<Widget> list = data
+        .map((x) => Container(
+              height: 120,
+              margin: EdgeInsets.only(left: 5, right: 5, top: 15),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Color.fromARGB(255, 249, 219, 128), width: 3),
+                  borderRadius: BorderRadius.circular(10)),
+              child: InkWell(
+                child: GridTile(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: SizedBox(
+                            height: 135,
+                            width: 100, // Image radius
+                            child: GridView(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: _buildImageList(x).length,
+                                      childAspectRatio:
+                                          1 / _buildImageList(x).length),
+                              children: _buildImageList(x),
+                              physics: NeverScrollableScrollPhysics(),
+                            ),
+                          )),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top:15,left: 5),
+                      child: Column(
+                        children: [
+                          Text(
+                              style: Theme.of(context).textTheme.bodyText2,
+                              "Order number: ${x.orderNumber!}"),
+                          Text(
+                              style: Theme.of(context).textTheme.subtitle2,
+                              "Date : ${formatter.format(DateTime.parse(x.date!))}"),
+                          Text(
+                              style: Theme.of(context).textTheme.subtitle2,
+                              "Total price : ${x.price}")
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 25),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(style: Theme.of(context).textTheme.subtitle2,"Status:"),
+                          _buildStatus(x.status!),
+                        ],
+                      ),
+                    )
+                  ],
+                )),
+                onTap: () {
+                  Navigator.pushNamed(context,
+                      "${OrderItemsScreen.routeName}/${x.orderId}"); //<- Go to OrderItems of this order
+                },
+              ),
+            ))
+        .cast<Widget>()
+        .toList();
+    return list;
+  }
+  Widget _buildStatus(bool status){
+    if(status == true){
+      return Icon(Icons.check_circle_outline,color: Colors.green,);
+    }
+    else{
+      return Icon(Icons.dnd_forwardslash_outlined,color: Colors.red,);
+    }
+  }
   List<Widget> _buildImageList(Order order) {
     List<Widget> list = [];
     for (var orderitem in order.orderItems!) {

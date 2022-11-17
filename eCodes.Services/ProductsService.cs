@@ -168,8 +168,8 @@ namespace eCodes.Services
 
         public List<Products> Recommend(int id)
         {
-            //Implement either cache or database to store the trained model and the prediction so it does not train or predict everytime someone calls it
-            var allItems = _context.Products.Include(i => i.ProductType.Currency).Include(i => i.Seller).Where(w => w.ProductId != id);
+            
+            var allItems = _context.Products.Include(i => i.ProductType.Currency).Include(i => i.Seller).Where(w => w.ProductId != id).Where(w=> w.StateMachine == "active");
             var trainedModel = ModelTrainer();
 
             var predictionResult = new List<Tuple<Database.Product, float>>();

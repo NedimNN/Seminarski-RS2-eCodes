@@ -260,7 +260,6 @@ namespace eCodes.Services.Migrations
                     GiftCardKey = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ProductTypeID = table.Column<int>(type: "int", nullable: false),
                     Picture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    PictureThumb = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     StateMachine = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Duration = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -382,7 +381,6 @@ namespace eCodes.Services.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrderID = table.Column<int>(type: "int", nullable: false),
                     ProductID = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -440,7 +438,6 @@ namespace eCodes.Services.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OutputID = table.Column<int>(type: "int", nullable: false),
                     ProductID = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Discount = table.Column<decimal>(type: "decimal(5,2)", nullable: true),
                     SellerID = table.Column<int>(type: "int", nullable: false)

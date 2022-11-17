@@ -56,6 +56,8 @@ void main() => runApp(MultiProvider(
                 color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
             headline4: TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold,fontStyle: FontStyle.italic, fontSize: 25),
+            headline5: TextStyle(
+                color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
             headline6: TextStyle(
                 color: Color.fromARGB(255, 4, 104, 150),
                 fontSize: 36.0,
@@ -184,7 +186,7 @@ class HomePage extends StatelessWidget {
                           )),
                     ),
                     Positioned(
-                        bottom: 150,
+                        bottom: 225,
                         right: 50,
                         left: 50,
                         child: Container(
@@ -255,7 +257,7 @@ class HomePage extends StatelessWidget {
                           ),
                         )),
                     Positioned(
-                        bottom: 50,
+                        bottom: 150,
                         left: 50,
                         right: 50,
                         child: Container(
@@ -284,6 +286,7 @@ class HomePage extends StatelessWidget {
                                     context, ProductListScreen.routeName);
                               } catch (e) {
                                 // TODO
+                                _buildLoading(false);
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) =>
@@ -314,7 +317,7 @@ class HomePage extends StatelessWidget {
                           ),
                         )),
                     Positioned(
-                        bottom: 7,
+                        bottom: 90,
                         left: 50,
                         right: 50,
                         child: Center(
@@ -346,6 +349,7 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-        ));
+        )
+        );
   }
 }

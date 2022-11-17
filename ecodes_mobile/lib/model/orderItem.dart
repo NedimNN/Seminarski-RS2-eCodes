@@ -9,7 +9,6 @@ class OrderItem{
   int? orderItemId;
   int? orderId;
   int? productId;
-  int? quantity;
   Product? product;
 
   OrderItem(){

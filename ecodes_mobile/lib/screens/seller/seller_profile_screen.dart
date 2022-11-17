@@ -244,10 +244,6 @@ class _SellerProfileScreenState extends State<SellerProfileScreen> {
                         Text(
                             style: Theme.of(context).textTheme.bodyText1,
                             "Username: ${x.buyer!.username!}"),
-                        Divider(
-                          color: Colors.white,
-                          thickness: 2,
-                        ),
                         RatingBarIndicator(
                             rating: x.mark!,
                             itemCount: 5,
@@ -294,7 +290,7 @@ class _SellerProfileScreenState extends State<SellerProfileScreen> {
                         Container(
                           child: Text(
                               style: Theme.of(context).textTheme.bodyText1,
-                              "Description: ${x.description!}"),
+                              "Description:\n${x.description!}"),
                         ),
                         Divider(
                           color: Colors.white,

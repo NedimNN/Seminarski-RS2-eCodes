@@ -2,6 +2,7 @@ import 'package:ecodes_mobile/model/currency.dart';
 import 'package:ecodes_mobile/model/loyaltyPoints.dart';
 import 'package:ecodes_mobile/model/notification.dart';
 import 'package:ecodes_mobile/model/payment.dart';
+import 'package:ecodes_mobile/model/product.dart';
 import 'package:ecodes_mobile/providers/currency_provider.dart';
 import 'package:ecodes_mobile/providers/loyatlyPoints_provider.dart';
 import 'package:ecodes_mobile/providers/payment_provider.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/cart.dart';
+import '../../model/order.dart';
 import '../../providers/cart_provider.dart';
 import '../../providers/notification_provider.dart';
 import '../../providers/order_provider.dart';
@@ -40,6 +42,8 @@ class _CartScreenState extends State<CartScreen> {
   LoyaltyPoints _loyaltyPoints = new LoyaltyPoints();
   Currency _currency = new Currency();
   var isLoading = false;
+  var isNotified = false;
+  var isCorrect = true;
   TextEditingController _loyaltyPointsController = new TextEditingController();
 
   @override
@@ -80,9 +84,6 @@ class _CartScreenState extends State<CartScreen> {
       selectedIndex: 2,
       child: Column(
         children: [
-          Divider(
-            color: Colors.grey,
-          ),
           _buildLoyaltyPointsHeader(),
           Divider(
             color: Colors.grey,
@@ -93,7 +94,7 @@ class _CartScreenState extends State<CartScreen> {
             child: Center(
               child: Text(
                   style: Theme.of(context).textTheme.headline4,
-                  "Total: ${_cartProvider.cart.PriceToPay.toStringAsFixed(2)} ${_currency.abbreviation}"),
+                  "Total: ${_cartProvider.cart.PriceToPay.toStringAsFixed(2)} USD"),
             ),
           ),
           Divider(
@@ -120,27 +121,24 @@ class _CartScreenState extends State<CartScreen> {
       width: MediaQuery.of(context).size.width,
       child: Column(children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
               height: 75,
               width: 75,
               child: Container(child: Icon(size: 55, Icons.loyalty_rounded)),
             ),
-            SizedBox(
-              height: 75,
-              width: 250,
+            Expanded(
               child: Center(
                 child: Text(
                     style: Theme.of(context).textTheme.bodyText2,
-                    "Total points earned: ${_loyaltyPoints.balance} points"),
+                    "Total points earned: ${_loyaltyPoints.balance}"),
               ),
             )
           ],
         ),
         SizedBox(
-          height: 85,
-          width: 175,
+          width: 170,
           child: TextField(
             controller: _loyaltyPointsController,
             keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -149,10 +147,10 @@ class _CartScreenState extends State<CartScreen> {
               fontWeight: FontWeight.bold,
               fontSize: 25,
             ),
+            textAlign: TextAlign.center,
             decoration: InputDecoration(
-                border: InputBorder.none,
                 hintStyle: TextStyle(color: Colors.black),
-                labelText: "Loyaltypoints",
+                label: Center(child: Text("Loyalty Points")),
                 errorText: _errorText),
             onChanged: (_) => setState(() {}),
           ),
@@ -166,11 +164,14 @@ class _CartScreenState extends State<CartScreen> {
     if (text.isEmpty) {
       return null;
     } else if (double.parse(text) > 75.00) {
+      isCorrect = false;
       return 'Can\'t use more than 75 points';
     } else if (_loyaltyPoints.balance != null &&
         _loyaltyPoints.balance! < double.parse(text)) {
+      isCorrect = false;
       return 'You don\'t have enough points';
     }
+    isCorrect = true;
     return null;
   }
 
@@ -204,32 +205,16 @@ class _CartScreenState extends State<CartScreen> {
       subtitle: Text(
           style: TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
-          "Price: ${item.product.price.toString()}   Quantity: ${item.count.toString()}\nFrom Seller: ${item.product.seller!.name}"),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            margin: EdgeInsets.only(top: 5),
-            child: InkWell(
-                onTap: () {
-                  _cartProvider.addToCart(item.product);
-                },
-                child: Container(child: Icon(size: 35, Icons.add))),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 5),
-            child: InkWell(
-              onTap: () {
-                _cartProvider.removeFromCart(item.product);
-              },
-              child: Icon(
-                  size: 35,
-                  color: Colors.redAccent,
-                  Icons.delete_forever_rounded),
-            ),
-          ),
-        ],
+          "Price: ${item.product.price.toString()} ${item.product.productType!.currency!.abbreviation}\nFrom Seller: ${item.product.seller!.name}"),
+      trailing: Container(
+        margin: EdgeInsets.only(top: 5),
+        child: InkWell(
+          onTap: () {
+            _cartProvider.removeFromCart(item.product);
+          },
+          child: Icon(
+              size: 35, color: Colors.redAccent, Icons.delete_forever_rounded),
+        ),
       ),
     );
   }
@@ -247,6 +232,43 @@ class _CartScreenState extends State<CartScreen> {
     }
   }
 
+  Future<dynamic> _buildDialog(String title, String content) {
+    return showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: Text(
+                title,
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              content: Text(
+                content,
+                style: TextStyle(
+                    color: Color.fromARGB(255, 107, 107, 107), fontSize: 18),
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () => Navigator.pop(context), child: Text("Ok")),
+              ],
+            ));
+  }
+
+  Future<bool> _createNotification(Order insertedOrder) async {
+    if (isNotified == true) {
+      return true;
+    }
+    if (isNotified == false) {
+      Notif? _newNotif = new Notif();
+      _newNotif.buyerId = Authorization.buyerId;
+      _newNotif.notificationDateTime = DateTime.now();
+      _newNotif.notificationDesc =
+          "Successfull transaction for order number: ${insertedOrder.orderNumber}";
+      var insertedNotif = await _notificationProvider.insert(_newNotif);
+      return true;
+    }
+    return false;
+  }
+
   Widget _buildCheckoutButton() {
     return TextButton(
       style: TextButton.styleFrom(
@@ -260,14 +282,24 @@ class _CartScreenState extends State<CartScreen> {
           "Checkout"),
       onPressed: () async {
         bool block = true;
+        if (_cartProvider.cart.items.isEmpty == true) {
+          return await _buildDialog(
+              "Important Information !", "Your cart is empty !");
+        } else if (isCorrect == false) {
+          return await await _buildDialog("Important Information !",
+              "There is an error with your loyalty points !");
+        }
         // Need to implement payment system here onPressed (checkout button)
         var tokenKey = 'sandbox_v2bd8x6j_hcbc2pqgtd5gzdn7';
-        var request = BraintreeDropInRequest();
+        var request = BraintreePayPalRequest();
         Payment payment = new Payment();
         payment.successful = false;
+        List<Product> clearProducts = [];
         List<Payment> payments = [];
+        int paymentsFailed = 0;
         if (_cartProvider.cart.items.length > 1) {
           await showDialog(
+              barrierDismissible: false,
               context: context,
               builder: (BuildContext context) => AlertDialog(
                     title: Text(
@@ -275,7 +307,7 @@ class _CartScreenState extends State<CartScreen> {
                       style: Theme.of(context).textTheme.headline4,
                     ),
                     content: Text(
-                      "Your cart has more then 1 item which means you're going to have to make multiple transactions for security reasons. Thank you for your understanding",
+                      "Your cart has more then 1 item which means you're going to have to make multiple transactions for security reasons. Thank you for your understanding!\nNote: You\'re going to be redirected to Paypal to finish payment!",
                       style: TextStyle(
                           color: Color.fromARGB(255, 107, 107, 107),
                           fontSize: 18),
@@ -292,39 +324,73 @@ class _CartScreenState extends State<CartScreen> {
                     ],
                   ));
         } else {
-          block = false;
+          await showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                    title: Text(
+                      "Important Information !",
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                    content: Text(
+                      "You\'re going to be redirected to Paypal to finish your payment!\nNote: If you want to canel your payment you can do so on PayPal!",
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 107, 107, 107),
+                          fontSize: 18),
+                    ),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            setState(() {
+                              block = false;
+                            });
+                            Navigator.pop(context);
+                          },
+                          child: Text("Ok")),
+                    ],
+                  ));
         }
         List<Map> items = [];
 
         if (block == false) {
           for (var item in _cartProvider.cart.items) {
-            request = BraintreeDropInRequest(
-              tokenizationKey: tokenKey,
-              collectDeviceData: true,
-              paypalRequest: BraintreePayPalRequest(
-                amount: (item.product.price! * item.count).toString(),
+            var itemprice = item.product.price;
+            if (item.product.productType!.currency!.abbreviation != "USD") {
+              itemprice = await exchangeToUSD(item.product.price!,
+                  item.product.productType!.currency!.abbreviation!);
+            }
+            if (item.product.price! > 0.00) {
+              request = BraintreePayPalRequest(
+                amount: (itemprice).toString(),
                 currencyCode: "USD",
                 displayName: "eCodes",
-              ),
-            );
-            var result = await BraintreeDropIn.start(request);
+              );
+            } else {
+              return await _buildDialog("Something went wrong!",
+                  "There was an error with the conversion from EUR to USD, please try again later!");
+            }
+            var result = await Braintree.requestPaypalNonce(tokenKey, request);
             if (result != null) {
               // Call the server-side transaction here
-              payment.amount = (item.product.price! * item.count);
+              payment.amount = item.product.price!;
               payment.buyerId = Authorization.buyerId;
-              payment.deviceData = result.deviceData;
-              payment.paymentMethodNonce = result.paymentMethodNonce.nonce;
+              payment.paymentMethodNonce = result.nonce;
               payment.productId = item.product.productId;
               payment.successful = false;
+              Payment? transaction = null;
               // Check if buyer used loyaltypoints and then add them to payment variable
               payment.usedLoyaltyPoints =
                   double.parse(_loyaltyPointsController.text);
+
               setState(() {
                 isLoading = true;
               });
               _buildLoading();
-              var transaction =
-                  await _paymentProvider.beginTransaction(payment);
+              try {
+                transaction = await _paymentProvider.beginTransaction(payment);
+              } catch (e) {
+                await _buildDialog("Error", e.toString());
+              }
               setState(() {
                 isLoading = false;
               });
@@ -332,6 +398,7 @@ class _CartScreenState extends State<CartScreen> {
               if (transaction?.successful == true) {
                 payments.add(transaction!);
                 await showDialog(
+                    barrierDismissible: false,
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
                           title: Text(
@@ -339,7 +406,7 @@ class _CartScreenState extends State<CartScreen> {
                             style: Theme.of(context).textTheme.headline4,
                           ),
                           content: Text(
-                            "Successfully paid for product ${item.product.name}\nPrice: ${item.product.price} ${item.product.productType!.currency!.abbreviation} ",
+                            "Successfully paid for product ${item.product.name}\nPrice: ${transaction?.amount} ${item.product.productType!.currency!.abbreviation} ",
                             style: Theme.of(context).textTheme.subtitle2,
                           ),
                           actions: [
@@ -355,40 +422,60 @@ class _CartScreenState extends State<CartScreen> {
                         ));
                 var hiddenProduct =
                     await _productProvider.hideProduct(item.product.productId!);
-
+                clearProducts.add(item.product);
                 items.add({
                   "productId": item.product.productId,
-                  "quantity": item.count,
                 });
               }
+            } else {
+              paymentsFailed++;
+              await showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                        title: Text(
+                          "Important Information !",
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
+                        content: Text(
+                          "Payment was cancelled for product ${item.product.name}!",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 107, 107, 107),
+                              fontSize: 18),
+                        ),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  block = false;
+                                });
+                                Navigator.pop(context);
+                              },
+                              child: Text("Ok")),
+                        ],
+                      ));
             }
           }
         }
         Map order = {"items": items, "status": true, "canceled": false};
-        int successfullpayments = 0;
-        for (var element in payments) {
-          if (element.successful == true) {
-            successfullpayments++;
-          }
-        }
 
-        if (payments.length == successfullpayments &&
-            _cartProvider.cart.items.length == successfullpayments) {
-          //Order insert after transaction
-          // List<Map> items = [];
-          // _cartProvider.cart.items.forEach((item) {
-          //   items.add({
-          //     "productId": item.product.productId,
-          //     "quantity": item.count,
-          //   });
-          // });
-          // Map order = {"items": items, "status": true, "canceled": false};
+        if (_cartProvider.cart.items.length >= payments.length &&
+            _cartProvider.cart.items.length > paymentsFailed &&
+            payments.isNotEmpty) {
           var reutrnedOrder = await _orderProvider.insert(order);
           var insertedOrder =
               await _orderProvider.getById(reutrnedOrder!.orderId!);
           var output = await _paymentProvider.saveTransaction(
               insertedOrder.orderId!, payment.usedLoyaltyPoints!);
+          if (_loyaltyPointsController.text == 0.00.toString()) {
+            var percentage = payment.usedLoyaltyPoints! / 100;
+            var pricetodisplay = _cartProvider.cart.PriceToPay -
+                (_cartProvider.cart.PriceToPay * percentage);
+            output?.price = pricetodisplay.toString();
+          }
+
           await showDialog(
+              barrierDismissible: false,
               context: context,
               builder: (BuildContext context) => AlertDialog(
                     title: Text(
@@ -396,7 +483,7 @@ class _CartScreenState extends State<CartScreen> {
                       style: Theme.of(context).textTheme.headline4,
                     ),
                     content: Text(
-                      "Successfully paid for order number: ${insertedOrder.orderNumber}, with total price of ${insertedOrder.price} ${_currency.abbreviation} . ",
+                      "Successfully paid for order number: ${insertedOrder.orderNumber}, with total price of ${output?.price} ${_currency.abbreviation} . ",
                       style: Theme.of(context).textTheme.subtitle2,
                     ),
                     actions: [
@@ -407,50 +494,43 @@ class _CartScreenState extends State<CartScreen> {
                           child: Text("Ok")),
                       TextButton(
                           onPressed: () async {
-                            Notif? _newNotif = new Notif();
-                            _newNotif.buyerId = Authorization.buyerId;
-                            _newNotif.notificationDateTime = DateTime.now();
-                            _newNotif.notificationDesc =
-                                "Successfull transaction for order number: ${insertedOrder.orderNumber}";
-                            var insertedNotif =
-                                await _notificationProvider.insert(_newNotif);
-                            _cartProvider.cart.items.clear();
-                            _cartProvider.cart.PriceToPay = 0.00;
-                            Navigator.pushNamed(context,
-                                "${OrderItemsScreen.routeName}/${insertedOrder.orderId}");
+                            isNotified =
+                                await _createNotification(insertedOrder);
+                            for (var element in clearProducts) {
+                              _cartProvider.removeFromCart(element);
+                            }
+                            clearProducts.clear();
+                            if (isNotified == true) {
+                              Navigator.pushNamed(context,
+                                  "${OrderItemsScreen.routeName}/${insertedOrder.orderId}");
+                            }
                           },
                           child: Text("Order Details")),
                     ],
                   ));
-          _cartProvider.cart.items.clear();
-          _cartProvider.cart.PriceToPay = 0.00;
+          isNotified = await _createNotification(insertedOrder);
+          for (var element in clearProducts) {
+            _cartProvider.removeFromCart(element);
+          }
+          clearProducts.clear();
           _loyaltyPoints.balance =
               _loyaltyPoints.balance! - payment.usedLoyaltyPoints!;
-          setState(() {});
+        } else if (_cartProvider.cart.items.length == paymentsFailed) {
+          await _buildDialog("Important Information !",
+              "Payment was canceled for all products, you can try again later!");
         } else {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) => AlertDialog(
-                    title: Text(
-                      "Payment failed!",
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                    content: Text(
-                      "Something went wrong with the payment system. Please, try again later!",
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
-                    actions: [
-                      TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: Text("Ok"))
-                    ],
-                  ));
-          Notif? _newNotif = new Notif();
-          _newNotif.buyerId = Authorization.buyerId;
-          _newNotif.notificationDateTime = DateTime.now();
-          _newNotif.notificationDesc =
-              "Transaction failed please try again later";
-          var insertedNotif = await _notificationProvider.insert(_newNotif);
+          await _buildDialog("Payment failed!",
+              "Something went wrong with the payment system. Please, try again later!");
+          try {
+            Notif? _newNotif = new Notif();
+            _newNotif.buyerId = Authorization.buyerId;
+            _newNotif.notificationDateTime = DateTime.now();
+            _newNotif.notificationDesc =
+                "Transaction failed please try again later";
+            var insertedNotif = await _notificationProvider.insert(_newNotif);
+          } catch (e) {
+            await _buildDialog("Error", e.toString());
+          }
         }
       },
     );

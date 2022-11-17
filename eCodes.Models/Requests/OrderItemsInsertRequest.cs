@@ -11,7 +11,5 @@ namespace eCodes.Models.Requests
         public int OrderId { get; set; }
         [Required(AllowEmptyStrings = false)]
         public int ProductId { get; set; }
-        [Required(AllowEmptyStrings = false)]
-        public int Quantity { get; set; }
     }
 }
