@@ -55,57 +55,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
     );
   }
 
-  List<Widget> _buildOrdersListView() {
-    if (data.length == 0) {
-      return [
-        Container(
-          padding: EdgeInsets.only(left: 25),
-          child:
-              Text(style: Theme.of(context).textTheme.headline6, "Loading..."),
-        )
-      ];
-    }
-    List<Widget> list = data
-        .map((x) => Container(
-            height: 120,
-            padding: EdgeInsets.only(left: 5, right: 5, top: 15),
-            child: ListTile(
-              leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: SizedBox(
-                    height: 135,
-                    width: 100, // Image radius
-                    child: GridView(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: _buildImageList(x).length,
-                          childAspectRatio: 1 / _buildImageList(x).length),
-                      children: _buildImageList(x),
-                    ),
-                  )),
-              visualDensity: VisualDensity(vertical: 4),
-              title: Text(
-                  style: Theme.of(context).textTheme.bodyText2,
-                  "Order number: ${x.orderNumber!}"),
-              subtitle: Text(
-                  style: Theme.of(context).textTheme.subtitle2,
-                  "Date : ${formatter.format(DateTime.parse(x.date!))}"),
-              trailing: InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context,
-                        "${OrderItemsScreen.routeName}/${x.orderId}"); //<- Go to OrderItems of this order
-                  },
-                  child: Icon(Icons.more_vert)),
-              style: ListTileStyle.drawer,
-              shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                      color: Color.fromARGB(255, 249, 219, 128), width: 3),
-                  borderRadius: BorderRadius.circular(10)),
-            )))
-        .cast<Widget>()
-        .toList();
-    return list;
-  }
-
   List<Widget> _buildOrdersGridView() {
     if (data.length == 0) {
       return [
