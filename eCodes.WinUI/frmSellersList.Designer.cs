@@ -39,6 +39,8 @@
             this.btnShowSellers = new System.Windows.Forms.Button();
             this.dgvSellers = new System.Windows.Forms.DataGridView();
             this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PhoneNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -126,9 +128,13 @@
             // 
             // dgvSellers
             // 
+            this.dgvSellers.AllowUserToAddRows = false;
+            this.dgvSellers.AllowUserToDeleteRows = false;
             this.dgvSellers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSellers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Name,
+            this.FirstName,
+            this.LastName,
             this.Address,
             this.Email,
             this.PhoneNumber,
@@ -137,10 +143,11 @@
             this.dgvSellers.Location = new System.Drawing.Point(12, 106);
             this.dgvSellers.MultiSelect = false;
             this.dgvSellers.Name = "dgvSellers";
+            this.dgvSellers.ReadOnly = true;
             this.dgvSellers.RowHeadersWidth = 51;
             this.dgvSellers.RowTemplate.Height = 29;
             this.dgvSellers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSellers.Size = new System.Drawing.Size(934, 375);
+            this.dgvSellers.Size = new System.Drawing.Size(1122, 375);
             this.dgvSellers.TabIndex = 9;
             this.dgvSellers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSellers_CellClick);
             this.dgvSellers.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSellers_CellDoubleClick);
@@ -151,7 +158,26 @@
             this.Name.HeaderText = "Name";
             this.Name.MinimumWidth = 6;
             this.Name.Name = "Name";
+            this.Name.ReadOnly = true;
             this.Name.Width = 125;
+            // 
+            // FirstName
+            // 
+            this.FirstName.DataPropertyName = "Firstname";
+            this.FirstName.HeaderText = "Firstname";
+            this.FirstName.MinimumWidth = 6;
+            this.FirstName.Name = "FirstName";
+            this.FirstName.ReadOnly = true;
+            this.FirstName.Width = 125;
+            // 
+            // LastName
+            // 
+            this.LastName.DataPropertyName = "Lastname";
+            this.LastName.HeaderText = "Lastname";
+            this.LastName.MinimumWidth = 6;
+            this.LastName.Name = "LastName";
+            this.LastName.ReadOnly = true;
+            this.LastName.Width = 125;
             // 
             // Address
             // 
@@ -159,6 +185,7 @@
             this.Address.HeaderText = "Address";
             this.Address.MinimumWidth = 6;
             this.Address.Name = "Address";
+            this.Address.ReadOnly = true;
             this.Address.Width = 125;
             // 
             // Email
@@ -167,6 +194,7 @@
             this.Email.HeaderText = "Email";
             this.Email.MinimumWidth = 6;
             this.Email.Name = "Email";
+            this.Email.ReadOnly = true;
             this.Email.Width = 125;
             // 
             // PhoneNumber
@@ -175,6 +203,7 @@
             this.PhoneNumber.HeaderText = "Phone Number";
             this.PhoneNumber.MinimumWidth = 6;
             this.PhoneNumber.Name = "PhoneNumber";
+            this.PhoneNumber.ReadOnly = true;
             this.PhoneNumber.Width = 125;
             // 
             // Website
@@ -183,6 +212,7 @@
             this.Website.HeaderText = "Website";
             this.Website.MinimumWidth = 6;
             this.Website.Name = "Website";
+            this.Website.ReadOnly = true;
             this.Website.Width = 125;
             // 
             // Status
@@ -191,6 +221,7 @@
             this.Status.HeaderText = "Status";
             this.Status.MinimumWidth = 6;
             this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
             this.Status.Width = 125;
             // 
             // label5
@@ -220,7 +251,7 @@
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
                 | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.label6.ForeColor = System.Drawing.Color.Firebrick;
-            this.label6.Location = new System.Drawing.Point(561, 83);
+            this.label6.Location = new System.Drawing.Point(749, 83);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(385, 20);
             this.label6.TabIndex = 12;
@@ -230,7 +261,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(965, 493);
+            this.ClientSize = new System.Drawing.Size(1143, 493);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cbStatus);
             this.Controls.Add(this.label5);
@@ -267,12 +298,14 @@
         private Label label5;
         private CheckBox cbStatus;
         private DataGridViewTextBoxColumn Action;
+        private Label label6;
         private DataGridViewTextBoxColumn Name;
+        private DataGridViewTextBoxColumn FirstName;
+        private DataGridViewTextBoxColumn LastName;
         private DataGridViewTextBoxColumn Address;
         private DataGridViewTextBoxColumn Email;
         private DataGridViewTextBoxColumn PhoneNumber;
         private DataGridViewTextBoxColumn Website;
         private DataGridViewCheckBoxColumn Status;
-        private Label label6;
     }
 }

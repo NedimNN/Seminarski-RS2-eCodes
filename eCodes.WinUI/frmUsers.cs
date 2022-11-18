@@ -99,9 +99,6 @@ namespace eCodes.WinUI
                 }
                 else
                     MessageBox.Show("Something went wrong, try again later !", "Product Info Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                
-                
-
 
             }
         }

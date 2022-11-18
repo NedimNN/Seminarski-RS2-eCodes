@@ -11,6 +11,8 @@ namespace eCodes.Models.SearchObjects
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public bool Status { get; set; }
+        public bool IncludePerson { get; set; }
+
 
     }
 }

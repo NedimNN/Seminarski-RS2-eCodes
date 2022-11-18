@@ -317,7 +317,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(430, 499);
+            this.ClientSize = new System.Drawing.Size(430, 508);
             this.Controls.Add(this.txtPayPalEmail);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.txtConfirmPass);

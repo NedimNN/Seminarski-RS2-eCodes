@@ -27,5 +27,7 @@ namespace eCodes.Models.Requests
         public string Password { get; set; }
         [Required(AllowEmptyStrings = false)]
         public bool Status { get; set; }
+        public List<int> UserRolesIdList { get; set; } = new List<int> { };
+
     }
 }

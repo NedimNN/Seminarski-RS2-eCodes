@@ -31,6 +31,57 @@ namespace eCodes.Services
             
             return state.Insert(insert);
         }
+        public override void BeforeDelete(Product dbentity)
+        {
+            var ratingService = new RatingService(_context, _mapper);
+            var orderItemsService = new OrderItemsService(_context, _mapper);
+            var outputItemsService = new OutputItemsService(_context, _mapper);
+            var orderService = new OrdersService(_context, _mapper);
+            var outputService = new OutputService(_context, _mapper);
+
+            RatingSearchObject searchRating = new RatingSearchObject() { ProductId = dbentity.ProductId };
+            OutputItemsSearchObject searchOutputItem = new OutputItemsSearchObject() { ProductId = dbentity.ProductId };
+            OrderItemsSearchObject searchOrderItem = new OrderItemsSearchObject() { ProductId = dbentity.ProductId };
+            OrderSearchObject searchOrder = new OrderSearchObject() { IncludeItems = true };
+            OutputSearchObject searchOutput = new OutputSearchObject() { Include = true };
+
+            var ratings = ratingService.Get(searchRating);
+
+            foreach (var item in ratings)
+            {
+                ratingService.Delete(item.RatingId);
+            }
+
+            var outputItems = outputItemsService.Get(searchOutputItem);
+            var orderItems = orderItemsService.Get(searchOrderItem);
+
+            foreach (var item in outputItems)
+            {
+                outputItemsService.Delete(item.OutputItemsId);
+            }
+            foreach (var item in orderItems)
+            {
+                orderItemsService.Delete(item.OrderItemId);
+            }
+
+            var orders = orderService.Get(searchOrder);
+            var outputs = outputService.Get(searchOutput);
+
+            foreach (var item in outputs)
+            {
+                if (item.OutputItems.Count == 0)
+                    outputService.Delete(item.OutputId);
+            }
+
+            foreach (var item in orders)
+            {
+                if(item.OrderItems.Count == 0)
+                    orderService.Delete(item.OrderId);
+            }
+           
+
+            base.BeforeDelete(dbentity);
+        }
         public override Products Delete(int id)
         {
             var product = _context.Products.Find(id);

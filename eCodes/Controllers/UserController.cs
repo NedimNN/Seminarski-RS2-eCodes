@@ -25,6 +25,7 @@ namespace eCodes.Controllers
             return base.Update(id, update);
         }
         [HttpGet("GetAccType")]
+        [AllowAnonymous]
         public string GetAccType(string username)
         {
             return _userService.GetAccType(username);

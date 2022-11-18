@@ -74,7 +74,6 @@
             // 
             this.txtJMBG.Location = new System.Drawing.Point(275, 153);
             this.txtJMBG.Name = "txtJMBG";
-            this.txtJMBG.ReadOnly = true;
             this.txtJMBG.Size = new System.Drawing.Size(201, 27);
             this.txtJMBG.TabIndex = 30;
             // 
@@ -91,7 +90,6 @@
             // 
             this.txtCityName.Location = new System.Drawing.Point(275, 95);
             this.txtCityName.Name = "txtCityName";
-            this.txtCityName.ReadOnly = true;
             this.txtCityName.Size = new System.Drawing.Size(201, 27);
             this.txtCityName.TabIndex = 28;
             // 

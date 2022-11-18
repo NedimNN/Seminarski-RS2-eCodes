@@ -18,7 +18,6 @@ namespace eCodes.WinUI
     public partial class frmProductList : Form
     {
         public ProductAPIService ProductService { get; set; } = new ProductAPIService("Products");
-        public ProductAPIService SellerService { get; set; } = new ProductAPIService("Sellers");
 
         public frmProductList()
         {
@@ -93,8 +92,14 @@ namespace eCodes.WinUI
         {
             var item = dgvProductsList.SelectedRows[0].DataBoundItem as Products;
 
-            frmProductDetails frm = new frmProductDetails(item);
-            frm.ShowDialog();
+            if(item?.StateMachine != "active") 
+            {
+                frmProductDetails frm = new frmProductDetails(item);
+                frm.ShowDialog();
+            }
+            else
+                MessageBox.Show("You can't edit an active product! ", "Product Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
         }
 
         private void frmProductList_LoadAsync(object sender, EventArgs e)
@@ -204,7 +209,7 @@ namespace eCodes.WinUI
                     }
                 }
                 else
-                    MessageBox.Show("Something went wrong, try again later !", "Product Info Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("You can't delete an active product, try hiding it and then deleting!", "Product Info Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

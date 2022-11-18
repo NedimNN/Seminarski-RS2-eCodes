@@ -6,6 +6,7 @@ namespace eCodes.Models
 {
     public class OutputItems
     {
+        public int OutputItemsId { get; set; }
         public int OutputId { get; set; }
         public int ProductId { get; set; }
         public decimal Price { get; set; }

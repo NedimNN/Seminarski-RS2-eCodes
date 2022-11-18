@@ -25,8 +25,6 @@ namespace eCodes.Models.Requests
         public DateTime DateOfEmployement { get; set; }
         [Required(AllowEmptyStrings = false)]
         public int EmployeeNumber { get; set; }
-        public int? ProductId { get; set; }
-        public int? OrderId { get; set; }
         [Required(AllowEmptyStrings = false)]
         public string Password { get; set; }
         [Required(AllowEmptyStrings = false)]

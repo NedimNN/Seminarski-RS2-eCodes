@@ -82,6 +82,7 @@ namespace eCodes.Services
             var tempperson = personService.Insert(person);
             insert.PersonId = tempperson.PersonId;
             insert.DateOfEmployement = DateTime.Now;
+            insert.EmployeeNumber = _context.Employees.Count() + 1;
             var dbentity = base.Insert(insert);
 
             _context.SaveChanges();

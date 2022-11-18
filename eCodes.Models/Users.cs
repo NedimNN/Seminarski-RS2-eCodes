@@ -14,8 +14,9 @@ namespace eCodes.Models
         public int PersonId { get; set; }
         public bool Status { get; set; }
 
-        //public virtual Persons Person { get; set; }
-        //public virtual ICollection<Output> Outputs { get; set; }
+        public virtual Persons Person { get; set; }
+        public string Firstname => Person?.FirstName;
+        public string Lastname => Person?.LastName;
         public virtual ICollection<UserRoles> UserRoles { get; set; }
         public string RoleNames => string.Join(", ", UserRoles?.Select(s => s.Role?.Name)?.ToList());
     }

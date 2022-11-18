@@ -30,6 +30,8 @@
         {
             this.dgvUsers = new System.Windows.Forms.DataGridView();
             this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PhoneNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RoleNames = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,9 +46,13 @@
             // 
             // dgvUsers
             // 
+            this.dgvUsers.AllowUserToAddRows = false;
+            this.dgvUsers.AllowUserToDeleteRows = false;
             this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Username,
+            this.FirstName,
+            this.LastName,
             this.Email,
             this.PhoneNumber,
             this.RoleNames,
@@ -54,10 +60,11 @@
             this.dgvUsers.Location = new System.Drawing.Point(12, 104);
             this.dgvUsers.MultiSelect = false;
             this.dgvUsers.Name = "dgvUsers";
+            this.dgvUsers.ReadOnly = true;
             this.dgvUsers.RowHeadersWidth = 51;
             this.dgvUsers.RowTemplate.Height = 29;
             this.dgvUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUsers.Size = new System.Drawing.Size(876, 323);
+            this.dgvUsers.Size = new System.Drawing.Size(1065, 323);
             this.dgvUsers.TabIndex = 0;
             this.dgvUsers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsers_CellClick);
             this.dgvUsers.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsers_CellDoubleClick);
@@ -68,7 +75,26 @@
             this.Username.HeaderText = "Username";
             this.Username.MinimumWidth = 6;
             this.Username.Name = "Username";
+            this.Username.ReadOnly = true;
             this.Username.Width = 125;
+            // 
+            // FirstName
+            // 
+            this.FirstName.DataPropertyName = "Firstname";
+            this.FirstName.HeaderText = "Firstname";
+            this.FirstName.MinimumWidth = 6;
+            this.FirstName.Name = "FirstName";
+            this.FirstName.ReadOnly = true;
+            this.FirstName.Width = 125;
+            // 
+            // LastName
+            // 
+            this.LastName.DataPropertyName = "Lastname";
+            this.LastName.HeaderText = "Lastname";
+            this.LastName.MinimumWidth = 6;
+            this.LastName.Name = "LastName";
+            this.LastName.ReadOnly = true;
+            this.LastName.Width = 125;
             // 
             // Email
             // 
@@ -76,6 +102,7 @@
             this.Email.HeaderText = "Email";
             this.Email.MinimumWidth = 6;
             this.Email.Name = "Email";
+            this.Email.ReadOnly = true;
             this.Email.Width = 125;
             // 
             // PhoneNumber
@@ -84,6 +111,7 @@
             this.PhoneNumber.HeaderText = "PhoneNumber";
             this.PhoneNumber.MinimumWidth = 6;
             this.PhoneNumber.Name = "PhoneNumber";
+            this.PhoneNumber.ReadOnly = true;
             this.PhoneNumber.Width = 125;
             // 
             // RoleNames
@@ -92,7 +120,8 @@
             this.RoleNames.HeaderText = "Roles";
             this.RoleNames.MinimumWidth = 6;
             this.RoleNames.Name = "RoleNames";
-            this.RoleNames.Width = 250;
+            this.RoleNames.ReadOnly = true;
+            this.RoleNames.Width = 200;
             // 
             // Status
             // 
@@ -100,6 +129,7 @@
             this.Status.HeaderText = "Status";
             this.Status.MinimumWidth = 6;
             this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
             this.Status.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Status.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Status.Width = 125;
@@ -150,7 +180,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(901, 450);
+            this.ClientSize = new System.Drawing.Size(1089, 450);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.label1);
@@ -175,6 +205,8 @@
         private Label label2;
         private TextBox txtEmail;
         private DataGridViewTextBoxColumn Username;
+        private DataGridViewTextBoxColumn FirstName;
+        private DataGridViewTextBoxColumn LastName;
         private DataGridViewTextBoxColumn Email;
         private DataGridViewTextBoxColumn PhoneNumber;
         private DataGridViewTextBoxColumn RoleNames;

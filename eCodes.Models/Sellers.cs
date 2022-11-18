@@ -17,11 +17,10 @@ namespace eCodes.Models
         public string PayPalEmail { get; set; }
 
 
-        //public string PasswordHash { get; set; }
-        //public string PasswordSalt { get; set; }
+        public virtual Persons Person { get; set; }
 
-        //public virtual Person Person { get; set; } = null!;
-        //public virtual ICollection<Output> Outputs { get; set; }
-        //public virtual ICollection<Product> Products { get; set; }
+        public string Firstname => Person?.FirstName;
+        public string Lastname => Person?.LastName;
+
     }
 }

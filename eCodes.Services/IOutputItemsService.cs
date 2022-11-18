@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace eCodes.Services
 {
-    public interface IOutputItemsService : ICRUDService<Models.OutputItems,BaseSearchObject,OutputItemUpsertRequest, OutputItemUpsertRequest>
+    public interface IOutputItemsService : ICRUDService<Models.OutputItems,OutputItemsSearchObject,OutputItemUpsertRequest, OutputItemUpsertRequest>
     {
     }
 }

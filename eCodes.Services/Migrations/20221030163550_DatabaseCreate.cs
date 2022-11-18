@@ -348,8 +348,6 @@ namespace eCodes.Services.Migrations
                     DateOfEmployement = table.Column<DateTime>(type: "datetime", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     EmployeeNumber = table.Column<int>(type: "int", nullable: false),
-                    ProductID = table.Column<int>(type: "int", nullable: true),
-                    OrderID = table.Column<int>(type: "int", nullable: true),
                     PasswordHash = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PasswordSalt = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
@@ -357,20 +355,10 @@ namespace eCodes.Services.Migrations
                 {
                     table.PrimaryKey("PK_Employees", x => x.EmployeeID);
                     table.ForeignKey(
-                        name: "FK_Employees_Orders",
-                        column: x => x.OrderID,
-                        principalTable: "Orders",
-                        principalColumn: "OrderID");
-                    table.ForeignKey(
                         name: "FK_Employees_Persons",
                         column: x => x.PersonID,
                         principalTable: "Persons",
                         principalColumn: "PersonID");
-                    table.ForeignKey(
-                        name: "FK_Employees_Products",
-                        column: x => x.ProductID,
-                        principalTable: "Products",
-                        principalColumn: "ProductID");
                 });
 
             migrationBuilder.CreateTable(
@@ -473,19 +461,9 @@ namespace eCodes.Services.Migrations
                 column: "CountryID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_OrderID",
-                table: "Employees",
-                column: "OrderID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Employees_PersonID",
                 table: "Employees",
                 column: "PersonID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Employees_ProductID",
-                table: "Employees",
-                column: "ProductID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LoyaltyPoints_BuyerID",

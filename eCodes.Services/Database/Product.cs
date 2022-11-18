@@ -7,7 +7,6 @@ namespace eCodes.Services.Database
     {
         public Product()
         {
-            Employees = new HashSet<Employee>();
             OrderItems = new HashSet<OrderItem>();
             OutputItems = new HashSet<OutputItem>();
             Ratings = new HashSet<Rating>();
@@ -30,7 +29,6 @@ namespace eCodes.Services.Database
 
         public virtual ProductType ProductType { get; set; } = null!;
         public virtual Seller? Seller { get; set; }
-        public virtual ICollection<Employee> Employees { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
         public virtual ICollection<OutputItem> OutputItems { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }

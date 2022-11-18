@@ -51,8 +51,6 @@ namespace eCodes.Services
         }
         public override void BeforeInsert(PersonInsertRequest insert, Person dbentity)
         {
-            //Should implement the edge cases for users sending empty string or entering a city that is not in database
-
             var cityserivce = new CitiesService(_context, _mapper);
             CitySearchObject citysearch = new CitySearchObject();
 
@@ -81,6 +79,7 @@ namespace eCodes.Services
 
            base.BeforeInsert(insert, dbentity);
         }
+        
 
     }
 }

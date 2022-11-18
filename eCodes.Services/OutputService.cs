@@ -31,6 +31,7 @@ namespace eCodes.Services
             if (search?.Include == true)
             {
                 query = query.Include(i => i.Buyer.Person);
+                query = query.Include(i => i.OutputItems);
             }
 
             return query;

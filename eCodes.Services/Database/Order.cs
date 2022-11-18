@@ -7,7 +7,6 @@ namespace eCodes.Services.Database
     {
         public Order()
         {
-            Employees = new HashSet<Employee>();
             OrderItems = new HashSet<OrderItem>();
             Outputs = new HashSet<Output>();
         }
@@ -20,7 +19,6 @@ namespace eCodes.Services.Database
         public bool? Canceled { get; set; }
 
         public virtual Buyer Buyer { get; set; } = null!;
-        public virtual ICollection<Employee> Employees { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
         public virtual ICollection<Output> Outputs { get; set; }
     }

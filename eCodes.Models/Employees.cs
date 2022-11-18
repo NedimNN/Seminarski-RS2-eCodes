@@ -11,10 +11,6 @@ namespace eCodes.Models
         public DateTime DateOfEmployement { get; set; }
         public bool Status { get; set; }    
         public int EmployeeNumber { get; set; }
-        public int? ProductId { get; set; }
-        public int? OrderId { get; set; }
-        //public string PasswordHash { get; set; }
-        //public string PasswordSalt { get; set; }
 
         public virtual Persons Person { get; set; }
 

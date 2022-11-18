@@ -138,6 +138,8 @@
             // 
             // dgvOrderItems
             // 
+            this.dgvOrderItems.AllowUserToAddRows = false;
+            this.dgvOrderItems.AllowUserToDeleteRows = false;
             this.dgvOrderItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOrderItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
@@ -149,6 +151,7 @@
             this.Price});
             this.dgvOrderItems.Location = new System.Drawing.Point(12, 96);
             this.dgvOrderItems.Name = "dgvOrderItems";
+            this.dgvOrderItems.ReadOnly = true;
             this.dgvOrderItems.RowHeadersWidth = 51;
             this.dgvOrderItems.RowTemplate.Height = 29;
             this.dgvOrderItems.Size = new System.Drawing.Size(929, 317);
@@ -160,6 +163,7 @@
             this.dataGridViewTextBoxColumn1.HeaderText = "Name";
             this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
             this.dataGridViewTextBoxColumn1.Width = 125;
             // 
             // Code
@@ -168,6 +172,7 @@
             this.Code.HeaderText = "Code";
             this.Code.MinimumWidth = 6;
             this.Code.Name = "Code";
+            this.Code.ReadOnly = true;
             this.Code.Width = 125;
             // 
             // ProductType
@@ -176,6 +181,7 @@
             this.ProductType.HeaderText = "Type";
             this.ProductType.MinimumWidth = 6;
             this.ProductType.Name = "ProductType";
+            this.ProductType.ReadOnly = true;
             this.ProductType.Width = 125;
             // 
             // Description
@@ -184,6 +190,7 @@
             this.Description.HeaderText = "Description";
             this.Description.MinimumWidth = 6;
             this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
             this.Description.Width = 125;
             // 
             // Seller
@@ -192,6 +199,7 @@
             this.Seller.HeaderText = "Seller";
             this.Seller.MinimumWidth = 6;
             this.Seller.Name = "Seller";
+            this.Seller.ReadOnly = true;
             this.Seller.Width = 125;
             // 
             // Value
@@ -200,6 +208,7 @@
             this.Value.HeaderText = "Value";
             this.Value.MinimumWidth = 6;
             this.Value.Name = "Value";
+            this.Value.ReadOnly = true;
             this.Value.Width = 125;
             // 
             // Price
@@ -208,6 +217,7 @@
             this.Price.HeaderText = "Price";
             this.Price.MinimumWidth = 6;
             this.Price.Name = "Price";
+            this.Price.ReadOnly = true;
             this.Price.Width = 125;
             // 
             // frmOrderDetails

@@ -1,5 +1,6 @@
 ﻿using eCodes.Models;
 using eCodes.Models.Requests;
+using Flurl.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -52,9 +53,24 @@ namespace eCodes.WinUI
                         Status = cbStatus.Checked,
                         DateOfBirth = dateTimeofBirth.Value
                     };
+                    try
+                    {
+                        _model = await UsersService.Post<Models.Users>(insert);
 
-                    var user = await UsersService.Post<Models.Users>(insert);
-                    if(user != null)
+                    }
+                    catch (FlurlHttpException ex)
+                    {
+                        var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
+
+                        var stringBuilder = new StringBuilder();
+                        foreach (var error in errors)
+                        {
+                            stringBuilder.AppendLine($"{error.Key}, {string.Join(",", error.Value)}");
+                        }
+
+                        MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    if (_model != null)
                         MessageBox.Show("Successfully added a user", "User Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 }
@@ -69,13 +85,14 @@ namespace eCodes.WinUI
                         PhoneNumber = txtPhoneNumber.Text,
                         Password = txtPassword.Text,
                         PasswordConfirmation = txtConfirmPass.Text,
+                        UserRolesIdList = roleIdList,
                         Status = cbStatus.Checked,
                         DateOfBirth = dateTimeofBirth.Value
                     };
 
                     _model = await UsersService.Put<Models.Users>(_model.UserId, update);
                     if(_model != null)
-                        MessageBox.Show("Successfully updated a user", "User Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Successfully updated user " + _model.Username, "User Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
                 }

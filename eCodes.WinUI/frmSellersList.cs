@@ -25,12 +25,16 @@ namespace eCodes.WinUI
 
         private void AddButtonColumn()
         {
-            DataGridViewButtonColumn actionColumn = new DataGridViewButtonColumn();
-            actionColumn.HeaderText = "Action";
-            actionColumn.Text = "Delete";
-            actionColumn.Name = "btnDelete";
-            actionColumn.UseColumnTextForButtonValue = true;
-            dgvSellers.Columns.Add(actionColumn);
+            //Delete btn
+            DataGridViewButtonColumn deleteBtn = new DataGridViewButtonColumn();
+            deleteBtn.HeaderText = "Delete";
+            deleteBtn.Text = "Delete";
+            deleteBtn.Name = "btnDelete";
+            deleteBtn.UseColumnTextForButtonValue = true;
+            deleteBtn.CellTemplate.Style.BackColor = Color.Red;
+            deleteBtn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+
+            dgvSellers.Columns.Add(deleteBtn);
         }
         public async void loadData()
         {
@@ -41,6 +45,7 @@ namespace eCodes.WinUI
             sellersSearch.Address = txtAddress.Text;
             sellersSearch.Email = txtEmail.Text;
             sellersSearch.Status = cbStatus.Checked;
+            sellersSearch.IncludePerson = true;
 
             var list = await SellersService.Get<List<Models.Sellers>>(sellersSearch);
 

@@ -89,6 +89,8 @@
             // 
             // dgvEmployeeList
             // 
+            this.dgvEmployeeList.AllowUserToAddRows = false;
+            this.dgvEmployeeList.AllowUserToDeleteRows = false;
             this.dgvEmployeeList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEmployeeList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Firstname,
@@ -102,10 +104,11 @@
             this.dgvEmployeeList.Location = new System.Drawing.Point(12, 99);
             this.dgvEmployeeList.MultiSelect = false;
             this.dgvEmployeeList.Name = "dgvEmployeeList";
+            this.dgvEmployeeList.ReadOnly = true;
             this.dgvEmployeeList.RowHeadersWidth = 51;
             this.dgvEmployeeList.RowTemplate.Height = 29;
             this.dgvEmployeeList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEmployeeList.Size = new System.Drawing.Size(1163, 339);
+            this.dgvEmployeeList.Size = new System.Drawing.Size(1117, 339);
             this.dgvEmployeeList.TabIndex = 5;
             this.dgvEmployeeList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmployeeList_CellClick);
             this.dgvEmployeeList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmployeeList_CellDoubleClick);
@@ -116,6 +119,7 @@
             this.Firstname.HeaderText = "Firstname";
             this.Firstname.MinimumWidth = 6;
             this.Firstname.Name = "Firstname";
+            this.Firstname.ReadOnly = true;
             this.Firstname.Width = 125;
             // 
             // Lastname
@@ -124,6 +128,7 @@
             this.Lastname.HeaderText = "Lastname";
             this.Lastname.MinimumWidth = 6;
             this.Lastname.Name = "Lastname";
+            this.Lastname.ReadOnly = true;
             this.Lastname.Width = 125;
             // 
             // EmployeeNumber
@@ -132,6 +137,7 @@
             this.EmployeeNumber.HeaderText = "Employee Number";
             this.EmployeeNumber.MinimumWidth = 6;
             this.EmployeeNumber.Name = "EmployeeNumber";
+            this.EmployeeNumber.ReadOnly = true;
             this.EmployeeNumber.Width = 125;
             // 
             // Gender
@@ -140,6 +146,7 @@
             this.Gender.HeaderText = "Gender";
             this.Gender.MinimumWidth = 6;
             this.Gender.Name = "Gender";
+            this.Gender.ReadOnly = true;
             this.Gender.Width = 125;
             // 
             // JMBG
@@ -148,6 +155,7 @@
             this.JMBG.HeaderText = "JMBG";
             this.JMBG.MinimumWidth = 6;
             this.JMBG.Name = "JMBG";
+            this.JMBG.ReadOnly = true;
             this.JMBG.Width = 125;
             // 
             // City
@@ -156,6 +164,7 @@
             this.City.HeaderText = "City";
             this.City.MinimumWidth = 6;
             this.City.Name = "City";
+            this.City.ReadOnly = true;
             this.City.Width = 125;
             // 
             // Dateofemployment
@@ -164,6 +173,7 @@
             this.Dateofemployment.HeaderText = "Date of employment";
             this.Dateofemployment.MinimumWidth = 6;
             this.Dateofemployment.Name = "Dateofemployment";
+            this.Dateofemployment.ReadOnly = true;
             this.Dateofemployment.Width = 125;
             // 
             // Status
@@ -172,13 +182,14 @@
             this.Status.HeaderText = "Status";
             this.Status.MinimumWidth = 6;
             this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
             this.Status.Width = 125;
             // 
             // frmEmployeesList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1185, 450);
+            this.ClientSize = new System.Drawing.Size(1141, 450);
             this.Controls.Add(this.dgvEmployeeList);
             this.Controls.Add(this.btnShowEmployees);
             this.Controls.Add(this.dateTimeEmployment);

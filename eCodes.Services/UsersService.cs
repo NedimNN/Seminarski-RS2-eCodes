@@ -116,12 +116,37 @@ namespace eCodes.Services
 
             //First update the person properties
             var personService = new PersonsService(_context, _mapper);
-            //var person = _context.Persons.FirstOrDefault(x => x.PersonId == user.PersonId);
             var updatedPerson = _mapper.Map<PersonUpdateRequest>(update);
             personService.Update(user.PersonId, updatedPerson);
             //----------------------------------
+            var dbentity = base.Update(user.UserId, update);
 
-            return base.Update(user.UserId, update); 
+            //Validation for user roles
+            var existingroles = _context.Roles.ToList();
+            List<int> existingRolesForUser = new List<int>();
+            var rolesindb = _context.UserRoles.Where(w => w.UserId == id).ToList();
+            foreach (var item in rolesindb)
+            {
+                existingRolesForUser.Add(item.RoleId);
+            }
+            foreach (var roleId in update.UserRolesIdList)
+            {
+                if (roleId - 1 >= 0 && roleId - 1 <= existingroles.Count - 1)
+                {
+                    if (existingroles[roleId - 1].RoleId == roleId && existingRolesForUser.Contains(roleId) == false)
+                    {
+                        Database.UserRole userRole = new UserRole();
+                        userRole.RoleId = roleId;
+                        userRole.UserId = dbentity.UserId;
+                        userRole.Date = DateTime.Now;
+
+                        _context.UserRoles.Add(userRole);
+                        existingRolesForUser.Add(roleId);
+                    }
+                }
+            }
+            _context.SaveChanges();
+            return dbentity;
         }
 
         public override void BeforeInsert(UserInsertRequest insert, User dbentity)
@@ -135,7 +160,6 @@ namespace eCodes.Services
         public override void BeforeDelete(User dbentity)
         {
             var roles = _context.UserRoles.Where(w => w.UserId == dbentity.UserId).ToList();
-
             foreach (var role in roles)
             {
                 _context.UserRoles.Remove(role);

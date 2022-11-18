@@ -28,13 +28,18 @@ namespace eCodes.Services.ProductStateMachine
             else
                 return;
 
-            CurrentEntity.StateMachine = request.StateMachine;
             _context.SaveChanges();
+            CurrentEntity.StateMachine = "draft";
         }
 
         public override void Activate()
         {
             CurrentEntity.StateMachine = "active";
+            _context.SaveChanges();
+        }
+        public override void Hide()
+        {
+            CurrentEntity.StateMachine = "hidden";
             _context.SaveChanges();
         }
         public override bool Delete()
@@ -49,6 +54,7 @@ namespace eCodes.Services.ProductStateMachine
             list.Add("update");
             list.Add("activate");
             list.Add("hide");
+            list.Add("delete");
 
 
             return list;

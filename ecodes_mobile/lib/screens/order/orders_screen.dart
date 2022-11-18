@@ -65,6 +65,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
         )
       ];
     }
+
+    data.removeWhere((element) => element.orderItems!.isEmpty);// maybe remove this line ???
+
     List<Widget> list = data
         .map((x) => Container(
               height: 120,

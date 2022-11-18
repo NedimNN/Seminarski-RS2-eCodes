@@ -24,6 +24,10 @@ namespace eCodes.Services
             {
                 filter = filter.Where(w => w.OrderId == search.OrderId);
             }
+            if(search.ProductId > 0)
+            {
+                filter = filter.Where(w=> w.ProductId== search.ProductId);
+            }
 
             return filter;
         }

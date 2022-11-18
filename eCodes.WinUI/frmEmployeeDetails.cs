@@ -31,6 +31,7 @@ namespace eCodes.WinUI
         {
             if (ValidateChildren())
             {
+                if(_model != null) {
                 EmployeeUpdateRequest update = new EmployeeUpdateRequest
                 {
                     FirstName = txtFirstName.Text,
@@ -46,7 +47,28 @@ namespace eCodes.WinUI
                     MessageBox.Show("Your account was updated successfully!", "Employee Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
                     MessageBox.Show("Something went wrong!", "Employee Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+
+                }
+                else
+                {
+                    EmployeeInsertRequest insert = new EmployeeInsertRequest
+                    {
+                        FirstName= txtFirstName.Text,
+                        LastName= txtLastName.Text,
+                        Gender = txtGender.Text,
+                        Status = true,
+                        DateOfBirth = dateTimeofBirth.Value,
+                        Password = txtPassword.Text,
+                        PasswordConfirmation = txtConfirmPass.Text,
+                        Jmbg = txtJMBG.Text,
+                        CityName= txtCityName.Text,
+                    };
+                    _model = await EmployeeService.Post<Models.Employees>(insert);
+                    if (_model != null)
+                        MessageBox.Show("Your created an employee account successfully!", "Employee Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MessageBox.Show("Something went wrong!", "Employee Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

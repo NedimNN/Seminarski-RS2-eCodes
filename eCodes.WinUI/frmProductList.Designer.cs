@@ -29,17 +29,6 @@
         private void InitializeComponent()
         {
             this.dgvProductsList = new System.Windows.Forms.DataGridView();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Version = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Platform = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductState = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Seller = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtCode = new System.Windows.Forms.TextBox();
@@ -53,11 +42,24 @@
             this.txtPlatform = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.btnShowProducts = new System.Windows.Forms.Button();
+            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Version = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Platform = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductState = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Seller = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductsList)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvProductsList
             // 
+            this.dgvProductsList.AllowUserToAddRows = false;
+            this.dgvProductsList.AllowUserToDeleteRows = false;
             this.dgvProductsList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProductsList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Name,
@@ -74,6 +76,7 @@
             this.dgvProductsList.Location = new System.Drawing.Point(12, 67);
             this.dgvProductsList.MultiSelect = false;
             this.dgvProductsList.Name = "dgvProductsList";
+            this.dgvProductsList.ReadOnly = true;
             this.dgvProductsList.RowHeadersWidth = 51;
             this.dgvProductsList.RowTemplate.Height = 29;
             this.dgvProductsList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -81,94 +84,6 @@
             this.dgvProductsList.TabIndex = 0;
             this.dgvProductsList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductsList_CellClick);
             this.dgvProductsList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductsList_CellDoubleClick);
-            // 
-            // Name
-            // 
-            this.Name.DataPropertyName = "Name";
-            this.Name.HeaderText = "Name";
-            this.Name.MinimumWidth = 6;
-            this.Name.Name = "Name";
-            this.Name.Width = 125;
-            // 
-            // Code
-            // 
-            this.Code.DataPropertyName = "Code";
-            this.Code.HeaderText = "Code";
-            this.Code.MinimumWidth = 6;
-            this.Code.Name = "Code";
-            this.Code.Width = 125;
-            // 
-            // Price
-            // 
-            this.Price.DataPropertyName = "Price";
-            this.Price.HeaderText = "Price";
-            this.Price.MinimumWidth = 6;
-            this.Price.Name = "Price";
-            this.Price.Width = 125;
-            // 
-            // ProductType
-            // 
-            this.ProductType.DataPropertyName = "ProductTypeName";
-            this.ProductType.HeaderText = "Product Type";
-            this.ProductType.MinimumWidth = 6;
-            this.ProductType.Name = "ProductType";
-            this.ProductType.Width = 125;
-            // 
-            // Description
-            // 
-            this.Description.DataPropertyName = "Description";
-            this.Description.HeaderText = "Description";
-            this.Description.MinimumWidth = 6;
-            this.Description.Name = "Description";
-            this.Description.Width = 125;
-            // 
-            // Duration
-            // 
-            this.Duration.DataPropertyName = "Duration";
-            this.Duration.HeaderText = "Duration";
-            this.Duration.MinimumWidth = 6;
-            this.Duration.Name = "Duration";
-            this.Duration.Width = 125;
-            // 
-            // Value
-            // 
-            this.Value.DataPropertyName = "Value";
-            this.Value.HeaderText = "Value";
-            this.Value.MinimumWidth = 6;
-            this.Value.Name = "Value";
-            this.Value.Width = 125;
-            // 
-            // Version
-            // 
-            this.Version.DataPropertyName = "Version";
-            this.Version.HeaderText = "Version";
-            this.Version.MinimumWidth = 6;
-            this.Version.Name = "Version";
-            this.Version.Width = 125;
-            // 
-            // Platform
-            // 
-            this.Platform.DataPropertyName = "Platform";
-            this.Platform.HeaderText = "Platform";
-            this.Platform.MinimumWidth = 6;
-            this.Platform.Name = "Platform";
-            this.Platform.Width = 125;
-            // 
-            // ProductState
-            // 
-            this.ProductState.DataPropertyName = "StateMachine";
-            this.ProductState.HeaderText = "Product State";
-            this.ProductState.MinimumWidth = 6;
-            this.ProductState.Name = "ProductState";
-            this.ProductState.Width = 125;
-            // 
-            // Seller
-            // 
-            this.Seller.DataPropertyName = "SellerName";
-            this.Seller.HeaderText = "Seller";
-            this.Seller.MinimumWidth = 6;
-            this.Seller.Name = "Seller";
-            this.Seller.Width = 125;
             // 
             // label1
             // 
@@ -275,6 +190,105 @@
             this.btnShowProducts.Text = "Show Products";
             this.btnShowProducts.UseVisualStyleBackColor = true;
             this.btnShowProducts.Click += new System.EventHandler(this.btnShowProducts_Click);
+            // 
+            // Name
+            // 
+            this.Name.DataPropertyName = "Name";
+            this.Name.HeaderText = "Name";
+            this.Name.MinimumWidth = 6;
+            this.Name.Name = "Name";
+            this.Name.ReadOnly = true;
+            this.Name.Width = 125;
+            // 
+            // Code
+            // 
+            this.Code.DataPropertyName = "Code";
+            this.Code.HeaderText = "Code";
+            this.Code.MinimumWidth = 6;
+            this.Code.Name = "Code";
+            this.Code.ReadOnly = true;
+            this.Code.Width = 125;
+            // 
+            // Price
+            // 
+            this.Price.DataPropertyName = "Price";
+            this.Price.HeaderText = "Price";
+            this.Price.MinimumWidth = 6;
+            this.Price.Name = "Price";
+            this.Price.ReadOnly = true;
+            this.Price.Width = 125;
+            // 
+            // ProductType
+            // 
+            this.ProductType.DataPropertyName = "ProductTypeName";
+            this.ProductType.HeaderText = "Product Type";
+            this.ProductType.MinimumWidth = 6;
+            this.ProductType.Name = "ProductType";
+            this.ProductType.ReadOnly = true;
+            this.ProductType.Width = 125;
+            // 
+            // Description
+            // 
+            this.Description.DataPropertyName = "Description";
+            this.Description.HeaderText = "Description";
+            this.Description.MinimumWidth = 6;
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
+            this.Description.Width = 125;
+            // 
+            // Duration
+            // 
+            this.Duration.DataPropertyName = "Duration";
+            this.Duration.HeaderText = "Duration";
+            this.Duration.MinimumWidth = 6;
+            this.Duration.Name = "Duration";
+            this.Duration.ReadOnly = true;
+            this.Duration.Width = 125;
+            // 
+            // Value
+            // 
+            this.Value.DataPropertyName = "Value";
+            this.Value.HeaderText = "Value";
+            this.Value.MinimumWidth = 6;
+            this.Value.Name = "Value";
+            this.Value.ReadOnly = true;
+            this.Value.Width = 125;
+            // 
+            // Version
+            // 
+            this.Version.DataPropertyName = "Version";
+            this.Version.HeaderText = "Version";
+            this.Version.MinimumWidth = 6;
+            this.Version.Name = "Version";
+            this.Version.ReadOnly = true;
+            this.Version.Width = 125;
+            // 
+            // Platform
+            // 
+            this.Platform.DataPropertyName = "Platform";
+            this.Platform.HeaderText = "Platform";
+            this.Platform.MinimumWidth = 6;
+            this.Platform.Name = "Platform";
+            this.Platform.ReadOnly = true;
+            this.Platform.Width = 125;
+            // 
+            // ProductState
+            // 
+            this.ProductState.DataPropertyName = "StateMachine";
+            this.ProductState.HeaderText = "Product State";
+            this.ProductState.MinimumWidth = 6;
+            this.ProductState.Name = "ProductState";
+            this.ProductState.ReadOnly = true;
+            this.ProductState.Width = 125;
+            // 
+            // Seller
+            // 
+            this.Seller.DataPropertyName = "SellerName";
+            this.Seller.HeaderText = "Seller";
+            this.Seller.MinimumWidth = 6;
+            this.Seller.Name = "Seller";
+            this.Seller.ReadOnly = true;
+            this.Seller.Width = 125;
             // 
             // frmProductList
             // 

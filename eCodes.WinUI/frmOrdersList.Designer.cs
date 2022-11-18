@@ -34,15 +34,15 @@
             this.dateTimeOrderDate = new System.Windows.Forms.DateTimePicker();
             this.cbCanceled = new System.Windows.Forms.CheckBox();
             this.dgvOrderList = new System.Windows.Forms.DataGridView();
+            this.btnShowOrders = new System.Windows.Forms.Button();
+            this.txtBuyerName = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.OrderNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BuyerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Cancel = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.btnShowOrders = new System.Windows.Forms.Button();
-            this.txtBuyerName = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrderList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,6 +90,8 @@
             // 
             // dgvOrderList
             // 
+            this.dgvOrderList.AllowUserToAddRows = false;
+            this.dgvOrderList.AllowUserToDeleteRows = false;
             this.dgvOrderList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOrderList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.OrderNumber,
@@ -101,6 +103,7 @@
             this.dgvOrderList.Location = new System.Drawing.Point(12, 118);
             this.dgvOrderList.MultiSelect = false;
             this.dgvOrderList.Name = "dgvOrderList";
+            this.dgvOrderList.ReadOnly = true;
             this.dgvOrderList.RowHeadersWidth = 51;
             this.dgvOrderList.RowTemplate.Height = 29;
             this.dgvOrderList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -108,59 +111,6 @@
             this.dgvOrderList.TabIndex = 6;
             this.dgvOrderList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrderList_CellClick);
             this.dgvOrderList.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrderList_CellContentDoubleClick);
-            // 
-            // OrderNumber
-            // 
-            this.OrderNumber.DataPropertyName = "OrderNumber";
-            this.OrderNumber.HeaderText = "Order Number";
-            this.OrderNumber.MinimumWidth = 6;
-            this.OrderNumber.Name = "OrderNumber";
-            this.OrderNumber.Width = 125;
-            // 
-            // BuyerName
-            // 
-            this.BuyerName.DataPropertyName = "BuyerName";
-            this.BuyerName.HeaderText = "Buyer";
-            this.BuyerName.MinimumWidth = 6;
-            this.BuyerName.Name = "BuyerName";
-            this.BuyerName.Width = 125;
-            // 
-            // Date
-            // 
-            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Date.DataPropertyName = "Date";
-            this.Date.HeaderText = "Date of order";
-            this.Date.MinimumWidth = 6;
-            this.Date.Name = "Date";
-            this.Date.Width = 128;
-            // 
-            // Price
-            // 
-            this.Price.DataPropertyName = "Price";
-            this.Price.HeaderText = "Price";
-            this.Price.MinimumWidth = 6;
-            this.Price.Name = "Price";
-            this.Price.Width = 125;
-            // 
-            // Status
-            // 
-            this.Status.DataPropertyName = "Status";
-            this.Status.HeaderText = "Status";
-            this.Status.MinimumWidth = 6;
-            this.Status.Name = "Status";
-            this.Status.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Status.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Status.Width = 125;
-            // 
-            // Cancel
-            // 
-            this.Cancel.DataPropertyName = "Canceled";
-            this.Cancel.HeaderText = "Cancel";
-            this.Cancel.MinimumWidth = 6;
-            this.Cancel.Name = "Cancel";
-            this.Cancel.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Cancel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Cancel.Width = 125;
             // 
             // btnShowOrders
             // 
@@ -187,6 +137,65 @@
             this.label3.Size = new System.Drawing.Size(119, 20);
             this.label3.TabIndex = 8;
             this.label3.Text = "Buyer Username:";
+            // 
+            // OrderNumber
+            // 
+            this.OrderNumber.DataPropertyName = "OrderNumber";
+            this.OrderNumber.HeaderText = "Order Number";
+            this.OrderNumber.MinimumWidth = 6;
+            this.OrderNumber.Name = "OrderNumber";
+            this.OrderNumber.ReadOnly = true;
+            this.OrderNumber.Width = 125;
+            // 
+            // BuyerName
+            // 
+            this.BuyerName.DataPropertyName = "BuyerName";
+            this.BuyerName.HeaderText = "Buyer";
+            this.BuyerName.MinimumWidth = 6;
+            this.BuyerName.Name = "BuyerName";
+            this.BuyerName.ReadOnly = true;
+            this.BuyerName.Width = 125;
+            // 
+            // Date
+            // 
+            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Date.DataPropertyName = "Date";
+            this.Date.HeaderText = "Date of order";
+            this.Date.MinimumWidth = 6;
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            this.Date.Width = 118;
+            // 
+            // Price
+            // 
+            this.Price.DataPropertyName = "Price";
+            this.Price.HeaderText = "Price";
+            this.Price.MinimumWidth = 6;
+            this.Price.Name = "Price";
+            this.Price.ReadOnly = true;
+            this.Price.Width = 125;
+            // 
+            // Status
+            // 
+            this.Status.DataPropertyName = "Status";
+            this.Status.HeaderText = "Status";
+            this.Status.MinimumWidth = 6;
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
+            this.Status.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Status.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Status.Width = 125;
+            // 
+            // Cancel
+            // 
+            this.Cancel.DataPropertyName = "Canceled";
+            this.Cancel.HeaderText = "Cancel";
+            this.Cancel.MinimumWidth = 6;
+            this.Cancel.Name = "Cancel";
+            this.Cancel.ReadOnly = true;
+            this.Cancel.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Cancel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Cancel.Width = 125;
             // 
             // frmOrdersList
             // 

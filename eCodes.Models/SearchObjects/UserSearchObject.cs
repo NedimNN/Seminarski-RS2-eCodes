@@ -9,8 +9,8 @@ namespace eCodes.Models.SearchObjects
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Username { get; set; }
-
         public bool IncludeRoles { get; set; }
+
 
     }
 }

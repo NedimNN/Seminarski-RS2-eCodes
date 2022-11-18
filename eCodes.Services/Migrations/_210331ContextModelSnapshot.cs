@@ -151,10 +151,6 @@ namespace eCodes.Services.Migrations
                     b.Property<int>("EmployeeNumber")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int")
-                        .HasColumnName("OrderID");
-
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -169,20 +165,12 @@ namespace eCodes.Services.Migrations
                         .HasColumnType("int")
                         .HasColumnName("PersonID");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int")
-                        .HasColumnName("ProductID");
-
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
                     b.HasKey("EmployeeId");
 
-                    b.HasIndex(new[] { "OrderId" }, "IX_Employees_OrderID");
-
                     b.HasIndex(new[] { "PersonId" }, "IX_Employees_PersonID");
-
-                    b.HasIndex(new[] { "ProductId" }, "IX_Employees_ProductID");
 
                     b.ToTable("Employees");
                 });
@@ -759,27 +747,13 @@ namespace eCodes.Services.Migrations
 
             modelBuilder.Entity("eCodes.Services.Database.Employee", b =>
                 {
-                    b.HasOne("eCodes.Services.Database.Order", "Order")
-                        .WithMany("Employees")
-                        .HasForeignKey("OrderId")
-                        .HasConstraintName("FK_Employees_Orders");
-
                     b.HasOne("eCodes.Services.Database.Person", "Person")
                         .WithMany("Employees")
                         .HasForeignKey("PersonId")
                         .IsRequired()
                         .HasConstraintName("FK_Employees_Persons");
 
-                    b.HasOne("eCodes.Services.Database.Product", "Product")
-                        .WithMany("Employees")
-                        .HasForeignKey("ProductId")
-                        .HasConstraintName("FK_Employees_Products");
-
-                    b.Navigation("Order");
-
                     b.Navigation("Person");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("eCodes.Services.Database.LoyaltyPoint", b =>
@@ -1018,8 +992,6 @@ namespace eCodes.Services.Migrations
 
             modelBuilder.Entity("eCodes.Services.Database.Order", b =>
                 {
-                    b.Navigation("Employees");
-
                     b.Navigation("OrderItems");
 
                     b.Navigation("Outputs");
@@ -1043,8 +1015,6 @@ namespace eCodes.Services.Migrations
 
             modelBuilder.Entity("eCodes.Services.Database.Product", b =>
                 {
-                    b.Navigation("Employees");
-
                     b.Navigation("OrderItems");
 
                     b.Navigation("OutputItems");

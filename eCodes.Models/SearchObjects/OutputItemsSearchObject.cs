@@ -4,9 +4,9 @@ using System.Text;
 
 namespace eCodes.Models.SearchObjects
 {
-    public class OrderItemsSearchObject : BaseSearchObject
+    public class OutputItemsSearchObject : BaseSearchObject
     {
-        public int OrderId { get; set; }
         public int ProductId { get; set; }
+
     }
 }

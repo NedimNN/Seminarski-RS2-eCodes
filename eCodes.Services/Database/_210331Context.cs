@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using eCodes.Services.HelperMethods;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -8,7 +7,6 @@ namespace eCodes.Services.Database
 {
     public partial class _210331Context : DbContext
     {
-
         public _210331Context(DbContextOptions<_210331Context> options)
             : base(options)
         {
@@ -96,17 +94,11 @@ namespace eCodes.Services.Database
 
             modelBuilder.Entity<Employee>(entity =>
             {
-                entity.HasIndex(e => e.OrderId, "IX_Employees_OrderID");
-
                 entity.HasIndex(e => e.PersonId, "IX_Employees_PersonID");
-
-                entity.HasIndex(e => e.ProductId, "IX_Employees_ProductID");
 
                 entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
 
                 entity.Property(e => e.DateOfEmployement).HasColumnType("datetime");
-
-                entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
                 entity.Property(e => e.PasswordHash).HasMaxLength(50);
 
@@ -114,23 +106,11 @@ namespace eCodes.Services.Database
 
                 entity.Property(e => e.PersonId).HasColumnName("PersonID");
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
-
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.Employees)
-                    .HasForeignKey(d => d.OrderId)
-                    .HasConstraintName("FK_Employees_Orders");
-
                 entity.HasOne(d => d.Person)
                     .WithMany(p => p.Employees)
                     .HasForeignKey(d => d.PersonId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Employees_Persons");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.Employees)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK_Employees_Products");
             });
 
             modelBuilder.Entity<LoyaltyPoint>(entity =>

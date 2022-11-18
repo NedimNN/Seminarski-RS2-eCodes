@@ -17,7 +17,8 @@ namespace eCodes.Models
         public decimal AmountWithoutTax { get; set; }
         public string FirstName => Buyer?.Person.FirstName;
         public string LastName => Buyer?.Person.LastName;
-        public virtual Buyers Buyer { get; set; } 
+        public virtual Buyers Buyer { get; set; }
+        public virtual ICollection<OutputItems> OutputItems { get; set; }
 
     }
 }

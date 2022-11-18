@@ -25,7 +25,21 @@ namespace eCodes.Services
         {
             BaseState = baseState;
         }
-        
+        public override IQueryable<Seller> AddInclude(IQueryable<Seller> query, SellerSearchObject search = null)
+        {
+            if (search?.IncludePerson == true)
+            {
+                query = query.Include("Person");
+            }
+
+            return query;
+        }
+        public override Seller AddIncludeforGetById(Seller query)
+        {
+            query.Person = _context.Persons.Where(w => w.PersonId == query.PersonId).FirstOrDefault();
+            return query;
+        }
+
         public override void BeforeDelete(Seller dbentity)
         {
             var productsService = new ProductsService(_context, _mapper, BaseState);

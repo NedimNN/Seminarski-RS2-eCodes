@@ -29,33 +29,34 @@ namespace eCodes.WinUI
             if (ValidateChildren()) { 
                 try
                 {
+                    var user = await _api.Get<dynamic>();
                     APIService.accountType = await _api.GetAccType(APIService.username);
 
-                    if(APIService.accountType == "Seller")
+                    if(APIService.accountType == "Seller" && user != null)
                     {
 
                         MDISellers MainForm = new MDISellers();
                         MainForm.Show();
                     }
-                    else if(APIService.accountType == "Employee")
+                    else if(APIService.accountType == "Employee" && user != null)
                     {
                         MDIEmployees MainForm = new MDIEmployees();
                         MainForm.Show();
                     }
-                    else if (APIService.accountType.Contains("Administrator") || APIService.accountType.Contains("Manager"))
+                    else if ((APIService.accountType.Contains("Administrator") || APIService.accountType.Contains("Manager")) && user != null)
                     {
                         MDIMain MainForm = new MDIMain();
                         MainForm.Show();
                     }
                     else
                     {
-                        MessageBox.Show("Login failed for User: " + APIService.username + " ! Please try again...");
+                        MessageBox.Show("Login failed for User: " + APIService.username + " ! This user was most likely deleted...");
                     }
 
                 }
                 catch ( Exception ex )
                 {
-                    MessageBox.Show("Wrong username or password");
+                    MessageBox.Show("Wrong username or password!");
                 }
             }
 
