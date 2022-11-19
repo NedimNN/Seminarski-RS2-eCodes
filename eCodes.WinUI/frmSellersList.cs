@@ -67,10 +67,10 @@ namespace eCodes.WinUI
 
         private async void dgvSellers_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.ColumnIndex == 6)
+            if(e.ColumnIndex == 8)
             {
                 DataGridViewCellCollection cellData = dgvSellers.Rows[e.RowIndex].Cells;
-                bool status = (bool)cellData[5].Value;
+                bool status = (bool)cellData[7].Value;
 
                 if (status == false)
                 {

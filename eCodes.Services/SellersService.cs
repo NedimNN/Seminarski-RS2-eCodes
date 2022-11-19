@@ -52,6 +52,15 @@ namespace eCodes.Services
                 productsService.Delete(product.ProductId);
             }
 
+            var ratingService = new RatingService(_context, _mapper);
+            RatingSearchObject searchRating = new RatingSearchObject() { SellerId = dbentity.SellerId };
+            var ratings = ratingService.Get(searchRating);
+
+            foreach (var item in ratings)
+            {
+                ratingService.Delete(item.RatingId);
+            }
+
             base.BeforeDelete(dbentity);
         }
         public override void AfterDelete(Seller dbentity)

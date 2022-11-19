@@ -23,6 +23,10 @@ namespace eCodes.Services
             {
                 filter = filter.Include(i=> i.Buyer).Where(w => w.Buyer.Username == search.BuyerName );
             }
+            if(search?.OrderId > 0)
+            {
+                filter = filter.Include(i=> i.OutputItems).Where(w=> w.OrderId == search.OrderId);
+            }
 
             return filter;
         }

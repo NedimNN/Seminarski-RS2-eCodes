@@ -38,10 +38,35 @@ namespace eCodes.Services
         }
         public override void BeforeDelete(Order dbentity)
         {
+            
             var orderService = new OrderItemsService(_context, _mapper);
-            var orders  = _context.OrderItems.Where(w=> w.OrderId == dbentity.OrderId).ToList();
-            var ordersToDelete = orders;
-            foreach (var orderItem in ordersToDelete)
+            var orderItemsService = new OrderItemsService(_context, _mapper);
+            var outputService = new OutputService(_context, _mapper);
+            var outputItemsService = new OutputItemsService(_context, _mapper);
+            OutputSearchObject searchOutput = new OutputSearchObject() { OrderId = dbentity.OrderId, Include = true };
+            var outputs = outputService.Get(searchOutput);
+
+            if (outputs.Count() > 0)
+            {
+                OutputItemsSearchObject searchOutputItem = new OutputItemsSearchObject() { OutputId = outputs.FirstOrDefault().OutputId };
+                var outputItems = outputItemsService.Get(searchOutputItem);
+                foreach (var item in outputItems)
+                {
+                    outputItemsService.Delete(item.OutputItemsId);
+                }
+
+                outputs = outputService.Get(searchOutput);
+
+                foreach (var item in outputs)
+                {
+                    if (item.OutputItems.Count == 0)
+                        outputService.Delete(item.OutputId);
+                }
+            }
+            var orderItemsSearch = new OrderItemsSearchObject() { OrderId = dbentity.OrderId };
+            var orderItems = orderItemsService.Get(orderItemsSearch);
+
+            foreach (var orderItem in orderItems)
             {
                 orderService.Delete(orderItem.OrderItemId);
             }

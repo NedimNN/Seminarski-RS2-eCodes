@@ -71,34 +71,39 @@ namespace eCodes.WinUI
 
         private async void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.ColumnIndex == 5) // delete btn column
+            if(e.ColumnIndex == 7) // delete btn column
             {
                 DataGridViewCellCollection cellData = dgvUsers.Rows[e.RowIndex].Cells;
                 UserSearchObject search = new UserSearchObject();
                 search.Username = cellData[0].Value.ToString();
-                search.Email = cellData[1].Value.ToString();
+                search.Email = cellData[3].Value.ToString();
                 List<Users> users = await UsersService.Get<List<Users>>(search);
                 var usertoDelete = users.FirstOrDefault();
-
-                if(usertoDelete != null)
+                if(APIService.username != usertoDelete?.Username)
                 {
-                    if(DialogResult.OK == MessageBox.Show("Are you sure you want to delete this user ?", "Delete Message", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
-                    {
-                        var deletedUser = await UsersService.Delete<Users>(usertoDelete.UserId);
-                        if(deletedUser != null)
-                        {
-                            MessageBox.Show("You have successfully deleted the user " + deletedUser.Username, "User Deleted Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            loadData();
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("The operation was canceled !", "User Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        loadData();
-                    }
+                     if(usertoDelete != null)
+                     {
+                         if(DialogResult.OK == MessageBox.Show("Are you sure you want to delete this user ?", "Delete Message", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
+                         {
+                             var deletedUser = await UsersService.Delete<Users>(usertoDelete.UserId);
+                             if(deletedUser != null)
+                             {
+                                 MessageBox.Show("You have successfully deleted the user " + deletedUser.Username, "User Deleted Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                 loadData();
+                             }
+                         }
+                         else
+                         {
+                             MessageBox.Show("The operation was canceled !", "User Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                             loadData();
+                         }
+                     }
+                     else
+                         MessageBox.Show("Something went wrong, try again later !", "User Info Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
-                    MessageBox.Show("Something went wrong, try again later !", "Product Info Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Can't delete the user that is logged in currently !", "User Info Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
 
             }
         }
