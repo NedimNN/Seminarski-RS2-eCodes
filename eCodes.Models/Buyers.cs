@@ -14,7 +14,6 @@ namespace eCodes.Models
         public bool Status { get; set; }
 
         public virtual Persons Person { get; set; }
-        //public virtual ICollection<Order> Orders { get; set; }
-        //public virtual ICollection<Rating> Ratings { get; set; }
+
     }
 }

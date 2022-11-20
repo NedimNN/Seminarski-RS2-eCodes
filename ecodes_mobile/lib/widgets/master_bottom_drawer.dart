@@ -30,6 +30,7 @@ class _MasterWidgetState extends State<MasterWidget> {
     // TODO: implement initState
     super.initState();
   }
+
   void _onItemTapped(int index) {
     setState(() {
       widget.selectedIndex = index;
@@ -58,21 +59,36 @@ class _MasterWidgetState extends State<MasterWidget> {
   AppBar _buildNotificationsAppBar() {
     return AppBar(
       title: ListTile(
-        leading: Icon(
-          Icons.wallet_giftcard,
-          size: 50,
-          color: Colors.white,
+        leading: InkWell(
+          onTap: () {
+            Navigator.popAndPushNamed(context, ProductListScreen.routeName);
+          },
+          child: Icon(
+            Icons.wallet_giftcard,
+            size: 50,
+            color: Colors.white,
+          ),
         ),
-        title: Text(
-          "eCodes",
-          style: Theme.of(context).textTheme.headline3,
+        title: InkWell(
+          onTap: () {
+            Navigator.popAndPushNamed(context, ProductListScreen.routeName);
+          },
+          child: Text(
+            "eCodes",
+            style: Theme.of(context).textTheme.headline3,
+          ),
         ),
       ),
       actions: [
-        IconButton(icon: Icon(Icons.chat,color: Colors.white,),
-        onPressed: (){
-          Navigator.pushNamed(context, NotificationScreen.routeName);
-        },)
+        IconButton(
+          icon: Icon(
+            Icons.chat,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, NotificationScreen.routeName);
+          },
+        )
       ],
     );
   }

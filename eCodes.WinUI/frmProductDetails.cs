@@ -152,65 +152,70 @@ namespace eCodes.WinUI
 
         }
         private async void btnSaveProduct_Click(object sender, EventArgs e)
-        {
-            var PorductTypeId = cbProductTypes.SelectedIndex;
-           
-            if (ValidateChildren())
+        {      
+            if(pbImage.Image != null)
+            { 
+
+                 if (ValidateChildren())
+                 {
+                     if(_model == null)
+                     {
+                         MemoryStream m = new MemoryStream();
+                         pbImage.Image.Save(m, pbImage.Image.RawFormat);
+                         byte[] imgBytes = m.ToArray();
+                         SellerSearchObject search = new SellerSearchObject();
+                         search.Name = APIService.username;
+                         search.Status = true;
+                         List<Sellers> seller = await SellerService.Get<List<Sellers>>(search);
+
+                         ProductsInsertRequest insert = new ProductsInsertRequest
+                         {
+                             Name = txtName.Text,
+                             Code = txtProductCode.Text,
+                             Price = Convert.ToDecimal(txtPrice.Text),
+                             GiftCardKey = txtGiftCardKey.Text,
+                             Description = txtDescription.Text,
+                             Duration = txtDuration.Text,
+                             Value = Convert.ToInt32(txtValue.Text),
+                             Version = txtVersion.Text,
+                             Platform = txtPlatform.Text,
+                             ProductTypeId = cbProductTypes.SelectedIndex + 1,
+                             Picture = imgBytes,
+                             SellerId = seller.First().SellerId 
+                         };
+
+                         _model = await ProductsService.Post<Models.Products>(insert);
+                         if (_model != null)
+                             MessageBox.Show("Product added successfully!", "Product Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                     }
+                     else
+                     {
+                         MemoryStream m = new MemoryStream();
+                         pbImage.Image.Save(m, pbImage.Image.RawFormat);
+                         byte[] imgBytes = m.ToArray();
+
+                         ProductsUpdateRequest update = new ProductsUpdateRequest
+                         {
+                             Name = txtName.Text,
+                             Price = Convert.ToDecimal(txtPrice.Text),
+                             GiftCardKey = txtGiftCardKey.Text,
+                             Description = txtDescription.Text,
+                             Duration = txtDuration.Text,
+                             Value = Convert.ToInt32(txtValue.Text),
+                             Version = txtVersion.Text,
+                             Platform = txtPlatform.Text,
+                             ProductTypeId = cbProductTypes.SelectedIndex + 1,
+                             Picture = imgBytes
+                         };
+                         _model = await ProductsService.Put<Models.Products>(_model.ProductId, update);
+                         if (_model != null)
+                             MessageBox.Show("Product updated successfully!", "Product Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                     }
+                 }
+            }
+            else
             {
-                if(_model == null)
-                {
-                    MemoryStream m = new MemoryStream();
-                    pbImage.Image.Save(m, pbImage.Image.RawFormat);
-                    byte[] imgBytes = m.ToArray();
-                    SellerSearchObject search = new SellerSearchObject();
-                    search.Name = APIService.username;
-                    search.Status = true;
-                    List<Sellers> seller = await SellerService.Get<List<Sellers>>(search);
-
-                    ProductsInsertRequest insert = new ProductsInsertRequest
-                    {
-                        Name = txtName.Text,
-                        Code = txtProductCode.Text,
-                        Price = Convert.ToDecimal(txtPrice.Text),
-                        GiftCardKey = txtGiftCardKey.Text,
-                        Description = txtDescription.Text,
-                        Duration = txtDuration.Text,
-                        Value = Convert.ToInt32(txtValue.Text),
-                        Version = txtVersion.Text,
-                        Platform = txtPlatform.Text,
-                        ProductTypeId = cbProductTypes.SelectedIndex + 1,
-                        Picture = imgBytes,
-                        SellerId = seller.First().SellerId 
-                    };
-
-                    var product = ProductsService.Post<Models.Products>(insert);
-                    if (product != null)
-                        MessageBox.Show("Product added successfully!", "Product Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MemoryStream m = new MemoryStream();
-                    pbImage.Image.Save(m, pbImage.Image.RawFormat);
-                    byte[] imgBytes = m.ToArray();
-
-                    ProductsUpdateRequest update = new ProductsUpdateRequest
-                    {
-                        Name = txtName.Text,
-                        Price = Convert.ToDecimal(txtPrice.Text),
-                        GiftCardKey = txtGiftCardKey.Text,
-                        Description = txtDescription.Text,
-                        Duration = txtDuration.Text,
-                        Value = Convert.ToInt32(txtValue.Text),
-                        Version = txtVersion.Text,
-                        Platform = txtPlatform.Text,
-                        ProductTypeId = cbProductTypes.SelectedIndex + 1,
-                        Picture = imgBytes
-                    };
-                    _model = await ProductsService.Put<Models.Products>(_model.ProductId, update);
-                    if (_model != null)
-                        MessageBox.Show("Product updated successfully!", "Product Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-
+                MessageBox.Show("Product can't be created/updated without a picture !", "Product Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
         }
@@ -248,21 +253,6 @@ namespace eCodes.WinUI
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
-            }
-        }
-
-        private void pbImage_Validating(object sender, CancelEventArgs e)
-        {
-            if (pbImage.Image == null)
-            {
-                e.Cancel = true;
-                pbImage.Focus();
-                errorProviderProducts.SetError(pbImage, "Image should not be left blank!");
-            }
-            else
-            {
-                e.Cancel = false;
-                errorProviderProducts.SetError(pbImage, "");
             }
         }
     }

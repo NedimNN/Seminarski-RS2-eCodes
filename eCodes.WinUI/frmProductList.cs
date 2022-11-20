@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using Flurl;
 using Flurl.Http;
 using eCodes.Services;
+using System.Xml.XPath;
 
 namespace eCodes.WinUI
 {
@@ -88,10 +89,12 @@ namespace eCodes.WinUI
 
         }
 
-        private void dgvProductsList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dgvProductsList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             var item = dgvProductsList.SelectedRows[0].DataBoundItem as Products;
-
+            ProductSearchObjects search = new ProductSearchObjects() {Name = item?.Name,Code= item?.Code,IncludeType = true};
+            var result = await ProductService.Get<List<Products>>(search);
+            item = result.FirstOrDefault();
             if(item?.StateMachine != "active") 
             {
                 frmProductDetails frm = new frmProductDetails(item);

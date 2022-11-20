@@ -31,11 +31,6 @@ namespace eCodes.Services
 
             return filter;
         }
-        public override void BeforeInsert(CityUpsertRequest insert, City dbentity)
-        {
-            //Insert the country before inserting city
-            base.BeforeInsert(insert, dbentity);
-        }
 
     }
 }

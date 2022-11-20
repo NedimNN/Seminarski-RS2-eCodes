@@ -76,20 +76,22 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
             thickness: 2,
           ),
           Container(
-            padding: EdgeInsets.only(top:15,right: 5),
+            padding: EdgeInsets.only(top: 15, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
                 style: Theme.of(context).textTheme.headline4,
                 controller: _firstnameController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.person,size: 35,),
-                  hintText: 'Enter your firstname',
-                  labelText: 'Firstname',
-                   isDense: true,
-                  contentPadding: EdgeInsets.all(8)
-                ),
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.person,
+                      size: 35,
+                    ),
+                    hintText: 'Enter your firstname',
+                    labelText: 'Firstname',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter some text';
@@ -100,20 +102,22 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top:7,right: 5),
+            padding: EdgeInsets.only(top: 7, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
                 style: Theme.of(context).textTheme.headline4,
                 controller: _lastnameController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.person,size: 35,),
-                  hintText: 'Enter your lastname',
-                  labelText: 'Lastame',
-                   isDense: true,
-                  contentPadding: EdgeInsets.all(8)
-                ),
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.person,
+                      size: 35,
+                    ),
+                    hintText: 'Enter your lastname',
+                    labelText: 'Lastame',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter some text';
@@ -124,22 +128,56 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top:7,right: 5),
+            padding: EdgeInsets.only(top: 7, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
                 style: Theme.of(context).textTheme.headline4,
                 controller: _dateofbirthController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.calendar_today,size: 35,),
-                  hintText: 'Enter your date of birth',
-                  labelText: 'Dob',
-                   isDense: true,
-                  contentPadding: EdgeInsets.all(8)
-                ),
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.calendar_today,
+                      size: 35,
+                    ),
+                    hintText: 'yyyy-mm-dd',
+                    labelText: 'Dob',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
                 validator: (value) {
-                  if (value!.isEmpty) {
+                   var datetime = 0;
+                  if (value != null) {
+                    try {
+                     datetime =  DateTime.parse(value).compareTo(DateTime.now());
+                    } catch (e) {
+                       showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                          title: Text("Error"),
+                                          content: Text(
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle2,
+                                              e.toString()),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
+                                                child: Text("Ok"))
+                                          ],
+                                        ));
+                    }   
+                    var date = value.split("-");
+                    if (int.parse(date[1]) > 12) {
+                      return 'Month can\'t be above 12';
+                    } else if (int.parse(date[2]) > 31) {
+                      return 'Day can\'t be above 31';
+                    } else if (datetime >= 0) {
+                      return 'This date is not valid!';
+                    }
+                  }
+                  else{
                     return 'Please enter some text';
                   }
                   return null;
@@ -148,20 +186,22 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top:7,right: 5),
+            padding: EdgeInsets.only(top: 7, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
                 style: Theme.of(context).textTheme.headline4,
                 controller: _cityNameController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.location_city_rounded,size: 35,),
-                  hintText: 'Enter your City name',
-                  labelText: 'City Name',
-                   isDense: true,
-                  contentPadding: EdgeInsets.all(8)
-                ),
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.location_city_rounded,
+                      size: 35,
+                    ),
+                    hintText: 'Enter your City name',
+                    labelText: 'City Name',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter some text';
@@ -172,20 +212,22 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top:7,right: 5),
+            padding: EdgeInsets.only(top: 7, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
                 style: Theme.of(context).textTheme.headline4,
                 controller: _jmbgController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.numbers_rounded,size: 35,),
-                  hintText: 'Enter your JMBG',
-                  labelText: 'JMBG',
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(8)
-                ),
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.numbers_rounded,
+                      size: 35,
+                    ),
+                    hintText: 'Enter your JMBG',
+                    labelText: 'JMBG',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter some text';
@@ -196,20 +238,22 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top:7,right: 5),
+            padding: EdgeInsets.only(top: 7, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
                 style: Theme.of(context).textTheme.headline4,
                 controller: _genderController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.male_rounded,size: 35,),
-                  hintText: 'Enter your gender',
-                  labelText: 'Gender',
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(8)
-                ),
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.male_rounded,
+                      size: 35,
+                    ),
+                    hintText: 'Enter your gender',
+                    labelText: 'Gender',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter some text';
@@ -220,20 +264,22 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top:7,right: 5),
+            padding: EdgeInsets.only(top: 7, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
                 style: Theme.of(context).textTheme.headline4,
                 controller: _emailController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.email_rounded,size: 35,),
-                  hintText: 'Enter your email',
-                  labelText: 'Email',
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(8)
-                ),
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.email_rounded,
+                      size: 35,
+                    ),
+                    hintText: 'Enter your email',
+                    labelText: 'Email',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter some text';
@@ -244,20 +290,22 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top:7,right: 5),
+            padding: EdgeInsets.only(top: 7, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
                 style: Theme.of(context).textTheme.headline4,
                 controller: _usernameController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.account_circle_rounded,size: 35,),
-                  hintText: 'Enter your username',
-                  labelText: 'Username',
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(8)
-                ),
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.account_circle_rounded,
+                      size: 35,
+                    ),
+                    hintText: 'Enter your username',
+                    labelText: 'Username',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter some text';
@@ -268,7 +316,7 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top:7,right: 5),
+            padding: EdgeInsets.only(top: 7, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
@@ -276,13 +324,15 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                 controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.password_rounded,size: 35,),
-                  hintText: 'Enter your password',
-                  labelText: 'Password',
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(8)
-                ),
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.password_rounded,
+                      size: 35,
+                    ),
+                    hintText: 'Enter your password',
+                    labelText: 'Password',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
                 enableSuggestions: false,
                 autocorrect: false,
                 validator: (value) {
@@ -297,20 +347,22 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top:7,right: 5),
+            padding: EdgeInsets.only(top: 7, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
                 style: Theme.of(context).textTheme.headline4,
                 controller: _passwordConfirmController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.password_rounded,size: 35,),
-                  hintText: 'Confirm your password',
-                  labelText: 'Password Confirmation',
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(8)
-                ),
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.password_rounded,
+                      size: 35,
+                    ),
+                    hintText: 'Confirm your password',
+                    labelText: 'Password Confirmation',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,

@@ -50,13 +50,14 @@ namespace eCodes.WinUI
                     }
                     else
                     {
-                        MessageBox.Show("Login failed for User: " + APIService.username + " ! This user was most likely deleted...");
+                        MessageBox.Show("Login failed for User: " + APIService.username + " ! This user was most likely deleted...", "Info Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
                     }
 
                 }
                 catch ( Exception ex )
                 {
-                    MessageBox.Show("Wrong username or password!");
+                    MessageBox.Show("Wrong username or password !", "Info Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
 

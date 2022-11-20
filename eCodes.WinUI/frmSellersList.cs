@@ -92,7 +92,7 @@ namespace eCodes.WinUI
                     }
                     else
                     {
-                        MessageBox.Show("The operation was canceled !");
+                        MessageBox.Show("The operation was canceled !", "Seller Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         loadData();
 
                     }

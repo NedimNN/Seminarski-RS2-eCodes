@@ -239,8 +239,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               child: InkWell(
                 child: Center(
-                  child: Text("Seller name: ${_product.seller!.name}",
-                      style: Theme.of(context).textTheme.bodyText1),
+                  child: ListTile(
+                    leading: Text("Seller name: ${_product.seller!.name}",
+                        style: Theme.of(context).textTheme.bodyText1),
+                        trailing: Icon(Icons.arrow_forward_ios_rounded,color: Colors.white,),
+                  ),
                 ),
                 onTap: (){
                   Navigator.pushNamed(context, "${SellerProfileScreen.routeName}/${_product.seller?.sellerId}");

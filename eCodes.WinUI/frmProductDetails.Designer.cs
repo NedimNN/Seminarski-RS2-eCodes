@@ -263,7 +263,6 @@
             this.pbImage.Size = new System.Drawing.Size(322, 353);
             this.pbImage.TabIndex = 23;
             this.pbImage.TabStop = false;
-            this.pbImage.Validating += new System.ComponentModel.CancelEventHandler(this.pbImage_Validating);
             // 
             // btnUploadImage
             // 

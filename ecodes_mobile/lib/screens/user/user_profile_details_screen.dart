@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/user.dart';
@@ -50,7 +51,7 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
       _firstnameController.text = _user.person?.firstName! as String;
       _lastnameController.text = _user.person?.lastName! as String;
       _dateofbirthController.text =
-          _user.person?.dateOfBirth!.toString() as String;
+          DateFormat('yyyy-MM-dd').format(_user.person!.dateOfBirth!);
       _genderController.text = _user.person?.gender! as String;
       _emailController.text = _user.email!;
     });
@@ -60,7 +61,8 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
   Widget build(BuildContext context) {
     return MasterWidget(
       selectedIndex: 3,
-      child: SingleChildScrollView(child: Column(
+      child: SingleChildScrollView(
+          child: Column(
         children: [
           _buildHeader(),
           Divider(
@@ -72,14 +74,17 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
       )),
     );
   }
-  Widget _buildHeader(){
+
+  Widget _buildHeader() {
     return Container(
-      padding: EdgeInsets.only(top: 5,bottom: 5),
+      padding: EdgeInsets.only(top: 5, bottom: 5),
       child: Center(
-        child: Text(style: Theme.of(context).textTheme.headline6,"Edit your profile"),
+        child: Text(
+            style: Theme.of(context).textTheme.headline6, "Edit your profile"),
       ),
     );
   }
+
   Widget _buildEditUser() {
     if (_user.person == null) {
       return Container(
@@ -98,20 +103,22 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(top: 15,right: 5),
+            padding: EdgeInsets.only(top: 15, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
                 style: Theme.of(context).textTheme.subtitle2,
                 controller: _firstnameController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.person,size: 35,),
-                  hintText: 'Enter your firstname',
-                  labelText: 'Firstname',
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(8)
-                ),
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.person,
+                      size: 35,
+                    ),
+                    hintText: 'Enter your firstname',
+                    labelText: 'Firstname',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter some text';
@@ -122,20 +129,22 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top:7,right: 5),
+            padding: EdgeInsets.only(top: 7, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
                 style: Theme.of(context).textTheme.subtitle2,
                 controller: _lastnameController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.person,size: 35,),
-                  hintText: 'Enter your lastname',
-                  labelText: 'Lastame',
-                 isDense: true,
-                  contentPadding: EdgeInsets.all(8)
-                ),
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.person,
+                      size: 35,
+                    ),
+                    hintText: 'Enter your lastname',
+                    labelText: 'Lastame',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter some text';
@@ -146,22 +155,53 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top:7,right: 5),
+            padding: EdgeInsets.only(top: 7, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
                 style: Theme.of(context).textTheme.subtitle2,
                 controller: _dateofbirthController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.calendar_today,size: 35,),
-                  hintText: 'Enter your date of birth',
-                  labelText: 'Dob',
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(8)
-                ),
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.calendar_today,
+                      size: 35,
+                    ),
+                    hintText: 'Enter your date of birth',
+                    labelText: 'Dob',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
                 validator: (value) {
-                  if (value!.isEmpty) {
+                  var datetime = 0;
+                  if (value != null) {
+                    try {
+                      datetime =
+                          DateTime.parse(value).compareTo(DateTime.now());
+                    } catch (e) {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                                title: Text("Error"),
+                                content: Text(
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                    e.toString()),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text("Ok"))
+                                ],
+                              ));
+                    }
+                    var date = value.split("-");
+                    if (int.parse(date[1]) > 12) {
+                      return 'Month can\'t be above 12';
+                    } else if (int.parse(date[2]) > 31) {
+                      return 'Day can\'t be above 31';
+                    } else if (datetime >= 0) {
+                      return 'This date is not valid!';
+                    }
+                  } else {
                     return 'Please enter some text';
                   }
                   return null;
@@ -170,20 +210,22 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top:7,right: 5),
+            padding: EdgeInsets.only(top: 7, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
                 style: Theme.of(context).textTheme.subtitle2,
                 controller: _genderController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.male_rounded,size: 35,),
-                  hintText: 'Enter your gender',
-                  labelText: 'Gender',
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(8)
-                ),
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.male_rounded,
+                      size: 35,
+                    ),
+                    hintText: 'Enter your gender',
+                    labelText: 'Gender',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter some text';
@@ -194,20 +236,22 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top:7,right: 5),
+            padding: EdgeInsets.only(top: 7, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
                 style: Theme.of(context).textTheme.subtitle2,
                 controller: _emailController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.email_rounded,size: 35,),
-                  hintText: 'Enter your email',
-                  labelText: 'Email',
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(8)
-                ),
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      Icons.email_rounded,
+                      size: 35,
+                    ),
+                    hintText: 'Enter your email',
+                    labelText: 'Email',
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(8)),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter some text';
@@ -218,7 +262,7 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top:7,right: 5),
+            padding: EdgeInsets.only(top: 7, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
@@ -227,7 +271,10 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
                 obscureText: true,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    icon: Icon(Icons.password_rounded,size: 35,),
+                    icon: Icon(
+                      Icons.password_rounded,
+                      size: 35,
+                    ),
                     hintText: 'Enter your new password',
                     labelText: 'Password',
                     isDense: true,
@@ -246,7 +293,7 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top:7,right: 5),
+            padding: EdgeInsets.only(top: 7, right: 5),
             child: SizedBox(
               height: 60,
               child: TextFormField(
@@ -254,7 +301,10 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
                 controller: _passwordConfirmController,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    icon: Icon(Icons.password_rounded,size: 35,),
+                    icon: Icon(
+                      Icons.password_rounded,
+                      size: 35,
+                    ),
                     hintText: 'Confirm your password',
                     labelText: 'Password Confirmation',
                     isDense: true,
@@ -282,7 +332,7 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> {
                       Color.fromARGB(222, 1, 93, 206),
                       Color.fromARGB(222, 0, 172, 172)
                     ])),
-                margin: EdgeInsets.only(top: 15,bottom: 15 ),
+                margin: EdgeInsets.only(top: 15, bottom: 15),
                 child: Center(
                   child: TextButton(
                     child: Text(

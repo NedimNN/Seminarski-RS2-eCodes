@@ -66,7 +66,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
       ];
     }
 
-    data.removeWhere((element) => element.orderItems!.isEmpty);// maybe remove this line ???
+    data.removeWhere((element) => element.orderItems!.isEmpty);
 
     List<Widget> list = data
         .map((x) => Container(
@@ -79,7 +79,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
               child: InkWell(
                 child: GridTile(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
                       padding: EdgeInsets.all(5),
@@ -100,7 +100,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           )),
                     ),
                     Container(
-                      padding: EdgeInsets.only(top:15,left: 5),
+                      padding: EdgeInsets.only(top: 15, left: 5),
                       child: Column(
                         children: [
                           Text(
@@ -121,7 +121,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(style: Theme.of(context).textTheme.subtitle2,"Status:"),
+                          Text(
+                              style: Theme.of(context).textTheme.subtitle2,
+                              "Status:"),
                           _buildStatus(x.status!),
                         ],
                       ),
@@ -129,8 +131,31 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   ],
                 )),
                 onTap: () {
-                  Navigator.pushNamed(context,
-                      "${OrderItemsScreen.routeName}/${x.orderId}"); //<- Go to OrderItems of this order
+                  if (x.status == true) {
+                    Navigator.pushNamed(context,
+                        "${OrderItemsScreen.routeName}/${x.orderId}"); //<- Go to OrderItems of this order
+                  } else {
+                    showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                              title: Text(
+                                "Important information !",
+                                style: Theme.of(context).textTheme.headline4,
+                              ),
+                              content: Text(
+                                "This order has been canceled, you can't look at this order details right now !",
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 107, 107, 107),
+                                    fontSize: 18),
+                              ),
+                              actions: [
+                                TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text("Ok")),
+                              ],
+                            ));
+                  }
                 },
               ),
             ))
@@ -138,14 +163,21 @@ class _OrdersScreenState extends State<OrdersScreen> {
         .toList();
     return list;
   }
-  Widget _buildStatus(bool status){
-    if(status == true){
-      return Icon(Icons.check_circle_outline,color: Colors.green,);
-    }
-    else{
-      return Icon(Icons.dnd_forwardslash_outlined,color: Colors.red,);
+
+  Widget _buildStatus(bool status) {
+    if (status == true) {
+      return Icon(
+        Icons.check_circle_outline,
+        color: Colors.green,
+      );
+    } else {
+      return Icon(
+        Icons.dnd_forwardslash_outlined,
+        color: Colors.red,
+      );
     }
   }
+
   List<Widget> _buildImageList(Order order) {
     List<Widget> list = [];
     for (var orderitem in order.orderItems!) {
