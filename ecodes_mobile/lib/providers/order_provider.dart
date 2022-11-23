@@ -1,6 +1,5 @@
-
-import 'package:ecodes_mobile/providers/base_provider.dart';
-import 'package:ecodes_mobile/model/order.dart';
+import './base_provider.dart';
+import '../model/order.dart';
 
 
 

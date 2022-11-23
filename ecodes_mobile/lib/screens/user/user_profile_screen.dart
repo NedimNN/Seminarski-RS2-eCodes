@@ -1,9 +1,9 @@
-import 'package:ecodes_mobile/model/loyaltyPoints.dart';
-import 'package:ecodes_mobile/model/user.dart';
-import 'package:ecodes_mobile/providers/user_provider.dart';
-import 'package:ecodes_mobile/screens/order/orders_screen.dart';
-import 'package:ecodes_mobile/screens/user/user_profile_details_screen.dart';
-import 'package:ecodes_mobile/widgets/master_bottom_drawer.dart';
+import '../../model/loyaltyPoints.dart';
+import '../../model/user.dart';
+import '../../providers/user_provider.dart';
+import '../../screens/order/orders_screen.dart';
+import '../../screens/user/user_profile_details_screen.dart';
+import '../../widgets/master_bottom_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';

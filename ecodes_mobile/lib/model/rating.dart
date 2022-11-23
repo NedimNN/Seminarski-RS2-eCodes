@@ -1,6 +1,6 @@
-import 'package:ecodes_mobile/model/product.dart';
-import 'package:ecodes_mobile/model/seller.dart';
-import 'package:ecodes_mobile/model/user.dart';
+import './product.dart';
+import './seller.dart';
+import './user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 

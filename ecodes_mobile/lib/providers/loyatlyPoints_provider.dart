@@ -1,4 +1,4 @@
-import 'package:ecodes_mobile/providers/base_provider.dart';
+import './base_provider.dart';
 
 import '../model/loyaltyPoints.dart';
 

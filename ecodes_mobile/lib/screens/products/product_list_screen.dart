@@ -1,8 +1,8 @@
-import 'package:ecodes_mobile/providers/cart_provider.dart';
-import 'package:ecodes_mobile/providers/product_provider.dart';
-import 'package:ecodes_mobile/screens/products/product_details_screen.dart';
-import 'package:ecodes_mobile/utils/util.dart';
-import 'package:ecodes_mobile/widgets/master_bottom_drawer.dart';
+import '../../providers/cart_provider.dart';
+import '../../providers/product_provider.dart';
+import '../../screens/products/product_details_screen.dart';
+import '../../utils/util.dart';
+import '../../widgets/master_bottom_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

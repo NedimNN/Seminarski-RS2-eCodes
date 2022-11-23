@@ -1,5 +1,5 @@
-import 'package:ecodes_mobile/providers/order_provider.dart';
-import 'package:ecodes_mobile/widgets/master_bottom_drawer.dart';
+import '../../providers/order_provider.dart';
+import '../../widgets/master_bottom_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';

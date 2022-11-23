@@ -1,5 +1,4 @@
-import 'package:ecodes_mobile/model/currency.dart';
-import 'package:ecodes_mobile/model/product.dart';
+import './product.dart';
 
 class Cart {
     List<CartItem> items = [];

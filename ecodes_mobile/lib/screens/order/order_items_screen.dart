@@ -1,8 +1,8 @@
-import 'package:ecodes_mobile/model/order.dart';
-import 'package:ecodes_mobile/model/rating.dart';
-import 'package:ecodes_mobile/screens/rating/rating_screen.dart';
-import 'package:ecodes_mobile/utils/util.dart';
-import 'package:ecodes_mobile/widgets/master_bottom_drawer.dart';
+import '../../model/order.dart';
+import '../../model/rating.dart';
+import '../../screens/rating/rating_screen.dart';
+import '../../utils/util.dart';
+import '../../widgets/master_bottom_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';

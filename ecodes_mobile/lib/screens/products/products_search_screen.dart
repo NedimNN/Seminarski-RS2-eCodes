@@ -1,7 +1,7 @@
-import 'package:ecodes_mobile/model/cart.dart';
-import 'package:ecodes_mobile/screens/products/product_details_screen.dart';
-import 'package:ecodes_mobile/utils/util.dart';
-import 'package:ecodes_mobile/widgets/master_bottom_drawer.dart';
+import '../../model/cart.dart';
+import '../../screens/products/product_details_screen.dart';
+import '../../utils/util.dart';
+import '../../widgets/master_bottom_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';

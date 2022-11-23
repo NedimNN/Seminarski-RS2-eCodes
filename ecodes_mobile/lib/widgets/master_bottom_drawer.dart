@@ -1,6 +1,6 @@
-import 'package:ecodes_mobile/screens/cart/cart_screen.dart';
-import 'package:ecodes_mobile/screens/notifications/notifications_screen.dart';
-import 'package:ecodes_mobile/screens/products/product_list_screen.dart';
+import '../screens/cart/cart_screen.dart';
+import '../screens/notifications/notifications_screen.dart';
+import '../screens/products/product_list_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';

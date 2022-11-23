@@ -1,4 +1,4 @@
-import 'package:ecodes_mobile/model/product.dart';
+import './product.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 

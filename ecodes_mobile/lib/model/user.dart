@@ -1,4 +1,4 @@
-import 'package:ecodes_mobile/model/person.dart';
+import './person.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 

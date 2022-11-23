@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:ecodes_mobile/model/cart.dart';
+import '../model/cart.dart';
 import 'package:flutter/widgets.dart';
 
 import '../model/product.dart';

@@ -1,5 +1,5 @@
-import 'package:ecodes_mobile/model/productType.dart';
-import 'package:ecodes_mobile/model/seller.dart';
+import './productType.dart';
+import './seller.dart';
 import 'package:json_annotation/json_annotation.dart';
 //import 'package:json_serializable/json_serializable.dart';
 

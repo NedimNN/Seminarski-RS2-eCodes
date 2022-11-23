@@ -1,10 +1,10 @@
-import 'package:ecodes_mobile/model/rating.dart';
-import 'package:ecodes_mobile/model/seller.dart';
-import 'package:ecodes_mobile/providers/cart_provider.dart';
-import 'package:ecodes_mobile/providers/product_provider.dart';
-import 'package:ecodes_mobile/providers/rating_provider.dart';
-import 'package:ecodes_mobile/providers/seller_provider.dart';
-import 'package:ecodes_mobile/widgets/master_bottom_drawer.dart';
+import '../../model/rating.dart';
+import '../../model/seller.dart';
+import '../../providers/cart_provider.dart';
+import '../../providers/product_provider.dart';
+import '../../providers/rating_provider.dart';
+import '../../providers/seller_provider.dart';
+import '../../widgets/master_bottom_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';

@@ -1,5 +1,5 @@
-import 'package:ecodes_mobile/model/requests/user_update_request.dart';
-import 'package:ecodes_mobile/widgets/master_bottom_drawer.dart';
+import '../../model/requests/user_update_request.dart';
+import '../../widgets/master_bottom_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';

@@ -1,4 +1,4 @@
-import 'package:ecodes_mobile/model/currency.dart';
+import './currency.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 
