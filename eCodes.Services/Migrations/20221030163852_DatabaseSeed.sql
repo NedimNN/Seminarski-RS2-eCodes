@@ -571,9 +571,6 @@ INSERT [dbo].[Orders] ([OrderID], [OrderNumber], [BuyerID], [Date], [Status], [C
 INSERT [dbo].[Orders] ([OrderID], [OrderNumber], [BuyerID], [Date], [Status], [Canceled]) VALUES (13, N'5', 5, CAST(N'2022-09-12T16:11:11.417' AS DateTime), 1, 0)
 INSERT [dbo].[Orders] ([OrderID], [OrderNumber], [BuyerID], [Date], [Status], [Canceled]) VALUES (14, N'6', 5, CAST(N'2022-09-17T19:01:22.203' AS DateTime), 1, 0)
 INSERT [dbo].[Orders] ([OrderID], [OrderNumber], [BuyerID], [Date], [Status], [Canceled]) VALUES (17, N'7', 5, CAST(N'2022-10-07T16:33:02.653' AS DateTime), 1, 0)
-INSERT [dbo].[Orders] ([OrderID], [OrderNumber], [BuyerID], [Date], [Status], [Canceled]) VALUES (18, N'8', 5, CAST(N'2022-10-09T14:43:25.277' AS DateTime), 1, 0)
-INSERT [dbo].[Orders] ([OrderID], [OrderNumber], [BuyerID], [Date], [Status], [Canceled]) VALUES (26, N'9', 5, CAST(N'2022-10-11T18:58:19.040' AS DateTime), 1, 0)
-INSERT [dbo].[Orders] ([OrderID], [OrderNumber], [BuyerID], [Date], [Status], [Canceled]) VALUES (30, N'10', 5, CAST(N'2022-10-12T18:43:43.433' AS DateTime), 1, 0)
 end
 SET IDENTITY_INSERT [dbo].[Orders] OFF
 GO
@@ -598,12 +595,6 @@ INSERT [dbo].[OrderItems] ([OrderItemID], [OrderID], [ProductID]) VALUES (25, 14
 INSERT [dbo].[OrderItems] ([OrderItemID], [OrderID], [ProductID]) VALUES (26, 14, 18)
 INSERT [dbo].[OrderItems] ([OrderItemID], [OrderID], [ProductID]) VALUES (36, 17, 2)
 INSERT [dbo].[OrderItems] ([OrderItemID], [OrderID], [ProductID]) VALUES (37, 17, 4)
-INSERT [dbo].[OrderItems] ([OrderItemID], [OrderID], [ProductID]) VALUES (38, 18, 2)
-INSERT [dbo].[OrderItems] ([OrderItemID], [OrderID], [ProductID]) VALUES (39, 18, 18)
-INSERT [dbo].[OrderItems] ([OrderItemID], [OrderID], [ProductID]) VALUES (56, 26, 2)
-INSERT [dbo].[OrderItems] ([OrderItemID], [OrderID], [ProductID]) VALUES (57, 26, 4)
-INSERT [dbo].[OrderItems] ([OrderItemID], [OrderID], [ProductID]) VALUES (62, 30, 2)
-INSERT [dbo].[OrderItems] ([OrderItemID], [OrderID], [ProductID]) VALUES (63, 30, 4)
 end
 SET IDENTITY_INSERT [dbo].[OrderItems] OFF
 GO
@@ -619,9 +610,6 @@ INSERT [dbo].[Outputs] ([OutputID], [Date], [PaymentMethod], [BuyerID], [Conclud
 INSERT [dbo].[Outputs] ([OutputID], [Date], [PaymentMethod], [BuyerID], [Concluded], [AmountWithTax], [OrderID], [ReceiptNumber], [AmountWithoutTax]) VALUES (2004, CAST(N'2022-09-12T16:11:11.417' AS DateTime), N'PayPal', 5, 1, CAST(120.98 AS Decimal(18, 2)), 13, N'5/22', CAST(120.48 AS Decimal(18, 2)))
 INSERT [dbo].[Outputs] ([OutputID], [Date], [PaymentMethod], [BuyerID], [Concluded], [AmountWithTax], [OrderID], [ReceiptNumber], [AmountWithoutTax]) VALUES (2005, CAST(N'2022-09-17T19:01:22.203' AS DateTime), N'PayPal', 5, 1, CAST(92.97 AS Decimal(18, 2)), 14, N'6/22', CAST(92.47 AS Decimal(18, 2)))
 INSERT [dbo].[Outputs] ([OutputID], [Date], [PaymentMethod], [BuyerID], [Concluded], [AmountWithTax], [OrderID], [ReceiptNumber], [AmountWithoutTax]) VALUES (2006, CAST(N'2022-10-07T16:33:02.653' AS DateTime), N'PayPal', 5, 1, CAST(89.98 AS Decimal(18, 2)), 17, N'7/22', CAST(89.48 AS Decimal(18, 2)))
-INSERT [dbo].[Outputs] ([OutputID], [Date], [PaymentMethod], [BuyerID], [Concluded], [AmountWithTax], [OrderID], [ReceiptNumber], [AmountWithoutTax]) VALUES (2007, CAST(N'2022-10-09T14:43:25.277' AS DateTime), N'PayPal', 5, 1, CAST(81.98 AS Decimal(18, 2)), 18, N'8/22', CAST(81.48 AS Decimal(18, 2)))
-INSERT [dbo].[Outputs] ([OutputID], [Date], [PaymentMethod], [BuyerID], [Concluded], [AmountWithTax], [OrderID], [ReceiptNumber], [AmountWithoutTax]) VALUES (2009, CAST(N'2022-10-11T18:58:19.040' AS DateTime), N'PayPal', 5, 1, CAST(89.98 AS Decimal(18, 2)), 26, N'9/22', CAST(89.48 AS Decimal(18, 2)))
-INSERT [dbo].[Outputs] ([OutputID], [Date], [PaymentMethod], [BuyerID], [Concluded], [AmountWithTax], [OrderID], [ReceiptNumber], [AmountWithoutTax]) VALUES (2011, CAST(N'2022-10-12T18:43:43.433' AS DateTime), N'PayPal', 5, 1, CAST(89.98 AS Decimal(18, 2)), 30, N'10/22', CAST(89.48 AS Decimal(18, 2)))
 end
 SET IDENTITY_INSERT [dbo].[Outputs] OFF
 GO
@@ -645,12 +633,6 @@ INSERT [dbo].[OutputItems] ([OutputItemsID], [OutputID], [ProductID], [Price], [
 INSERT [dbo].[OutputItems] ([OutputItemsID], [OutputID], [ProductID], [Price], [Discount], [SellerID]) VALUES (15, 2005, 18, CAST(21.99 AS Decimal(18, 2)), CAST(0.00 AS Decimal(5, 2)), 2)
 INSERT [dbo].[OutputItems] ([OutputItemsID], [OutputID], [ProductID], [Price], [Discount], [SellerID]) VALUES (16, 2006, 2, CAST(59.99 AS Decimal(18, 2)), CAST(0.00 AS Decimal(5, 2)), 1)
 INSERT [dbo].[OutputItems] ([OutputItemsID], [OutputID], [ProductID], [Price], [Discount], [SellerID]) VALUES (17, 2006, 4, CAST(29.99 AS Decimal(18, 2)), CAST(0.00 AS Decimal(5, 2)), 2)
-INSERT [dbo].[OutputItems] ([OutputItemsID], [OutputID], [ProductID], [Price], [Discount], [SellerID]) VALUES (18, 2007, 2, CAST(59.99 AS Decimal(18, 2)), CAST(0.00 AS Decimal(5, 2)), 1)
-INSERT [dbo].[OutputItems] ([OutputItemsID], [OutputID], [ProductID], [Price], [Discount], [SellerID]) VALUES (19, 2007, 18, CAST(21.99 AS Decimal(18, 2)), CAST(0.00 AS Decimal(5, 2)), 2)
-INSERT [dbo].[OutputItems] ([OutputItemsID], [OutputID], [ProductID], [Price], [Discount], [SellerID]) VALUES (20, 2009, 2, CAST(59.99 AS Decimal(18, 2)), CAST(0.00 AS Decimal(5, 2)), 1)
-INSERT [dbo].[OutputItems] ([OutputItemsID], [OutputID], [ProductID], [Price], [Discount], [SellerID]) VALUES (21, 2009, 4, CAST(29.99 AS Decimal(18, 2)), CAST(0.00 AS Decimal(5, 2)), 2)
-INSERT [dbo].[OutputItems] ([OutputItemsID], [OutputID], [ProductID], [Price], [Discount], [SellerID]) VALUES (22, 2011, 2, CAST(59.99 AS Decimal(18, 2)), CAST(0.00 AS Decimal(5, 2)), 1)
-INSERT [dbo].[OutputItems] ([OutputItemsID], [OutputID], [ProductID], [Price], [Discount], [SellerID]) VALUES (23, 2011, 4, CAST(29.99 AS Decimal(18, 2)), CAST(0.00 AS Decimal(5, 2)), 2)
 end
 SET IDENTITY_INSERT [dbo].[OutputItems] OFF
 GO

@@ -12,7 +12,6 @@ using System.Windows.Forms;
 using Flurl;
 using Flurl.Http;
 using eCodes.Services;
-using System.Xml.XPath;
 
 namespace eCodes.WinUI
 {

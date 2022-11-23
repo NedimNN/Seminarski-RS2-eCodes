@@ -97,28 +97,28 @@ class _MasterWidgetState extends State<MasterWidget> {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          backgroundColor: Colors.grey,
+          backgroundColor: Color.fromARGB(195, 31, 173, 238),
           icon: Icon(Icons.home_rounded),
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          backgroundColor: Colors.grey,
+          backgroundColor: Color.fromARGB(195, 31, 173, 238),
           icon: Icon(Icons.search_rounded),
           label: 'Search',
         ),
         BottomNavigationBarItem(
-          backgroundColor: Colors.grey,
+          backgroundColor: Color.fromARGB(195, 31, 173, 238),
           icon: Icon(Icons.shopping_cart_checkout_rounded),
           label: 'Cart',
         ),
         BottomNavigationBarItem(
-          backgroundColor: Colors.grey,
+          backgroundColor: Color.fromARGB(195, 31, 173, 238),
           icon: Icon(Icons.account_circle_rounded),
           label: 'Profile',
         )
       ],
       currentIndex: selectedIndex,
-      selectedItemColor: Colors.cyanAccent,
+      selectedItemColor: Colors.amber[500],
       onTap: _onItemTapped,
     );
   }

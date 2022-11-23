@@ -47,81 +47,104 @@ class _ProductsSearchScreenState extends State<ProductsSearchScreen> {
   Widget build(BuildContext context) {
     return MasterWidget(
       selectedIndex: 1,
-      child: SingleChildScrollView(
-          child: Column(
+      child: Stack(
         children: [
-          _buildProductSearchAndSort(),
-          _buidHeader("PlayStation"),
-          SizedBox(
-            height: 500,
-            child: GridView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.all(10),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  childAspectRatio: 3 / 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20),
-              children: _buildProductsCard("PlayStation"),
-            ),
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage("assets/images/giftcards_image.png"))),
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width - 55,
-              child: Divider(
-            thickness: 3,
-            color: Colors.blueGrey,
+          SingleChildScrollView(
+              child: Column(
+            children: [
+              _buildProductSearchAndSort(),
+              if (_buildProductsCard("PlayStation").isEmpty == false) ...[
+                _buidHeader("PlayStation"),
+                SizedBox(
+                  height: 500,
+                  child: GridView(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.all(10),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1,
+                            childAspectRatio: 3 / 2,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20),
+                    children: _buildProductsCard("PlayStation"),
+                  ),
+                ),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width - 55,
+                    child: Divider(
+                      thickness: 3,
+                      color: Colors.blue,
+                    )),
+              ],
+              if (_buildProductsCard("Xbox").isEmpty == false) ...[
+                _buidHeader("Xbox"),
+                SizedBox(
+                  height: 500,
+                  child: GridView(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.all(10),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1,
+                            childAspectRatio: 3 / 2,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20),
+                    children: _buildProductsCard("Xbox"),
+                  ),
+                ),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width - 55,
+                    child: Divider(
+                      thickness: 3,
+                      color: Colors.blue,
+                    )),
+              ],
+              if (_buildProductsCard("Netflix").isEmpty == false) ...[
+                _buidHeader("Netflix"),
+                SizedBox(
+                  height: 500,
+                  child: GridView(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.all(10),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1,
+                            childAspectRatio: 3 / 2,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20),
+                    children: _buildProductsCard("Netflix"),
+                  ),
+                ),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width - 55,
+                    child: Divider(
+                      thickness: 3,
+                      color: Colors.blue,
+                    )),
+              ]
+            ],
           )),
-          _buidHeader("Xbox"),
-          SizedBox(
-            height: 500,
-            child: GridView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.all(10),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  childAspectRatio: 3 / 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20),
-              children: _buildProductsCard("Xbox"),
-            ),
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width - 55,
-              child: Divider(
-            thickness: 3,
-            color: Colors.blueGrey,
-          )),
-          _buidHeader("Netflix"),
-          SizedBox(
-            height: 500,
-            child: GridView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.all(10),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  childAspectRatio: 3 / 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20),
-              children: _buildProductsCard("Netflix"),
-            ),
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width - 55,
-              child: Divider(
-            thickness: 3,
-            color: Colors.blueGrey,
-          ))
         ],
-      )),
+      ),
     );
   }
 
   Widget _buidHeader(String productName) {
     return Container(
-      //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      padding: EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(35),
+      ),
       child: Text(
         productName,
-        style: Theme.of(context).textTheme.headline6,
+        style: Theme.of(context).textTheme.headline3,
       ),
     );
   }
@@ -133,34 +156,56 @@ class _ProductsSearchScreenState extends State<ProductsSearchScreen> {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             child: TextField(
-              style: TextStyle(color: Colors.black),
+              style: Theme.of(context).textTheme.subtitle2,
               controller: _searchController,
               onSubmitted: (value) async {
-                var tempdata = await _productProvider?.get({'name': value});
+                var tempdata = await _productProvider?.get({
+                  'name': value,
+                  'StateMachine': 'active',
+                  'IncludeType': true
+                });
                 setState(() {
                   data = tempdata!;
                 });
               },
               decoration: InputDecoration(
                   hintText: "Search",
-                  prefixIcon: Icon(Icons.search),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.black,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          const BorderSide(color: Colors.black, width: 3)),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.grey))),
+                      borderSide: const BorderSide(color: Colors.black)),
+                  filled: true,
+                  fillColor: Color.fromARGB(192, 226, 226, 226)),
             ),
           ),
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          child: IconButton(
-            icon: Icon(Icons.filter_list),
-            onPressed: () async {
-              var tempdata =
-                  await _productProvider?.get({'name': _searchController.text});
-              setState(() {
-                data = tempdata!;
-              });
-            },
+          child: Container(
+            decoration: BoxDecoration(
+              color: Color.fromARGB(188, 255, 255, 255),
+              borderRadius: BorderRadius.circular(15)
+            ),
+            child: IconButton(
+              icon: Icon(Icons.filter_list,color: Colors.black,),
+              onPressed: () async {
+                var tempdata = await _productProvider?.get({
+                  'name': _searchController.text,
+                  'StateMachine': 'active',
+                  'IncludeType': true
+                });
+                setState(() {
+                  data = tempdata!;
+                });
+              },
+            ),
           ),
         ),
       ],
@@ -172,9 +217,8 @@ class _ProductsSearchScreenState extends State<ProductsSearchScreen> {
       return [
         Container(
           padding: EdgeInsets.only(left: 25),
-          child: Text(
-              style: Theme.of(context).textTheme.headline6,
-              "Loading..."),
+          child:
+              Text(style: Theme.of(context).textTheme.headline6, "Loading..."),
         )
       ];
     }
@@ -186,14 +230,7 @@ class _ProductsSearchScreenState extends State<ProductsSearchScreen> {
       }
     }
     if (sortedData.isEmpty) {
-      return [
-        Container(
-          padding: EdgeInsets.only(left: 25),
-          child: Text(
-              style: Theme.of(context).textTheme.headline2,
-              "Sorry, no products available..."),
-        )
-      ];
+      return [];
     }
     List<Widget> list = sortedData
         .map((x) => Container(

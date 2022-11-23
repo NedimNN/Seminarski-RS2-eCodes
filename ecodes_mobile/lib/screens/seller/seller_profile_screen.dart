@@ -157,7 +157,6 @@ class _SellerProfileScreenState extends State<SellerProfileScreen> {
   }
 
   Widget _buildNav() {
-    var selected = false;
     return Container(
       decoration: BoxDecoration(
         color: Color.fromARGB(195, 31, 173, 238),
