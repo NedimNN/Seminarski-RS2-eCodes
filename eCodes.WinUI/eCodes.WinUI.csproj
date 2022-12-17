@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <PackageReference Include="Flurl.Http" Version="3.2.4" />
-    <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.17" />
+    <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.10" />
   </ItemGroup>
 
   <ItemGroup>
