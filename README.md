@@ -1,2 +1,2 @@
 # Seminarski-RS2-eCodes
-Seminarski iz predmeta RS 2
+A full stack API, desktop and mobile project for buying and selling digital codes.
